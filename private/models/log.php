@@ -49,10 +49,7 @@ class LogModel extends Model
         // Find transaction
         $this->query('SELECT * FROM stock_transaction WHERE trans_code = :code');
         $this->bind(':code', $id);
-        $transaction = $this->singleRow();
-
-        // Codes to delete
-        $stock_code = $transaction['stock_code'];
+        $transactions = $this->resultSet();
 
         // Select transaction type
         $this->query('SELECT type FROM transaction WHERE id = :trans_code');
@@ -67,11 +64,17 @@ class LogModel extends Model
         // Reverse amount in stock
         if ($type['type'] == '1') {
             try {
-                // Rest amount if it's an entry
-                $this->query('UPDATE stock SET stock = stock - :amount WHERE code = :code');
-                $this->bind(':code', $stock_code);
-                $this->bind(':amount', $transaction['amount']);
-                $this->execute();
+
+                foreach ($transactions as $transaction) {
+                    // Codes to delete
+                    $stock_code = $transaction['stock_code'];
+
+                    // Rest amount if it's an entry
+                    $this->query('UPDATE stock SET stock = stock - :amount WHERE code = :code');
+                    $this->bind(':code', $stock_code);
+                    $this->bind(':amount', $transaction['amount']);
+                    $this->execute();
+                }
 
                 Functions::flash('success', 'La transacción ha sido revertida correctamente.');
             } catch (\Exception $e) {
@@ -79,11 +82,16 @@ class LogModel extends Model
             }
         } else if ($type['type'] == '2') {
             try {
-                // Add amount if it's an output
-                $this->query('UPDATE stock SET stock = stock + :amount WHERE code = :code');
-                $this->bind(':code', $stock_code);
-                $this->bind(':amount', $transaction['amount']);
-                $this->execute();
+                foreach ($transactions as $transaction) {
+                    // Codes to delete
+                    $stock_code = $transaction['stock_code'];
+
+                    // Add amount if it's an output
+                    $this->query('UPDATE stock SET stock = stock + :amount WHERE code = :code');
+                    $this->bind(':code', $stock_code);
+                    $this->bind(':amount', $transaction['amount']);
+                    $this->execute();
+                }
 
                 Functions::flash('success', 'La transacción ha sido revertida correctamente.');
             } catch (\Exception $e) {
