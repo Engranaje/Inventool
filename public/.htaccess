@@ -1,0 +1,14 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Maintenance Redirection
+# RewriteCond %{REMOTE_ADDR} !^555\.555\.555\.555$
+# RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
+# RewriteCond %{REQUEST_URI} !maintenance.php
+# RewriteCond %{REQUEST_FILENAME} !(styles|Logo-cs-HR).+$
+# RewriteRule (.*) /maintenance.php [R,L]
+
+RewriteRule ^([a-zA-Z]*)/?([a-zA-Z]*)?/?([a-zA-Z-0-9]*)?/?([a-zA-Z]*)?/?$ index.php?controller=$1&action=$2&id=$3&secondaction=$4 [NC,L]
+
+
+ErrorDocument 404 http://inventool.test/errors/404.php

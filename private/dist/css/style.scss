@@ -1,0 +1,19 @@
+/* Box sizing */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+/* import variables */
+@import 'variables.scss';
+
+/* Globals */
+@import 'globals.scss';
+
+/* Bootstrap */
+@import 'bootstrap.scss';

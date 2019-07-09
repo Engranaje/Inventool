@@ -1,0 +1,65 @@
+.w-150p {
+    width: 20%;
+}
+
+@media (min-width: 768px) {
+    .w-md-auto {
+        width: auto !important;
+    }
+}
+
+/* Status */
+.active {
+    font-weight: bold;
+}
+
+/* Fonts */
+.text-success {
+    color: $success !important;
+}
+
+.text-danger {
+    color: $danger !important;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+/* Background */
+.bg-primary {
+    background-color: $main;
+}
+
+
+/* Buttons */
+.btn-success {
+    background-color: $success;
+    border-color: $success;
+}
+
+.btn-success:hover {
+    background-color: darken($color: $success, $amount: 3);
+    border-color: darken($color: $success, $amount: 3);
+}
+
+.btn-danger {
+    background-color: $danger;
+    border-color: $danger;
+}
+
+.btn-danger:hover {
+    background-color: lighten($color: $danger, $amount: 5);
+    border-color: lighten($color: $danger, $amount: 5);
+}
+
+/* Forms and tables */
+
+.noresize {
+    resize: none;
+    height: 62px;
+}
+
+.fh-table {
+    max-height: 365px;
+}
