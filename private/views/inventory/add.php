@@ -23,8 +23,7 @@
       <label for="notes">Notas</label>
       <textarea name="notes"
         class="form-control noresize"
-        required>
-      </textarea>
+        required></textarea>
     </div>
   </div><!-- .row -->
 
