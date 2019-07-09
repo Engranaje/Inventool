@@ -9,7 +9,8 @@ class LogModel extends Model
         // Find all records
         $this->query('SELECT log.*, transaction.* FROM log
                     JOIN transaction
-                        ON log.trans_code = transaction.id');
+                        ON log.trans_code = transaction.id
+                    ORDER BY transaction.date ASC');
         $log = $this->resultset();
 
         return $log;
