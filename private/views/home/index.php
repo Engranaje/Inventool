@@ -72,7 +72,9 @@
 
                         <td>
                             <p class="m-0 inv_p">
-                                <?php echo $stock['description']; ?>
+                                <a href="<?php echo ROOT_URL; ?>/log/filter/<?php echo $stock['code']; ?>">
+                                    <?php echo $stock['description']; ?>
+                                </a>
                             </p>
 
                             <input

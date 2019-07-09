@@ -42,6 +42,25 @@ class LogModel extends Model
     }
 
     /**
+     * Filter log view
+     */
+    public function filter($id)
+    {
+        // Find all records
+        $this->query('SELECT log.*, transaction.*, stock_transaction.stock_code FROM log
+                    JOIN transaction
+                        ON log.trans_code = transaction.id
+                    JOIN stock_transaction
+                        ON transaction.id = stock_transaction.trans_code
+                    WHERE stock_transaction.stock_code = :stock_code
+                    ORDER BY transaction.date ASC');
+        $this->bind(':stock_code', $id);
+        $log = $this->resultset();
+
+        return $log;
+    }
+
+    /**
      * Reverse transaction
      */
     public function reverse($id)

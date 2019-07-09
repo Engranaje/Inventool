@@ -17,6 +17,14 @@ class Log extends Controller{
     }
 
     /**
+     * Call filter action in Log model
+     */
+    protected function filter(){
+        $view = new LogModel();
+        $this->returnCustomView($view->filter($this->id), 'inventory', 'log');
+    }
+
+    /**
      * Call reverse action in Log model
      */
     protected function reverse(){
