@@ -14,6 +14,11 @@ Estas entradas y salidas se registrarán en la pestaña de **Actividades**, desd
 
 Por último, desde la pestaña de **Papelera** se podrán visualizar los registros eliminados, y estos se podrán recuperar o eliminar permanentemente.
 
+## Instrucciones
+Para que el proyecto funcione primero debe ejecutar el script `inv_tooldb.sql` de MySQL que se encuentra en la raíz, para crear la base de datos con las tablas necesarias. Luego, debe cambiar el nombre del archivo `config_example.php` en la carpeta private y nombrarlo `config.php`; y modificar la información requerida del archivo, como usuario de MySQL y su contraseña.
+
+El proyecto funciona actualmente con la URL inventool.test. Si desea utilizarlo con otra ruta, como `http://localhost/inventool`, entonces debe cambiar las constantes de URL en el archivo config.php.
+
 # Contribución
 Si tienes alguna idea para añadir al proyecto y quieres contribuir, puedes contactarnos para incluirlas en el proyecto general y así hacer de esta una aplicación más robusta y útil.
 
