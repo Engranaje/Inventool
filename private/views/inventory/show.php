@@ -15,7 +15,7 @@
 </div>
 
 <div class="form-group">
-    <a href="<?php echo ROOT_URL; ?>/log/reverse/<?php echo $viewmodel['data']['id']; ?>" class="btn btn-warning">Revertir</a>
+    <a href="#" class="btn btn-warning show-content">Revertir</a>
 </div>
 
 <div class="table-responsive fh-table">
@@ -53,3 +53,5 @@
     </tbody>
     </table>
 </div>
+
+<?php include_once PRIVATE_PATH . '/views/inc/reverse-container.php'; ?>
