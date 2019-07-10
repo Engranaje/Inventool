@@ -36,7 +36,7 @@ CREATE TABLE `log` (
   PRIMARY KEY (`id`),
   KEY `trans_code_idx` (`trans_code`),
   CONSTRAINT `trans_code` FOREIGN KEY (`trans_code`) REFERENCES `transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,6 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES (8,8),(9,9);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,12 +57,12 @@ DROP TABLE IF EXISTS `stock`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `stock` (
   `code` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(100) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stock` bigint(20) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`code`),
   UNIQUE KEY `description_UNIQUE` (`description`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +71,6 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (5,'Nuevo 2',4,NULL),(6,'Nuevo 3',11,NULL),(7,'Nuevo 4',12,NULL),(8,'sadfsaf',113,NULL);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +92,7 @@ CREATE TABLE `stock_transaction` (
   KEY `trans_code_foreign_idx` (`trans_code`),
   CONSTRAINT `stock_code` FOREIGN KEY (`stock_code`) REFERENCES `stock` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `trans_code_foreign` FOREIGN KEY (`trans_code`) REFERENCES `transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +101,6 @@ CREATE TABLE `stock_transaction` (
 
 LOCK TABLES `stock_transaction` WRITE;
 /*!40000 ALTER TABLE `stock_transaction` DISABLE KEYS */;
-INSERT INTO `stock_transaction` VALUES (10,8,8,0,123),(11,8,9,0,11);
 /*!40000 ALTER TABLE `stock_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,11 +113,11 @@ DROP TABLE IF EXISTS `transaction`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `transaction` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(1) NOT NULL,
-  `notes` varchar(255) NOT NULL,
+  `type` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +126,6 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (8,'1','sadfdsafsa','2019-07-10 04:00:00'),(9,'2','asfd','2019-07-10 04:00:00');
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-10 10:17:39
+-- Dump completed on 2019-07-10 10:46:08

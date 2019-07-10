@@ -34,6 +34,14 @@
                 </tr>
             <?php
                     }
+                }else{
+            ?>
+
+                <tr>
+                    <td>Aún no hay actividades registradas</td>
+                </tr>
+
+            <?php
                 }
             ?>
         </tbody>

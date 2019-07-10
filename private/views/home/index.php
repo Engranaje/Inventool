@@ -124,6 +124,14 @@
                     </tr>
                 <?php
                         }
+                    }else{
+                ?>
+
+                    <tr>
+                        <td>Aún no ha agregado registros</td>
+                    </tr>
+
+                <?php
                     }
                 ?>
             </tbody>
