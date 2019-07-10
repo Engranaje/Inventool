@@ -33,6 +33,11 @@
 
 
 /* Buttons */
+.btn{
+    color: $white!important;
+    font-weight: 400;
+}
+
 .btn-success {
     background-color: $success;
     border-color: $success;
@@ -51,6 +56,23 @@
 .btn-danger:hover {
     background-color: lighten($color: $danger, $amount: 5);
     border-color: lighten($color: $danger, $amount: 5);
+}
+
+.btn-warning{
+    background-color: $warning;
+}
+
+.btn-warning:hover {
+    background-color: darken($color: $warning, $amount: 5);
+    border-color: darken($color: $warning, $amount: 5);
+}
+
+.active{
+    font-weight: 600!important;
+    border-bottom: 2px solid $font-color;
+}
+.active a{
+    color: $font-color!important;
 }
 
 /* Forms and tables */

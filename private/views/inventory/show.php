@@ -24,7 +24,8 @@
         <tr>
         <th scope="col">Código</th>
         <th scope="col">Descripción</th>
-        <th scope="col" class="w-150p">cantidad</th>
+        <th scope="col" class="w-150p">Anterior</th>
+        <th scope="col" class="w-150p">Cantidad</th>
         </tr>
     </thead>
 
@@ -40,6 +41,10 @@
 
                 <td>
                     <?php echo $transaction['description']; ?>
+                </td>
+
+                <td>
+                    <?php echo $transaction['previous']; ?>
                 </td>
 
                 <td>

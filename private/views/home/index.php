@@ -2,16 +2,20 @@
     if ($session->hasMessage('success') !== null) {
 ?>
 
-        <div class="lzi alert alert-success text-center" role="alert">
-            <?php echo $session->message('success'); ?>
+        <div class="lzi alert alert-success text-center mx-auto" role="alert">
+            <p class="d-inline-block m-0">
+                <?php echo $session->message('success'); ?>
+            </p>
         </div>
 
 <?php
     }else if($session->hasMessage('error') !== null){
 ?>
 
-        <div class="lzi alert alert-danger text-center" role="alert">
-            <?php echo $session->message('error'); ?>
+        <div class="lzi alert alert-danger text-center mx-auto" role="alert">
+            <p class="d-inline-block m-0">
+                <?php echo $session->message('error'); ?>
+            </p>
         </div>
 
 <?php
@@ -100,7 +104,7 @@
 
                         <td>
                             <a href="#"
-                                class="show-field btn btn-primary w-100 w-md-auto mb-2 inv_edit"
+                                class="show-field btn btn-primary w-md-auto mb-2 inv_edit"
                                 data-id="<?php echo $stock['code']; ?>">
                                 <i class="lzi pencil"></i>
                             </a>
@@ -134,3 +138,5 @@
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
+<?php // TODO: Agregar reportes para imprimir o convertir a PDF ?>

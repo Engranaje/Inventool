@@ -40,9 +40,14 @@ class AddModel extends Model
                         $code = filter_var_array($_POST['code'], FILTER_SANITIZE_STRING);
                     }
 
-                    // Stock
-                    if (isset($_POST['stock']) && !empty($_POST['stock'])) {
-                        $stock = filter_var_array($_POST['stock'], FILTER_VALIDATE_INT);
+                    // Previous
+                    if (isset($_POST['previous']) && !empty($_POST['previous'])) {
+                        $previous = filter_var_array($_POST['previous'], FILTER_VALIDATE_INT);
+                    }
+
+                    // Quantity
+                    if (isset($_POST['quantity']) && !empty($_POST['quantity'])) {
+                        $quantity = filter_var_array($_POST['quantity'], FILTER_VALIDATE_INT);
                     }
 
                     // Notes
@@ -65,16 +70,17 @@ class AddModel extends Model
                         $this->execute();
 
                         foreach ($code as $key => $value) {
-                            $this->query('UPDATE stock SET stock = stock + :stock WHERE code = :code');
-                            $this->bind(':stock', $stock[$key]);
+                            $this->query('UPDATE stock SET stock = stock + :quantity WHERE code = :code');
+                            $this->bind(':quantity', $quantity[$key]);
                             $this->bind(':code', $code[$key]);
                             $this->execute();
 
                             // Insert records
-                            $this->query('INSERT INTO stock_transaction (stock_code, trans_code, amount) VALUES (:stock_code, :trans_code, :amount)');
+                            $this->query('INSERT INTO stock_transaction (stock_code, trans_code, previous, amount) VALUES (:stock_code, :trans_code, :previous, :amount)');
                             $this->bind(':stock_code', $code[$key]);
                             $this->bind(':trans_code', $trans_code);
-                            $this->bind(':amount', $stock[$key]);
+                            $this->bind(':previous', $previous[$key]);
+                            $this->bind(':amount', $quantity[$key]);
                             $this->execute();
                         }
 

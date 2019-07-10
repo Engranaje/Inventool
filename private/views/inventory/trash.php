@@ -60,6 +60,14 @@
                 </tr>
             <?php
                     }
+                }else{
+            ?>
+
+                <tr>
+                    <td>La papelera está vacía</td>
+                </tr>
+
+            <?php
                 }
             ?>
         </tbody>

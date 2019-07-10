@@ -145,11 +145,12 @@ $(document).ready(() => {
 
                 <td>
                   <p class="m-0">${stock}</p>
+                  <input type="number" name="previous[]" class="form-control d-none" value="${stock}">
                 </td>
 
                 <td class="quantity-children">
                   <p class="m-0">${quantity}</p>
-                  <input type="number" name="stock[]" class="form-control d-none" value="${quantity}">
+                  <input type="number" name="quantity[]" class="form-control d-none" value="${quantity}">
                 </td>
 
                 <td class="action-children">
