@@ -19,7 +19,7 @@
 -- Current Database: `inv_tooldb`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `inv_tooldb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `inv_tooldb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 
 USE `inv_tooldb`;
 
@@ -36,7 +36,7 @@ CREATE TABLE `log` (
   PRIMARY KEY (`id`),
   KEY `trans_code_idx` (`trans_code`),
   CONSTRAINT `trans_code` FOREIGN KEY (`trans_code`) REFERENCES `transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `stock` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`code`),
   UNIQUE KEY `description_UNIQUE` (`description`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `stock_transaction` (
   KEY `trans_code_foreign_idx` (`trans_code`),
   CONSTRAINT `stock_code` FOREIGN KEY (`stock_code`) REFERENCES `stock` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `trans_code_foreign` FOREIGN KEY (`trans_code`) REFERENCES `transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `transaction` (
   `notes` varchar(255) NOT NULL,
   `date` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
