@@ -66,10 +66,12 @@ class LogModel extends Model
         $this->bind(':stock_code', $id);
         $log = $this->resultset();
 
+        $description = ($log) ? $log[0]['description'] : '';
+
         return [
             'log' => $log,
             'filter' => true,
-            'record' => $log[0]['description']
+            'record' => $description
         ];
     }
 
