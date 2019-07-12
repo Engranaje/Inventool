@@ -24,7 +24,7 @@
 
 <div class="row mx-0 justify-content-center">
     <div class="menu-option m-2">
-        <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-success">Entrada</a>
+        <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-primary">Entrada</a>
     </div>
 
     <div class="menu-option m-2">
@@ -104,7 +104,7 @@
 
                         <td>
                             <a href="#"
-                                class="show-field btn btn-primary w-md-auto mb-2 inv_edit"
+                                class="show-field btn btn-warning w-md-auto mb-2 inv_edit"
                                 data-id="<?php echo $stock['code']; ?>">
                                 <i class="lzi pencil"></i>
                             </a>
@@ -146,5 +146,3 @@
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
-
-<?php // TODO: Agregar reportes para imprimir o convertir a PDF ?>

@@ -9,6 +9,16 @@ if (isset($_GET['controller'])) {
     $page = 'home';
 }
 
+if (isset($_GET['action'])) {
+    if ($_GET['action'] != '') {
+        $action = $_GET['action'];
+    } else {
+        $action = 'index';
+    }
+} else {
+    $action = 'index';
+}
+
 // Initialize session
 $session = new Functions();
 ?>
