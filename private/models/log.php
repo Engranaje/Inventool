@@ -7,9 +7,14 @@ class LogModel extends Model
     public function index()
     {
         // Find all records
-        $this->query('SELECT log.*, transaction.* FROM log
+        $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description FROM log
                     JOIN transaction
                         ON log.trans_code = transaction.id
+                    JOIN stock_transaction
+                        ON stock_transaction.trans_code = transaction.id
+                    JOIN stock
+                        ON stock_transaction.stock_code = stock.code
+                    GROUP BY transaction.notes
                     ORDER BY transaction.date ASC');
         $log = $this->resultset();
 

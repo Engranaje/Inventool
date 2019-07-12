@@ -18,6 +18,8 @@
                     <th scope="col">Anterior</th>
 
                     <th scope="col">Cantidad</th>
+                <?php }else{ ?>
+                        <th scope="col" class="d-none print">Registro</th>
                 <?php } ?>
 
                 <th scope="col">Fecha</th>
@@ -49,6 +51,10 @@
 
                         <td>
                             <?php echo $log['amount']; ?>
+                        </td>
+                    <?php }else{ ?>
+                        <td class="d-none print">
+                            <?php echo $log['description']; ?>
                         </td>
                     <?php } ?>
 
