@@ -12,10 +12,10 @@
   <div class="form-group row">
     <div class="col-md-3 pr-md-0">
       <label for="date">Fecha</label>
-      <input type="date"
+      <input type="datetime-local"
         name="date"
         class="form-control"
-        value="<?php echo date('Y-m-d') ?>"
+        value="<?php echo Functions::now(); ?>"
         required/>
     </div>
 

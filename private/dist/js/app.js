@@ -39,6 +39,9 @@ $(document).ready(() => {
         $('#content-container').show();
         $('#content-container-box').slideDown();
 
+        // Set quantity default value to 1
+        $('#quantity').val('1');
+
         // Change delete text
         let text = $(this).attr('data-text');
         $('#delete-text span.text-italic').text(text);
@@ -118,25 +121,40 @@ $(document).ready(() => {
 
         if (!inputCheck) {
             if (code !== '' && quantity !== '') {
+                // Check if quantity is less than 1
+                if(quantity < 1){
+                    document.querySelector('div.alert.alert-danger').innerHTML = `<p class="d-inline-block m-0">
+                                                                                    La cantidad no puede ser menor o igual a cero (0)
+                                                                                </P>`;
+                    document.querySelector('div.alert.alert-danger').classList.remove('d-none');
+                    return;
+                }
+
                 let description = document.getElementById('inv_' + code).getAttribute('data-description');
+                let type = document.getElementById('inv_' + code).getAttribute('data-type');
                 let stock = document.getElementById('inv_' + code).getAttribute('data-stock');
-                addRow(code, description, stock, quantity);
+                addRow(code, type, description, stock, quantity);
             } else {
-                document.querySelector('div.alert.alert-danger').innerText = 'Todos los campos son obligatorios';
+                document.querySelector('div.alert.alert-danger').innerHTML = `<p class="d-inline-block m-0">
+                                                                                    Todos los campos son obligatorios
+                                                                                </P>`;
                 document.querySelector('div.alert.alert-danger').classList.remove('d-none');
             }
         } else {
-            document.querySelector('div.alert.alert-danger').innerText = 'Ya ha seleccionado este artículo';
+            document.querySelector('div.alert.alert-danger').innerHTML = `<p class="d-inline-block m-0">
+                                                                                Ya ha seleccionado este artículo
+                                                                            </p>`;
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');
         }
     }
 
-    const addRow = (code, description, stock, quantity) => {
+    const addRow = (code, type, description, stock, quantity) => {
         let html = `
             <tr>
                 <td>
                   <p class="m-0">${code}</p>
-                  <input type="text" name="code[]" class="form-control d-none" value="${code}">
+                  <input type="hidden" name="code[]" class="form-control" value="${code}">
+                  <input type="hidden" name="type[]" class="form-control" value="${type}">
                 </td>
 
                 <td>
@@ -200,10 +218,37 @@ $(document).ready(() => {
 
         let rows = $('.fh-table table tbody tr').length;
 
-        if(rows <= 0){
+        if (rows <= 0) {
             $('#btn-save').attr('disabled', true);
-        }else{
+        } else {
             $('#btn-save').attr('disabled', false);
         }
     }
+
+    /** Add kit components */
+    $('#kit-component').click(() => {
+        $('#kit-components-container').removeClass('d-none');
+        $('#stock').attr('disabled', true);
+        $('#stock-group').slideUp('fast');
+        $('.components').attr('disabled', false);
+    });
+    $('#singular-product').click(() => {
+        $('#kit-components-container').addClass('d-none');
+        $('#stock').attr('disabled', false);
+        $('#stock-group').slideDown('fast');
+        $('.components').attr('disabled', true);
+    });
+    $('#add-kit-component').click(function (e) {
+        e.preventDefault();
+
+        let component = $('#kit-components div:first-of-type').html();
+
+        let html = `
+            <div class="d-flex">
+                ${component}
+            </div>
+        `;
+
+        $('#kit-components').append(html);
+    });
 });

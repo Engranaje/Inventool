@@ -1,7 +1,9 @@
 <div id="content-container">
     <div id="content-container-box">
-        <div class="lzi alert alert-danger d-none" role="alert">
-          Todos los campos son obligatorios
+        <div class="lzi alert alert-danger text-center mx-auto d-none" role="alert">
+          <p class="d-inline-block m-0">
+            Todos los campos son obligatorios
+          </P>
         </div>
 
         <h2 class="container-hd">Busque el artículo al que desea dar entrada</h2>
@@ -19,7 +21,8 @@
               <option value="<?php echo $stock['code']; ?>"
                 id="inv_<?php echo $stock['code']; ?>"
                 data-description="<?php echo $stock['description']; ?>"
-                data-stock="<?php echo $stock['stock']; ?>">
+                data-stock="<?php echo $stock['stock']; ?>"
+                data-type="<?php echo $stock['type']; ?>">
 
                 <?php echo $stock['description']; ?>  (<?php echo $stock['stock']; ?>)
 
@@ -34,7 +37,7 @@
 
         <div class="form-group text-left">
           <label>Cantidad:</label>
-          <input type="number" class="form-control" id="quantity">
+          <input type="number" class="form-control" id="quantity" min="0" value="1">
         </div>
 
         <a href="3" class="btn btn-primary preventDefault" onClick="selectEntry()">Aceptar</a>

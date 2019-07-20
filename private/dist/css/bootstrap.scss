@@ -8,6 +8,15 @@
     }
 }
 
+/* Flex - Gris */
+.flex-4 {
+    flex: 4;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
 /* Status */
 .active {
     font-weight: bold;
@@ -33,8 +42,8 @@
 
 
 /* Buttons */
-.btn{
-    color: $white!important;
+.btn {
+    color: $white !important;
     font-weight: 400;
 }
 
@@ -58,7 +67,7 @@
     border-color: lighten($color: $danger, $amount: 5);
 }
 
-.btn-warning{
+.btn-warning {
     background-color: $warning;
     border-color: $warning;
 }
@@ -68,12 +77,13 @@
     border-color: darken($color: $warning, $amount: 5);
 }
 
-.active{
-    font-weight: 600!important;
+.active {
+    font-weight: 600 !important;
     border-bottom: 2px solid $font-color;
 }
-.active a{
-    color: $font-color!important;
+
+.active a {
+    color: $font-color !important;
 }
 
 /* Forms and tables */
@@ -81,6 +91,34 @@
 .noresize {
     resize: none;
     height: 62px;
+}
+
+input[type=radio] {
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $white;
+    border: 1px solid $font-color;
+    padding: 10px;
+    border-radius: 50%;
+    outline: none;
+}
+
+input[type=radio]::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input[type=radio]:checked::after {
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: $success;
 }
 
 .fh-table {

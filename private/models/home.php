@@ -59,7 +59,7 @@ class HomeModel extends Model
             Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
         }
 
-        header('Location:'.ROOT_URL);
+        header('Location:' . ROOT_URL);
     }
 
     /**
@@ -71,8 +71,22 @@ class HomeModel extends Model
             $code = filter_var($_POST['code'], FILTER_VALIDATE_INT);
         }
 
-        // Delete record
         try {
+            // If record belongs to a kit, it can't be deleted
+            $this->query('SELECT stock.*, kit_components.* FROM stock
+                        JOIN kit_components
+                            ON kit_components.component_id = stock.code
+                        WHERE code = :code');
+            $this->bind(':code', $code);
+            $kits = $this->resultset();
+
+            if (!empty($kits)) {
+                Functions::flash('error', 'Este artículo pertenece a un kit. No puede ser eliminado.');
+                header('Location:' . ROOT_URL);
+                return;
+            }
+
+            // Delete record
             $this->query('UPDATE stock SET deleted_at = :deleted WHERE code = :code');
             $this->bind(':deleted', Functions::now());
             $this->bind(':code', $code);

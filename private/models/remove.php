@@ -40,6 +40,12 @@ class RemoveModel extends Model
                         $code = filter_var_array($_POST['code'], FILTER_SANITIZE_STRING);
                     }
 
+                    // Type
+                    if (isset($_POST['type']) && !empty($_POST['type'])) {
+                        $types = filter_var_array($_POST['type'], FILTER_SANITIZE_STRING);
+                        // arsort($types);
+                    }
+
                     // Previous
                     if (isset($_POST['previous']) && !empty($_POST['previous'])) {
                         $previous = filter_var_array($_POST['previous'], FILTER_VALIDATE_INT);
@@ -69,14 +75,84 @@ class RemoveModel extends Model
                         $this->bind(':trans_code', $trans_code);
                         $this->execute();
 
-                        foreach ($code as $key => $value) {
-                            $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code');
-                            $this->bind(':quantity', $quantity[$key]);
-                            $this->bind(':code', $code[$key]);
-                            $this->execute();
+                        foreach ($types as $key => $type) {
+                            switch ($type) {
+                                case 'single':{
+                                        $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code');
+                                        $this->bind(':quantity', $quantity[$key]);
+                                        $this->bind(':code', $code[$key]);
+                                        $this->execute();
+
+                                        // Search kits to which belongs component
+                                        $this->query('SELECT stock.*, kit_components.* FROM stock
+                                                    JOIN kit_components
+                                                        ON kit_components.component_id = stock.code
+                                                    WHERE code = :code');
+                                        $this->bind(':code', $code[$key]);
+                                        $kits = $this->resultset();
+
+                                        // Loop through each kit to update stock
+                                        foreach ($kits as $kit) {
+                                            // Search kits info
+                                            $this->query('SELECT stock.*, kit_components.* FROM stock
+                                                    LEFT JOIN kit_components
+                                                        ON kit_components.component_id = stock.code
+                                                    WHERE kit_id = :code');
+                                            $this->bind(':code', $kit['kit_id']);
+                                            $kits_info = $this->resultset();
+
+                                            // Calculate component quantity to set kit stock a min result
+                                            $components_quantity = [];
+
+                                            foreach ($kits_info as $kit_info) {
+                                                // Result = rounded down value of component stock divided by inserted quantity
+                                                $result = floor((int) $kit_info['stock'] / $kit_info['quantity']);
+                                                array_push($components_quantity, $result);
+                                            }
+
+                                            $kit_stock = min($components_quantity);
+
+                                            // Update kit stock
+                                            $this->query('UPDATE stock SET stock = :quantity WHERE code = :code');
+                                            $this->bind(':quantity', $kit_stock);
+                                            $this->bind(':code', $kit['kit_id']);
+                                            $this->execute();
+                                        }
+
+                                        break;
+                                    }
+                                case 'kit':{
+                                        $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code');
+                                        $this->bind(':quantity', $quantity[$key]);
+                                        $this->bind(':code', $code[$key]);
+                                        $this->execute();
+
+                                        // Search kit components
+                                        $this->query('SELECT stock.*, kit_components.* FROM stock
+                                                LEFT JOIN kit_components
+                                                    ON kit_components.component_id = stock.code
+                                                WHERE kit_id = :code');
+                                        $this->bind(':code', $code[$key]);
+                                        $kits_info = $this->resultset();
+
+                                        foreach ($kits_info as $kit) {
+                                            // Update kit components stock
+                                            $kit_quantity = $kit['quantity'] * $quantity[$key];
+                                            $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code');
+                                            $this->bind(':quantity', $kit_quantity);
+                                            $this->bind(':code', $kit['component_id']);
+                                            $this->execute();
+                                        }
+
+                                        break;
+                                    }
+                                default:
+                                    break;
+                            }
 
                             // Insert records
-                            $this->query('INSERT INTO stock_transaction (stock_code, trans_code, previous, amount) VALUES (:stock_code, :trans_code, :previous, :amount)');
+                            $this->query('INSERT INTO stock_transaction (stock_code, trans_code, previous, amount)
+                                            VALUES (:stock_code, :trans_code, :previous, :amount)');
                             $this->bind(':stock_code', $code[$key]);
                             $this->bind(':trans_code', $trans_code);
                             $this->bind(':previous', $previous[$key]);
