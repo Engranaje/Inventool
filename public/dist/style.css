@@ -37,6 +37,10 @@ p {
   }
 }
 
+.lzi-danger::before {
+  color: #991C13;
+}
+
 /* Header */
 
 nav a {

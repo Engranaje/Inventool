@@ -3400,6 +3400,19 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+    // Numeric inputs control
+    $('input[type=number]').on('keydown', function (e) {
+        var key = e.key;
+
+        if (key == '.' && ($(this).val() == '' || $(this).val().indexOf('.') >= 0)) return false;
+
+        if (key == 'e' || key == '-' || key == '+') {
+            return false;
+        } else {
+            return key;
+        }
+    });
+
     /** Show edit field */
     $('.show-field').click(function (e) {
         e.preventDefault();
@@ -3515,6 +3528,7 @@ $(document).ready(function () {
         var code = document.getElementById('code').value;
         var quantity = document.getElementById('quantity').value;
         var inputCheck = document.querySelector("input[value=\"" + code + "\"]");
+        var option = $("#inv_" + code);
 
         if (!inputCheck) {
             if (code !== '' && quantity !== '') {
@@ -3528,7 +3542,7 @@ $(document).ready(function () {
                 var description = document.getElementById('inv_' + code).getAttribute('data-description');
                 var type = document.getElementById('inv_' + code).getAttribute('data-type');
                 var stock = document.getElementById('inv_' + code).getAttribute('data-stock');
-                addRow(code, type, description, stock, quantity);
+                addRow(code, type, description, stock, quantity, option);
             } else {
                 document.querySelector('div.alert.alert-danger').innerHTML = "<p class=\"d-inline-block m-0\">\n                                                                                    Todos los campos son obligatorios\n                                                                                </P>";
                 document.querySelector('div.alert.alert-danger').classList.remove('d-none');
@@ -3539,8 +3553,8 @@ $(document).ready(function () {
         }
     };
 
-    var addRow = function addRow(code, type, description, stock, quantity) {
-        var html = "\n            <tr>\n                <td>\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"type[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td>\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td>\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-danger\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
+    var addRow = function addRow(code, type, description, stock, quantity, option) {
+        var html = "\n            <tr>\n                <td class=\"code-children\">\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"type[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td class=\"description-children\">\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td class=\"stock-children\">\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-danger\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
 
         if (code !== '' && description !== '' && quantity !== '') {
             $('table.table tbody').append(html);
@@ -3549,6 +3563,9 @@ $(document).ready(function () {
             document.getElementById('quantity').value = '';
             document.getElementById('content-container').style.display = 'none';
             $('#btn-save').attr('disabled', false);
+
+            // Remove option from list
+            option.remove();
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');
         }
@@ -3578,6 +3595,17 @@ $(document).ready(function () {
     deleteLine = function deleteLine(e) {
         e.preventDefault();
 
+        // Recover option
+        var code = $(e.target).closest('tr').children('.code-children').children('p').text();
+        var type = $(e.target).closest('tr').children('.code-children').children('input[name="type[]"]').val();
+        var description = $(e.target).closest('tr').children('.description-children').children('p').text();
+        var stock = $(e.target).closest('tr').children('.stock-children').children('p').text();
+        var select = $('#code');
+
+        var option = "\n        <option value=\"" + code + "\"\n            id=\"inv_" + code + "\"\n            data-description=\"" + description + "\"\n            data-stock=\"" + stock + "\"\n            data-type=\"" + type + "\">\n\n            " + description + "  (" + stock + ")\n        </option>\n        ";
+
+        select.append(option);
+
         $(e.target).closest('tr').remove();
 
         var rows = $('.fh-table table tbody tr').length;
@@ -3605,10 +3633,64 @@ $(document).ready(function () {
     $('#add-kit-component').click(function (e) {
         e.preventDefault();
 
+        // Find value of first select to remove selected item from the new component row
+        var select = $('#kit-components div:first-of-type select').val();
+
+        // If all components are selected, which can be verified if the first select has only one possible option, then return. If last component's option is not selected, return
+        var options = $('#kit-components div:first-of-type select option').length;
+        var lastSelect = $('#kit-components div:last-of-type select').val();
+        if (options <= 1 || lastSelect == 'null') return;
+
+        // Retrieve first component elements to create new component row
         var component = $('#kit-components div:first-of-type').html();
+        var defaultOption = '<option value="null">-- Seleccionar un componente --</option>';
 
+        // Create new component row
         var html = "\n            <div class=\"d-flex\">\n                " + component + "\n            </div>\n        ";
-
         $('#kit-components').append(html);
+
+        // Append default option as the first option of the new component
+        $('#kit-components div:last-of-type').children('select').prepend(defaultOption);
+        // Append delete button to row
+        $('#kit-components div:last-of-type').append('<a href="#" class="btn" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
+
+        // Remove first select's selected value from new component
+        $("#kit-components div:last-of-type .components option[value=" + select + "]").remove();
+        $("#kit-components div:last-of-type .components").val('null');
     });
+
+    setOption = function setOption(e) {
+        $(e.target).data('val', $(e.target).val());
+    };
+
+    removeOption = function removeOption(e) {
+        var prev = $(e.target).data('val');
+        if (prev !== 'null') {
+            var text = $(e.target).children("option[value=" + prev + "]").text();
+            var prevOption = "<option value=\"" + prev + "\">" + text + "</option>";
+            $('.components').not($(e.target)).append(prevOption);
+        } else {
+            $(e.target).children('option[value=null]').remove();
+        }
+
+        var select = $(e.target).val();
+        var option = $(".components option[value=" + select + "]").not($(e.target).children("option[value=" + select + "]"));
+
+        option.remove();
+    };
+
+    // Delete kit component row
+    deleteComponent = function deleteComponent(e) {
+        e.preventDefault();
+
+        var select = $(e.target).closest('div').children('select').val();
+        var text = $(e.target).closest('div').children('select').children("option[value=" + select + "]").text();
+
+        if (select != 'null') {
+            var prevOption = "<option value=\"" + select + "\">" + text + "</option>";
+            $('.components').append(prevOption);
+        }
+
+        $(e.target).closest('div').remove();
+    };
 });

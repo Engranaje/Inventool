@@ -6,12 +6,9 @@ class NewModel extends Model
      */
     public function index()
     {
-        try {
-            $this->query('SELECT * FROM stock');
-            $stock = $this->resultset();
-        } catch (\Exception $e) {
-
-        }
+        $this->query('SELECT * FROM stock WHERE type <> :type');
+        $this->bind(':type', 'kit');
+        $stock = $this->resultset();
 
         return $stock;
     }

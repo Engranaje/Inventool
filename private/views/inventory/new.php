@@ -38,8 +38,8 @@
 
             <div id="kit-components">
                 <div class="d-flex">
-                    <select name="components[]" class="form-control flex-4 components" disabled required>
-                        <option value="">-- Seleccionar un componente --</option>
+                    <select name="components[]" class="form-control flex-4 components" onChange="removeOption(event)" onClick="setOption(event)" disabled required>
+                        <option value="null">-- Seleccionar un componente --</option>
 
                         <?php
                             if (!empty($viewmodel)) {
@@ -56,12 +56,12 @@
                         ?>
                     </select>
 
-                    <input type="number" name="quantity[]" class="form-control flex-1 components" placeholder="Cantidad" disabled required>
+                    <input type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" disabled required>
                 </div>
 
                 <div class="d-flex">
-                    <select name="components[]" class="form-control flex-4 components"  disabled required>
-                        <option value="">-- Seleccionar un componente --</option>
+                    <select name="components[]" class="form-control flex-4 components" onChange="removeOption(event)" onClick="setOption(event)"  disabled required>
+                        <option value="null">-- Seleccionar un componente --</option>
 
                         <?php
                             if (!empty($viewmodel)) {
@@ -78,7 +78,7 @@
                         ?>
                     </select>
 
-                    <input type="number" name="quantity[]" class="form-control flex-1 components" placeholder="Cantidad" disabled required>
+                    <input type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" disabled required>
                 </div>
             </div>
 

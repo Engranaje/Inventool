@@ -81,3 +81,5 @@
         </tbody>
     </table>
 </div>
+
+<?php // TODO: Arreglar muestra de actividades con misma nota ?>

@@ -3,6 +3,19 @@ $(document).ready(() => {
         e.preventDefault();
     });
 
+    // Numeric inputs control
+    $('input[type=number]').on('keydown', function (e) {
+        let key = e.key;
+
+        if (key == '.' && ($(this).val() == '' || $(this).val().indexOf('.') >= 0)) return false;
+
+        if (key == 'e' || key == '-' || key == '+') {
+            return false;
+        } else {
+            return key;
+        }
+    });
+
     /** Show edit field */
     $('.show-field').click(function (e) {
         e.preventDefault();
@@ -118,11 +131,12 @@ $(document).ready(() => {
         let code = document.getElementById('code').value;
         let quantity = document.getElementById('quantity').value;
         let inputCheck = document.querySelector(`input[value="${code}"]`);
+        let option = $(`#inv_${code}`);
 
         if (!inputCheck) {
             if (code !== '' && quantity !== '') {
                 // Check if quantity is less than 1
-                if(quantity < 1){
+                if (quantity < 1) {
                     document.querySelector('div.alert.alert-danger').innerHTML = `<p class="d-inline-block m-0">
                                                                                     La cantidad no puede ser menor o igual a cero (0)
                                                                                 </P>`;
@@ -133,7 +147,7 @@ $(document).ready(() => {
                 let description = document.getElementById('inv_' + code).getAttribute('data-description');
                 let type = document.getElementById('inv_' + code).getAttribute('data-type');
                 let stock = document.getElementById('inv_' + code).getAttribute('data-stock');
-                addRow(code, type, description, stock, quantity);
+                addRow(code, type, description, stock, quantity, option);
             } else {
                 document.querySelector('div.alert.alert-danger').innerHTML = `<p class="d-inline-block m-0">
                                                                                     Todos los campos son obligatorios
@@ -148,20 +162,20 @@ $(document).ready(() => {
         }
     }
 
-    const addRow = (code, type, description, stock, quantity) => {
+    const addRow = (code, type, description, stock, quantity, option) => {
         let html = `
             <tr>
-                <td>
+                <td class="code-children">
                   <p class="m-0">${code}</p>
                   <input type="hidden" name="code[]" class="form-control" value="${code}">
                   <input type="hidden" name="type[]" class="form-control" value="${type}">
                 </td>
 
-                <td>
+                <td class="description-children">
                   <p class="m-0">${description}</p>
                 </td>
 
-                <td>
+                <td class="stock-children">
                   <p class="m-0">${stock}</p>
                   <input type="number" name="previous[]" class="form-control d-none" value="${stock}">
                 </td>
@@ -185,6 +199,9 @@ $(document).ready(() => {
             document.getElementById('quantity').value = '';
             document.getElementById('content-container').style.display = 'none';
             $('#btn-save').attr('disabled', false);
+
+            // Remove option from list
+            option.remove();
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');
         }
@@ -214,6 +231,26 @@ $(document).ready(() => {
     deleteLine = e => {
         e.preventDefault();
 
+        // Recover option
+        const code = $(e.target).closest('tr').children('.code-children').children('p').text();
+        const type = $(e.target).closest('tr').children('.code-children').children('input[name="type[]"]').val();
+        const description = $(e.target).closest('tr').children('.description-children').children('p').text();
+        const stock = $(e.target).closest('tr').children('.stock-children').children('p').text();
+        const select = $('#code');
+
+        let option = `
+        <option value="${code}"
+            id="inv_${code}"
+            data-description="${description}"
+            data-stock="${stock}"
+            data-type="${type}">
+
+            ${description}  (${stock})
+        </option>
+        `;
+
+        select.append(option);
+
         $(e.target).closest('tr').remove();
 
         let rows = $('.fh-table table tbody tr').length;
@@ -241,14 +278,68 @@ $(document).ready(() => {
     $('#add-kit-component').click(function (e) {
         e.preventDefault();
 
-        let component = $('#kit-components div:first-of-type').html();
+        // Find value of first select to remove selected item from the new component row
+        let select = $('#kit-components div:first-of-type select').val();
 
+        // If all components are selected, which can be verified if the first select has only one possible option, then return. If last component's option is not selected, return
+        let options = $('#kit-components div:first-of-type select option').length;
+        let lastSelect = $('#kit-components div:last-of-type select').val();
+        if (options <= 1 || lastSelect == 'null') return;
+
+        // Retrieve first component elements to create new component row
+        let component = $('#kit-components div:first-of-type').html();
+        let defaultOption = '<option value="null">-- Seleccionar un componente --</option>';
+
+        // Create new component row
         let html = `
             <div class="d-flex">
                 ${component}
             </div>
         `;
-
         $('#kit-components').append(html);
+
+        // Append default option as the first option of the new component
+        $('#kit-components div:last-of-type').children('select').prepend(defaultOption);
+        // Append delete button to row
+        $('#kit-components div:last-of-type').append('<a href="#" class="btn" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
+
+        // Remove first select's selected value from new component
+        $(`#kit-components div:last-of-type .components option[value=${select}]`).remove();
+        $(`#kit-components div:last-of-type .components`).val('null');
     });
+
+    setOption = e => {
+        $(e.target).data('val', $(e.target).val());
+    };
+
+    removeOption = e => {
+        var prev = $(e.target).data('val');
+        if (prev !== 'null') {
+            var text = $(e.target).children(`option[value=${prev}]`).text();
+            let prevOption = `<option value="${prev}">${text}</option>`;
+            $('.components').not($(e.target)).append(prevOption);
+        } else {
+            $(e.target).children('option[value=null]').remove();
+        }
+
+        let select = $(e.target).val();
+        let option = $(`.components option[value=${select}]`).not($(e.target).children(`option[value=${select}]`));
+
+        option.remove();
+    };
+
+    // Delete kit component row
+    deleteComponent = e => {
+        e.preventDefault();
+
+        let select = $(e.target).closest('div').children('select').val();
+        let text = $(e.target).closest('div').children('select').children(`option[value=${select}]`).text();
+
+        if(select != 'null'){
+            let prevOption = `<option value="${select}">${text}</option>`;
+            $('.components').append(prevOption);
+        }
+
+        $(e.target).closest('div').remove();
+    }
 });
