@@ -99,7 +99,14 @@
                         </td>
 
                         <td>
-                            <?php echo $stock['stock']; ?>
+                            <?php
+                                if($stock['type'] != 'service'){
+                                    echo $stock['stock'];
+                                } else {
+                                    echo '&#8734;';
+                                }
+                            ?>
+
                         </td>
 
                         <td>
@@ -146,3 +153,5 @@
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
+<?php // TODO: Al dar clic sobre kit, preguntar si se quieren ver transacciones o si se quieren ver componentes para modificar ?>

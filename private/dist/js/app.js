@@ -5,15 +5,22 @@ $(document).ready(() => {
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {
-        let key = e.key;
+        return numberControl(e.key, $(this));
+    });
 
-        if (key == '.' && ($(this).val() == '' || $(this).val().indexOf('.') >= 0)) return false;
+    numberControl = (key, input) => {
+        if (key == '.' && (input.val() == '' || input.val().indexOf('.') >= 0)) return false;
 
         if (key == 'e' || key == '-' || key == '+') {
             return false;
         } else {
             return key;
         }
+    }
+
+    // Prevent form from submitting more than once
+    $('form').submit(function () {
+        $('button[type=submit]').attr('disabled', 'disabled');
     });
 
     /** Show edit field */
@@ -130,9 +137,10 @@ $(document).ready(() => {
     selectEntry = () => {
         let code = document.getElementById('code').value;
         let quantity = document.getElementById('quantity').value;
-        let inputCheck = document.querySelector(`input[value="${code}"]`);
+        let inputCheck = document.querySelector(`input[name="code[]"][value="${code}"]`);
         let option = $(`#inv_${code}`);
 
+        // Check if element is not inserted already
         if (!inputCheck) {
             if (code !== '' && quantity !== '') {
                 // Check if quantity is less than 1
@@ -182,7 +190,7 @@ $(document).ready(() => {
 
                 <td class="quantity-children">
                   <p class="m-0">${quantity}</p>
-                  <input type="number" name="quantity[]" class="form-control d-none" value="${quantity}">
+                  <input type="number" name="quantity[]" class="form-control d-none" min="0" value="${quantity}">
                 </td>
 
                 <td class="action-children">
@@ -202,6 +210,11 @@ $(document).ready(() => {
 
             // Remove option from list
             option.remove();
+
+            // Append number control function to added input
+            $(document).on('keydown', 'input[type=number]', function (e) {
+                return numberControl(e.key, $(this));
+            });
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');
         }
@@ -265,14 +278,21 @@ $(document).ready(() => {
     /** Add kit components */
     $('#kit-component').click(() => {
         $('#kit-components-container').removeClass('d-none');
+        $('#kit-components-container').slideDown('d-none');
         $('#stock').attr('disabled', true);
         $('#stock-group').slideUp('fast');
         $('.components').attr('disabled', false);
     });
     $('#singular-product').click(() => {
-        $('#kit-components-container').addClass('d-none');
+        $('#kit-components-container').slideUp('d-none');
         $('#stock').attr('disabled', false);
         $('#stock-group').slideDown('fast');
+        $('.components').attr('disabled', true);
+    });
+    $('#service-product').click(() => {
+        $('#kit-components-container').slideUp('d-none');
+        $('#stock').attr('disabled', true);
+        $('#stock-group').slideUp('fast');
         $('.components').attr('disabled', true);
     });
     $('#add-kit-component').click(function (e) {
@@ -301,11 +321,16 @@ $(document).ready(() => {
         // Append default option as the first option of the new component
         $('#kit-components div:last-of-type').children('select').prepend(defaultOption);
         // Append delete button to row
-        $('#kit-components div:last-of-type').append('<a href="#" class="btn" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
+        $('#kit-components div:last-of-type').append('<a href="#" class="btn delete-component" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
 
         // Remove first select's selected value from new component
         $(`#kit-components div:last-of-type .components option[value=${select}]`).remove();
         $(`#kit-components div:last-of-type .components`).val('null');
+
+        // Append number control function to added input
+        $(document).on('keydown', 'input[type=number]', function (e) {
+            return numberControl(e.key, $(this));
+        });
     });
 
     setOption = e => {
@@ -313,9 +338,9 @@ $(document).ready(() => {
     };
 
     removeOption = e => {
-        var prev = $(e.target).data('val');
-        if (prev !== 'null') {
-            var text = $(e.target).children(`option[value=${prev}]`).text();
+        let prev = $(e.target).data('val');
+        if (prev != 'null') {
+            let text = $(e.target).children(`option[value=${prev}]`).text();
             let prevOption = `<option value="${prev}">${text}</option>`;
             $('.components').not($(e.target)).append(prevOption);
         } else {
@@ -335,7 +360,7 @@ $(document).ready(() => {
         let select = $(e.target).closest('div').children('select').val();
         let text = $(e.target).closest('div').children('select').children(`option[value=${select}]`).text();
 
-        if(select != 'null'){
+        if (select != 'null') {
             let prevOption = `<option value="${select}">${text}</option>`;
             $('.components').append(prevOption);
         }

@@ -1,5 +1,6 @@
 <?php
   $_SESSION['token_time'] = time();
+  $_SESSION['submitted'] = false;
 ?>
 
 <h1 class="m-0 mb-3 text-success">

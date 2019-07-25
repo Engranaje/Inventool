@@ -35,6 +35,7 @@ class NewModel extends Model
                     }
 
                     // Stock
+                    $stock = 0;
                     if (isset($_POST['stock']) && !empty($_POST['stock'])) {
                         $stock = filter_var($_POST['stock'], FILTER_VALIDATE_INT);
                     }
@@ -53,17 +54,20 @@ class NewModel extends Model
 
                         try {
                             foreach ($components as $component) {
-                                $this->query('SELECT stock FROM stock WHERE code = :code');
+                                $this->query('SELECT stock, type FROM stock WHERE code = :code');
                                 $this->bind(':code', $component);
                                 $result = $this->singleRow();
-                                array_push($components_stock, $result['stock']);
+
+                                // Ignore services for kit stock calculation
+                                if ($result['type'] != 'service') {
+                                    array_push($components_stock, $result['stock']);
+                                }
                             }
                         } catch (\Exception $e) {
                             Functions::flash('error', 'Hubo un error buscando los componentes.');
                             header('Location:' . ROOT_URL);
                         }
                     }
-
 
                     // Quantity
                     if (isset($_POST['quantity']) && !empty($_POST['quantity'])) {
@@ -74,7 +78,7 @@ class NewModel extends Model
 
                         foreach ($components_stock as $key => $value) {
                             // Result = rounded down value of component stock divided by inserted quantity
-                            $result = floor( (int) $value / $quantity[$key] );
+                            $result = floor((int) $value / $quantity[$key]);
                             array_push($components_quantity, $result);
                         }
 
@@ -89,27 +93,36 @@ class NewModel extends Model
                         $this->execute();
                         $kit_id = $this->lastInsertId();
 
-                        if ($type == 'single') {
-                            if ($kit_id > 0) {
-                                Functions::flash('success', 'Registro creado correctamente.');
-                            } else {
-                                Functions::flash('error', 'No se pudo crear el registro. <br /> Por favor, intente de nuevo.');
-                            }
-                        } else if ($type == 'kit') {
-                            if ($kit_id > 0) {
-
-                                foreach ($components as $key => $component) {
-                                    // Insert records
-                                    $this->query('INSERT INTO kit_components (kit_id, component_id, quantity) VALUES (:kit_id, :component_id, :quantity)');
-                                    $this->bind(':kit_id', $kit_id);
-                                    $this->bind(':component_id', $component);
-                                    $this->bind(':quantity', $quantity[$key]);
-                                    $this->execute();
+                        switch ($type) {
+                            case 'single':
+                            case 'service':{
+                                    if ($kit_id > 0) {
+                                        Functions::flash('success', 'Registro creado correctamente.');
+                                    } else {
+                                        Functions::flash('error', 'No se pudo crear el registro. <br /> Por favor, intente de nuevo.');
+                                    }
+                                    break;
                                 }
-                                Functions::flash('success', 'El kit ha sido creado correctamente.');
-                            } else {
-                                Functions::flash('error', 'No se pudo crear el kit. <br /> Por favor, intente de nuevo.');
-                            }
+                            case 'kit':{
+                                    if ($kit_id > 0) {
+
+                                        foreach ($components as $key => $component) {
+                                            // Insert records
+                                            $this->query('INSERT INTO kit_components (kit_id, component_id, quantity) VALUES (:kit_id, :component_id, :quantity)');
+                                            $this->bind(':kit_id', $kit_id);
+                                            $this->bind(':component_id', $component);
+                                            $this->bind(':quantity', $quantity[$key]);
+                                            $this->execute();
+                                        }
+                                        Functions::flash('success', 'El kit ha sido creado correctamente.');
+                                    } else {
+                                        Functions::flash('error', 'No se pudo crear el kit. <br /> Por favor, intente de nuevo.');
+                                    }
+
+                                    break;
+                                }
+                            default:
+                                break;
                         }
                     } catch (\Exception $e) {
                         Functions::flash('error', 'Hubo un error intentando crear el registro.');

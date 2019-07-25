@@ -6,7 +6,7 @@
           </P>
         </div>
 
-        <h2 class="container-hd">Busque el artículo al que desea dar entrada</h2>
+        <h2 class="container-hd">Busque el artículo al que desea dar <?php echo ($page == 'add') ? 'entrada' : 'salida'; ?></h2>
 
         <div class="form-group text-left">
           <label>Descripción</label>

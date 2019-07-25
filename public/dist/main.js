@@ -3402,15 +3402,22 @@ $(document).ready(function () {
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {
-        var key = e.key;
+        return numberControl(e.key, $(this));
+    });
 
-        if (key == '.' && ($(this).val() == '' || $(this).val().indexOf('.') >= 0)) return false;
+    numberControl = function numberControl(key, input) {
+        if (key == '.' && (input.val() == '' || input.val().indexOf('.') >= 0)) return false;
 
         if (key == 'e' || key == '-' || key == '+') {
             return false;
         } else {
             return key;
         }
+    };
+
+    // Prevent form from submitting more than once
+    $('form').submit(function () {
+        $('button[type=submit]').attr('disabled', 'disabled');
     });
 
     /** Show edit field */
@@ -3527,9 +3534,10 @@ $(document).ready(function () {
     selectEntry = function selectEntry() {
         var code = document.getElementById('code').value;
         var quantity = document.getElementById('quantity').value;
-        var inputCheck = document.querySelector("input[value=\"" + code + "\"]");
+        var inputCheck = document.querySelector("input[name=\"code[]\"][value=\"" + code + "\"]");
         var option = $("#inv_" + code);
 
+        // Check if element is not inserted already
         if (!inputCheck) {
             if (code !== '' && quantity !== '') {
                 // Check if quantity is less than 1
@@ -3554,7 +3562,7 @@ $(document).ready(function () {
     };
 
     var addRow = function addRow(code, type, description, stock, quantity, option) {
-        var html = "\n            <tr>\n                <td class=\"code-children\">\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"type[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td class=\"description-children\">\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td class=\"stock-children\">\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-danger\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
+        var html = "\n            <tr>\n                <td class=\"code-children\">\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"type[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td class=\"description-children\">\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td class=\"stock-children\">\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" min=\"0\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-danger\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
 
         if (code !== '' && description !== '' && quantity !== '') {
             $('table.table tbody').append(html);
@@ -3566,6 +3574,11 @@ $(document).ready(function () {
 
             // Remove option from list
             option.remove();
+
+            // Append number control function to added input
+            $(document).on('keydown', 'input[type=number]', function (e) {
+                return numberControl(e.key, $(this));
+            });
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');
         }
@@ -3620,14 +3633,21 @@ $(document).ready(function () {
     /** Add kit components */
     $('#kit-component').click(function () {
         $('#kit-components-container').removeClass('d-none');
+        $('#kit-components-container').slideDown('d-none');
         $('#stock').attr('disabled', true);
         $('#stock-group').slideUp('fast');
         $('.components').attr('disabled', false);
     });
     $('#singular-product').click(function () {
-        $('#kit-components-container').addClass('d-none');
+        $('#kit-components-container').slideUp('d-none');
         $('#stock').attr('disabled', false);
         $('#stock-group').slideDown('fast');
+        $('.components').attr('disabled', true);
+    });
+    $('#service-product').click(function () {
+        $('#kit-components-container').slideUp('d-none');
+        $('#stock').attr('disabled', true);
+        $('#stock-group').slideUp('fast');
         $('.components').attr('disabled', true);
     });
     $('#add-kit-component').click(function (e) {
@@ -3652,11 +3672,16 @@ $(document).ready(function () {
         // Append default option as the first option of the new component
         $('#kit-components div:last-of-type').children('select').prepend(defaultOption);
         // Append delete button to row
-        $('#kit-components div:last-of-type').append('<a href="#" class="btn" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
+        $('#kit-components div:last-of-type').append('<a href="#" class="btn delete-component" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>');
 
         // Remove first select's selected value from new component
         $("#kit-components div:last-of-type .components option[value=" + select + "]").remove();
         $("#kit-components div:last-of-type .components").val('null');
+
+        // Append number control function to added input
+        $(document).on('keydown', 'input[type=number]', function (e) {
+            return numberControl(e.key, $(this));
+        });
     });
 
     setOption = function setOption(e) {
@@ -3665,7 +3690,7 @@ $(document).ready(function () {
 
     removeOption = function removeOption(e) {
         var prev = $(e.target).data('val');
-        if (prev !== 'null') {
+        if (prev != 'null') {
             var text = $(e.target).children("option[value=" + prev + "]").text();
             var prevOption = "<option value=\"" + prev + "\">" + text + "</option>";
             $('.components').not($(e.target)).append(prevOption);

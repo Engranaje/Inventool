@@ -30,6 +30,7 @@
             <div class="form-control d-flex">
                 <input type="radio" name="type" id="singular-product" value="single" checked> <label class="ml-1">Singular</label>
                 <input type="radio" name="type" id="kit-component" class="ml-5" value="kit"> <label class="ml-1">Kit</label>
+                <input type="radio" name="type" id="service-product" class="ml-5" value="service"> <label class="ml-1">Servicio</label>
             </div>
         </div>
 

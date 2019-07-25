@@ -80,7 +80,7 @@ class HomeModel extends Model
             $this->bind(':code', $code);
             $kits = $this->resultset();
 
-            if (!empty($kits)) {
+            if (!empty($kits) && $kits[0]['type'] != 'kit') {
                 Functions::flash('error', 'Este artículo pertenece a un kit. No puede ser eliminado.');
                 header('Location:' . ROOT_URL);
                 return;

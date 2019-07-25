@@ -41,6 +41,11 @@ p {
   color: #991C13;
 }
 
+.delete-component {
+  position: absolute;
+  right: -20px;
+}
+
 /* Header */
 
 nav a {
@@ -137,7 +142,7 @@ a:hover {
   }
 }
 
-/* Flex - Gris */
+/* Flex - Grid */
 
 .flex-4 {
   -webkit-box-flex: 4;
