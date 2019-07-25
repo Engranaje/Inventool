@@ -14,7 +14,7 @@ class LogModel extends Model
                         ON stock_transaction.trans_code = transaction.id
                     JOIN stock
                         ON stock_transaction.stock_code = stock.code
-                    GROUP BY transaction.notes
+                    GROUP BY transaction.id
                     ORDER BY transaction.date ASC');
         $log = $this->resultset();
 
