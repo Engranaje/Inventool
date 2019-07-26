@@ -1,5 +1,5 @@
-<div id="content-container">
-    <div id="content-container-box">
+<div class="content-container" data-type="form">
+    <div class="content-container-box">
         <div class="lzi alert alert-danger text-center mx-auto d-none" role="alert">
           <p class="d-inline-block m-0">
             Todos los campos son obligatorios
@@ -41,6 +41,6 @@
         </div>
 
         <a href="3" class="btn btn-primary preventDefault" onClick="selectEntry()">Aceptar</a>
-        <a href="#" class="btn btn-danger preventDefault" id="btn-cancel">Cancelar</a>
+        <a href="#" class="btn btn-danger preventDefault btn-cancel">Cancelar</a>
     </div>
 </div>

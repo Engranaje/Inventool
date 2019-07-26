@@ -54,10 +54,11 @@ $(document).ready(() => {
     /** content container */
     $('.show-content').click(function (e) {
         e.preventDefault();
+        let type = $(this).attr('data-type');
 
         // Show content container
-        $('#content-container').show();
-        $('#content-container-box').slideDown();
+        $(`.content-container[data-type=${type}]`).show();
+        $(`.content-container[data-type=${type}] .content-container-box`).slideDown();
 
         // Set quantity default value to 1
         $('#quantity').val('1');
@@ -66,25 +67,26 @@ $(document).ready(() => {
         let text = $(this).attr('data-text');
         $('#delete-text span.text-italic').text(text);
 
-        let code = $(this).parent().children('.inv_edit').attr('data-id');
+        let code = $(this).attr('data-id');
         $('#delete_code').val(code);
     });
 
     // hide content container
-    $('#content-container').click(function (e) {
-        if (e.target.id === 'btn-cancel') {
+    $('.content-container').click(function (e) {
+        if (e.target.classList.contains('btn-cancel')) {
             $(this).fadeOut();
-            $('#content-container-box').fadeOut();
+            $('.content-container-box').fadeOut();
         }
     });
 
     /** recover container */
     $('.show-recover').click(function (e) {
         e.preventDefault();
+        let type = $(this).attr('data-type');
 
         // Show recover container
-        $('#recover-container').show();
-        $('#recover-container-box').slideDown();
+        $(`.recover-container[data-type=${type}]`).show();
+        $(`.recover-container[data-type=${type}] .recover-container-box`).slideDown();
 
         // Change recover text
         let text = $(this).attr('data-text');
@@ -95,10 +97,10 @@ $(document).ready(() => {
     });
 
     // hide recover container
-    $('#recover-container').click(function (e) {
-        if (e.target.id === 'btn-cancel') {
+    $('.recover-container').click(function (e) {
+        if (e.target.classList.contains('btn-cancel')) {
             $(this).fadeOut();
-            $('#recover-container-box').fadeOut();
+            $('.recover-container-box').fadeOut();
         }
     });
 
@@ -107,15 +109,15 @@ $(document).ready(() => {
         e.preventDefault();
 
         // Show form container
-        $('#form-container').show();
-        $('#form-container-box').slideDown();
+        $('.form-container').show();
+        $('.form-container-box').slideDown();
     });
 
     // hide form container
-    $('#form-container').click(function (e) {
-        if (e.target.id === 'btn-cancel') {
+    $('.form-container').click(function (e) {
+        if (e.target.classList.contains('btn-cancel')) {
             $(this).fadeOut();
-            $('#form-container-box').fadeOut();
+            $('.form-container-box').fadeOut();
         }
     });
 
@@ -205,7 +207,7 @@ $(document).ready(() => {
             document.querySelector('div.alert.alert-danger').classList.add('d-none');
             document.getElementById('code').value = '';
             document.getElementById('quantity').value = '';
-            document.getElementById('content-container').style.display = 'none';
+            $('.content-container').css({'display': 'none'});
             $('#btn-save').attr('disabled', false);
 
             // Remove option from list

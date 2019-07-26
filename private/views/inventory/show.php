@@ -15,7 +15,7 @@
 </div>
 
 <div class="form-group">
-    <a href="#" class="btn btn-warning show-content">Revertir</a>
+    <a href="<?php echo ROOT_URL; ?>/#" class="btn btn-warning show-content" data-type="reverse">Revertir</a>
 </div>
 
 <div class="table-responsive fh-table">

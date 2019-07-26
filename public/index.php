@@ -33,6 +33,7 @@ require PRIVATE_PATH . '/controllers/add.php';
 require PRIVATE_PATH . '/controllers/remove.php';
 require PRIVATE_PATH . '/controllers/log.php';
 require PRIVATE_PATH . '/controllers/trash.php';
+require PRIVATE_PATH . '/controllers/kit.php';
 
 /**
  * Models
@@ -43,6 +44,7 @@ require PRIVATE_PATH . '/models/add.php';
 require PRIVATE_PATH . '/models/remove.php';
 require PRIVATE_PATH . '/models/log.php';
 require PRIVATE_PATH . '/models/trash.php';
+require PRIVATE_PATH . '/models/kit.php';
 
 /**
  * Change alias of class NewController

@@ -29,7 +29,7 @@
   </div><!-- .row -->
 
   <div class="form-group">
-    <a href="#" class="btn btn-success show-content preventDefault">Nueva línea</a>
+    <a href="#" class="btn btn-success show-content preventDefault" data-type="form">Nueva línea</a>
   </div>
 
   <div class="table-responsive fh-table">

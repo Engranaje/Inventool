@@ -65,8 +65,8 @@ a:hover {
 }
 
 /* All containers */
-#content-container,
-#recover-container {
+.content-container,
+.recover-container {
     display: none;
     position: fixed;
     top: 0;
@@ -77,8 +77,8 @@ a:hover {
     z-index: 999;
 }
 
-#content-container-box,
-#recover-container-box {
+.content-container-box,
+.recover-container-box {
     display: none;
 
     position: absolute;
@@ -102,8 +102,8 @@ a:hover {
 
 @media (min-width: 768px) {
 
-    #content-container-box,
-    #recover-container-box {
+    .content-container-box,
+    .recover-container-box {
         width: 50%;
         max-width: 100%;
     }

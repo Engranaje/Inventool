@@ -2,8 +2,8 @@
     $_SESSION['token_time'] = time();
 ?>
 
-<div id="recover-container">
-    <div id="recover-container-box">
+<div class="recover-container" data-type="recover">
+    <div class="recover-container-box">
         <h2 class="container-hd">¿Desea recuperar el registro?</h2>
 
         <p id="recover-text">Está por recuperar el registro <span class="text-italic"></span></p>
@@ -23,7 +23,7 @@
                 value="">
 
             <button type="submit" class="btn btn-success">Recuperar</button>
-            <a href="#" class="btn btn-primary preventDefault" id="btn-cancel">Cancelar</a>
+            <a href="#" class="btn btn-primary preventDefault btn-cancel">Cancelar</a>
         </form>
     </div>
 </div>

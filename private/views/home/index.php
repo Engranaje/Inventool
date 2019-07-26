@@ -76,7 +76,7 @@
 
                         <td>
                             <p class="m-0 inv_p">
-                                <a href="<?php echo ROOT_URL; ?>/log/filter/<?php echo $stock['code']; ?>">
+                                <a href="<?php echo ROOT_URL . '/log/filter/' . $stock['code']; ?>">
                                     <?php echo $stock['description']; ?>
                                 </a>
                             </p>
@@ -110,11 +110,15 @@
                         </td>
 
                         <td>
-                            <a href="#"
+                            <?php if($stock['type'] != 'kit'){ ?>
+                                <a href="#"
                                 class="show-field btn btn-warning w-md-auto mb-2 inv_edit"
                                 data-id="<?php echo $stock['code']; ?>">
-                                <i class="lzi pencil"></i>
-                            </a>
+                            <?php } else { ?>
+                                <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-warning w-md-auto mb-2">
+                            <?php } ?>
+                                    <i class="lzi pencil"></i>
+                                </a>
 
                             <button
                                 type="submit"
@@ -124,7 +128,9 @@
 
                             <a href="#"
                                 class="btn btn-danger mb-2 show-content"
-                                data-text="<?php echo $stock['description']; ?>">
+                                data-type="delete"
+                                data-text="<?php echo $stock['description']; ?>"
+                                data-id="<?php echo $stock['code']; ?>">
                                 <i class="lzi trashcan-open"></i>
                             </a>
                         </td>
@@ -153,5 +159,3 @@
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
-
-<?php // TODO: Al dar clic sobre kit, preguntar si se quieren ver transacciones o si se quieren ver componentes para modificar ?>

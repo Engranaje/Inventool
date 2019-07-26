@@ -2,8 +2,8 @@
     $_SESSION['token_time'] = time();
 ?>
 
-<div id="content-container">
-    <div id="content-container-box">
+<div class="content-container" data-type="permanent-delete">
+    <div class="content-container-box">
         <h2 class="container-hd">¿Desea eliminar el registro?</h2>
 
         <p class="m-0" id="delete-text">Está por eliminar permanentemente el registro <span class="text-italic"></span></p>
@@ -25,7 +25,7 @@
                 value="">
 
             <button type="submit" class="btn btn-warning">Eliminar</button>
-            <a href="#" class="btn btn-primary preventDefault" id="btn-cancel">Cancelar</a>
+            <a href="#" class="btn btn-primary preventDefault btn-cancel">Cancelar</a>
         </form>
     </div>
 </div>
