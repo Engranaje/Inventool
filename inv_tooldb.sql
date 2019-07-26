@@ -24,6 +24,35 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `inv_tooldb` /*!40100 DEFAULT CHARACTER
 USE `inv_tooldb`;
 
 --
+-- Table structure for table `kit_components`
+--
+
+DROP TABLE IF EXISTS `kit_components`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `kit_components` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kit_id` int(11) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `component_id_idx` (`component_id`),
+  KEY `kit_id_idx` (`kit_id`),
+  CONSTRAINT `component_id` FOREIGN KEY (`component_id`) REFERENCES `stock` (`code`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `kit_id` FOREIGN KEY (`kit_id`) REFERENCES `stock` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kit_components`
+--
+
+LOCK TABLES `kit_components` WRITE;
+/*!40000 ALTER TABLE `kit_components` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kit_components` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `log`
 --
 
@@ -57,7 +86,8 @@ DROP TABLE IF EXISTS `stock`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `stock` (
   `code` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `stock` bigint(20) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`code`),
@@ -113,8 +143,8 @@ DROP TABLE IF EXISTS `transaction`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `transaction` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` timestamp NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -142,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-10 10:46:08
+-- Dump completed on 2019-07-26  8:54:02
