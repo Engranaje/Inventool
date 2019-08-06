@@ -63,7 +63,7 @@
                     </td>
 
                     <td class="noprint">
-                        <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary w-100 w-md-auto mb-2">Consultar</a>
+                        <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary w-100 w-md-auto mb-2"><i class="lzi lupa"></i></a>
                     </td>
                 </tr>
             <?php
