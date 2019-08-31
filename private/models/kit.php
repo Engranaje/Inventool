@@ -39,7 +39,7 @@ class KitModel extends Model
             !empty($_SESSION['token']) &&
             !empty($_POST['token'])) {
 
-            if ($_POST['token'] === $_SESSION['token']) {
+            if ($_POST['token'] == $_SESSION['token']) {
                 $tokenAge = time() - $_SESSION['token_time'];
 
                 // Only continue if time passed in form is greater than 1 seconds and less than 5 minutes

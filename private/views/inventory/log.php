@@ -1,9 +1,13 @@
-<?php if(isset($viewmodel['filter'])){ ?>
+<?php if (isset($viewmodel['filter'])) {
+    ?>
     <!-- Only show amount in filter view -->
     <h1 class="d-none print">Reporte de <?php echo $viewmodel['record']; ?></h1>
-<?php }else{ ?>
+<?php
+} else {
+        ?>
     <h1 class="d-none print">Reporte general</h1>
-<?php } ?>
+<?php
+    } ?>
 
 <div class="table-responsive">
     <table class="table">
@@ -11,30 +15,42 @@
             <tr>
                 <th scope="col">Tipo</th>
 
+                <th scope="col">Responsable</th>
+
                 <th scope="col">Notas</th>
 
-                <?php if(isset($viewmodel['filter'])){ ?>
+                <?php if (isset($viewmodel['filter'])) {
+        ?>
                     <!-- Only show amount in filter view -->
                     <th scope="col">Anterior</th>
 
                     <th scope="col">Cantidad</th>
-                <?php }else{ ?>
+                <?php
+    } else {
+        ?>
                         <th scope="col" class="d-none print">Registro</th>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <th scope="col">Fecha</th>
 
-                <th scope="col" class="<?php echo $action == 'index' ? 'w-150p ' : ''  ?>noprint">Acciones</th>
+                <th scope="col" class="<?php echo $action == 'index' ? 'w-150p ' : ''; ?>noprint">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php
                 if (!empty($viewmodel['log'])) {
                     foreach ($viewmodel['log'] as $log) {
-            ?>
+                        ?>
                 <tr>
                     <td>
                         <?php echo ($log['type'] == '1') ? 'Entrada' : 'Salida'; ?>
+                    </td>
+
+                    <td>
+                        <p class="m-0 inv_p">
+                            <?php echo $log['username'] ? $log['username'] : 'Indefinido'; ?>
+                        </p>
                     </td>
 
                     <td>
@@ -43,7 +59,8 @@
                         </p>
                     </td>
 
-                    <?php if(isset($viewmodel['filter'])){ ?>
+                    <?php if (isset($viewmodel['filter'])) {
+                            ?>
                         <!-- Only show amount in filter view -->
                         <td>
                             <?php echo $log['previous']; ?>
@@ -52,11 +69,14 @@
                         <td>
                             <?php echo $log['amount']; ?>
                         </td>
-                    <?php }else{ ?>
+                    <?php
+                        } else {
+                            ?>
                         <td class="d-none print">
                             <?php echo $log['description']; ?>
                         </td>
-                    <?php } ?>
+                    <?php
+                        } ?>
 
                     <td>
                         <?php echo date('d/m/y', strtotime($log['date'])); ?>
@@ -68,8 +88,8 @@
                 </tr>
             <?php
                     }
-                }else{
-            ?>
+                } else {
+                    ?>
 
                 <tr>
                     <td>Aún no hay actividades registradas</td>
@@ -81,3 +101,5 @@
         </tbody>
     </table>
 </div>
+
+<?php // TODO: Rango de fecha en reporte?>

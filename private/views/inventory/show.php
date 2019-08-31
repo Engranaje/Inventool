@@ -1,5 +1,5 @@
 <h1 class="m-0 mb-3<?php echo ($viewmodel['data']['type'] == '1') ? ' text-success' : ' text-danger'; ?>">
-    <?php echo ($viewmodel['data']['type'] == '1') ? 'Entrada' : 'Salida'; ?>
+    <?php echo ($viewmodel['data']['type'] == '1') ? 'Entrada' : 'Salida'; ?> de <?php echo $viewmodel['data']['name']; ?>
 </h1>
 
 <div class="form-group row">
@@ -14,9 +14,13 @@
     </div>
 </div>
 
-<div class="form-group">
-    <a href="<?php echo ROOT_URL; ?>/#" class="btn btn-warning show-content" data-type="reverse">Revertir</a>
-</div>
+<?php if ($session->is_authorized()) {
+    ?>
+    <div class="form-group">
+        <a href="<?php echo ROOT_URL; ?>/#" class="btn btn-warning show-content" data-type="reverse">Revertir</a>
+    </div>
+<?php
+} ?>
 
 <div class="table-responsive fh-table">
     <table class="table">
@@ -33,7 +37,7 @@
         <?php
             if (!empty($viewmodel['transaction'])) {
                 foreach ($viewmodel['transaction'] as $transaction) {
-        ?>
+                    ?>
             <tr>
                 <td>
                     <?php echo $transaction['stock_code']; ?>
@@ -59,4 +63,4 @@
     </table>
 </div>
 
-<?php include_once PRIVATE_PATH . '/views/inc/reverse-container.php'; ?>
+<?php include_once PRIVATE_PATH.'/views/inc/reverse-container.php'; ?>

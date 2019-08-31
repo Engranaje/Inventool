@@ -1,18 +1,18 @@
 <?php
-    if ($session->hasMessage('success') !== null) {
-?>
+    if ($session->has_message('success')) {
+        ?>
 
-        <div class="lzi alert alert-success text-center mx-auto" role="alert">
+        <div class="lzi alert-msg alert-success text-center mx-auto" role="alert">
             <p class="d-inline-block m-0">
                 <?php echo $session->message('success'); ?>
             </p>
         </div>
 
 <?php
-    }else if($session->hasMessage('error') !== null){
-?>
+    } elseif ($session->has_message('error')) {
+        ?>
 
-        <div class="lzi alert alert-danger text-center mx-auto" role="alert">
+        <div class="lzi alert-msg alert-danger text-center mx-auto" role="alert">
             <p class="d-inline-block m-0">
                 <?php echo $session->message('error'); ?>
             </p>
@@ -32,12 +32,14 @@
     </div>
 </div>
 
-<input
-    type="search"
-    name="search"
-    id="search"
-    class="form-control col-md-6 text-primary m-auto"
-    placeholder="Buscar...">
+<div class="row">
+    <input
+        type="search"
+        name="search"
+        id="search"
+        class="form-control text-primary m-auto col-md-6"
+        placeholder="Buscar...">
+</div>
 
 <div class="table-responsive mt-4">
     <?php
@@ -61,14 +63,16 @@
                     <th scope="col">Código</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Cantidad</th>
-                    <th scope="col" class="w-150p">Acciones</th>
+                    <?php if($session->is_authorized()){ ?>
+                        <th scope="col" class="w-150p">Acciones</th>
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody>
                 <?php
                     if (!empty($viewmodel)) {
                         foreach ($viewmodel as $stock) {
-                ?>
+                            ?>
                     <tr>
                         <td>
                             <?php echo $stock['code']; ?>
@@ -76,7 +80,7 @@
 
                         <td>
                             <p class="m-0 inv_p">
-                                <a href="<?php echo ROOT_URL . '/log/filter/' . $stock['code']; ?>">
+                                <a href="<?php echo ROOT_URL.'/log/filter/'.$stock['code']; ?>">
                                     <?php echo $stock['description']; ?>
                                 </a>
                             </p>
@@ -100,45 +104,51 @@
 
                         <td>
                             <?php
-                                if($stock['type'] != 'service'){
+                                if ($stock['type'] != 'service') {
                                     echo $stock['stock'];
                                 } else {
                                     echo '&#8734;';
-                                }
-                            ?>
+                                } ?>
 
                         </td>
 
-                        <td>
-                            <?php if($stock['type'] != 'kit'){ ?>
+                        <!-- Actions -->
+                        <?php if($session->is_authorized()){ ?>
+                            <td>
+                                <?php if ($stock['type'] != 'kit') {
+                                        ?>
+                                    <a href="#"
+                                    class="show-field btn btn-warning w-md-auto mb-2 inv_edit"
+                                    data-id="<?php echo $stock['code']; ?>">
+                                <?php
+                                    } else {
+                                        ?>
+                                    <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-warning w-md-auto mb-2">
+                                <?php
+                                    } ?>
+                                        <i class="lzi pencil"></i>
+                                    </a>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-success mb-2 d-none inv_save">
+                                    <i class="lzi check"></i>
+                                </button>
+
                                 <a href="#"
-                                class="show-field btn btn-warning w-md-auto mb-2 inv_edit"
-                                data-id="<?php echo $stock['code']; ?>">
-                            <?php } else { ?>
-                                <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-warning w-md-auto mb-2">
-                            <?php } ?>
-                                    <i class="lzi pencil"></i>
+                                    class="btn btn-danger mb-2 show-content"
+                                    data-type="delete"
+                                    data-text="<?php echo $stock['description']; ?>"
+                                    data-id="<?php echo $stock['code']; ?>">
+                                    <i class="lzi trashcan-open"></i>
                                 </a>
-
-                            <button
-                                type="submit"
-                                class="btn btn-success mb-2 d-none inv_save">
-                                <i class="lzi check"></i>
-                            </button>
-
-                            <a href="#"
-                                class="btn btn-danger mb-2 show-content"
-                                data-type="delete"
-                                data-text="<?php echo $stock['description']; ?>"
-                                data-id="<?php echo $stock['code']; ?>">
-                                <i class="lzi trashcan-open"></i>
-                            </a>
-                        </td>
+                            </td>
+                        <?php } ?>
                     </tr>
                 <?php
                         }
-                    }else{
-                ?>
+                    } else {
+                        ?>
 
                     <tr>
                         <td>Aún no ha agregado registros</td>
@@ -152,7 +162,7 @@
     </form>
 </div>
 
-<?php include_once PRIVATE_PATH . '/views/inc/delete-container.php'; ?>
+<?php include_once PRIVATE_PATH.'/views/inc/delete-container.php'; ?>
 
 <script>
     if ( window.history.replaceState ) {

@@ -49,7 +49,7 @@ class TrashModel extends Model
         }
 
         try {
-            // Recover record
+            // Delete record
             $this->query('DELETE FROM stock WHERE code = :code');
             $this->bind(':code', $code);
             $this->execute();

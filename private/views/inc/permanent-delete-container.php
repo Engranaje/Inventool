@@ -4,9 +4,9 @@
 
 <div class="content-container" data-type="permanent-delete">
     <div class="content-container-box">
-        <h2 class="container-hd">¿Desea eliminar el registro?</h2>
+        <h2 class="container-hd">¿Desea eliminar <span class="record-type">el registro</span>?</h2>
 
-        <p class="m-0" id="delete-text">Está por eliminar permanentemente el registro <span class="text-italic"></span></p>
+        <p class="m-0" id="delete-text">Está por eliminar permanentemente <span class="record-type">el registro</span> <span class="text-italic"></span></p>
 
         <p>Esta acción no se podrá deshacer</p>
 

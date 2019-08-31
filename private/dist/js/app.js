@@ -54,7 +54,9 @@ $(document).ready(() => {
     /** content container */
     $('.show-content').click(function (e) {
         e.preventDefault();
-        let type = $(this).attr('data-type');
+        let type = $(this).attr('data-type'),
+        action = $(this).attr('data-action'),
+        record_type = $(this).attr('data-record-type');
 
         // Show content container
         $(`.content-container[data-type=${type}]`).show();
@@ -62,6 +64,16 @@ $(document).ready(() => {
 
         // Set quantity default value to 1
         $('#quantity').val('1');
+
+        // Change form action
+        if(action){
+            $(`.content-container[data-type=${type}] form`).attr('action', action);
+        }
+
+        // Change record type
+        if(record_type){
+            $(`.content-container[data-type=${type}] .record-type`).text(record_type);
+        }
 
         // Change delete text
         let text = $(this).attr('data-text');
@@ -82,7 +94,19 @@ $(document).ready(() => {
     /** recover container */
     $('.show-recover').click(function (e) {
         e.preventDefault();
-        let type = $(this).attr('data-type');
+        let type = $(this).attr('data-type'),
+        action = $(this).attr('data-action'),
+        record_type = $(this).attr('data-record-type');
+
+        // Change form action
+        if(action){
+            $(`.recover-container[data-type=${type}] form`).attr('action', action);
+        }
+
+        // Change record type
+        if(record_type){
+            $(`.recover-container[data-type=${type}] .record-type`).text(record_type);
+        }
 
         // Show recover container
         $(`.recover-container[data-type=${type}]`).show();
@@ -178,7 +202,7 @@ $(document).ready(() => {
                 <td class="code-children">
                   <p class="m-0">${code}</p>
                   <input type="hidden" name="code[]" class="form-control" value="${code}">
-                  <input type="hidden" name="type[]" class="form-control" value="${type}">
+                  <input type="hidden" name="types[]" class="form-control" value="${type}">
                 </td>
 
                 <td class="description-children">
@@ -207,7 +231,7 @@ $(document).ready(() => {
             document.querySelector('div.alert.alert-danger').classList.add('d-none');
             document.getElementById('code').value = '';
             document.getElementById('quantity').value = '';
-            $('.content-container').css({'display': 'none'});
+            $('.content-container').css({ 'display': 'none' });
             $('#btn-save').attr('disabled', false);
 
             // Remove option from list
@@ -369,4 +393,9 @@ $(document).ready(() => {
 
         $(e.target).closest('div').remove();
     }
+
+    /** Show user dropdown menu */
+    $('#user-dropdown').click(function (e) {
+        $('.user-dropdown-menu').toggle('fast');
+    });
 });

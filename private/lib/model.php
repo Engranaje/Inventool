@@ -12,8 +12,11 @@ abstract class Model
             $this->query("SET NAMES 'utf8'");
             $this->execute();
         } catch (PDOException $e) {
-            echo 'Hubo un error al intentar conectar con la base de datos. Si el error le afecta, por favor, póngase en contacto con nosotros desde la sección de contacto';
+            // echo 'Hubo un error al intentar conectar con la base de datos. Si el error le afecta, por favor, póngase en contacto con el administrador';
+            header('Location:'.ROOT_URL.'/seed');
         }
+
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function query($query)
@@ -47,6 +50,11 @@ abstract class Model
         $this->stmt->execute();
     }
 
+    public function exec($query)
+    {
+        $this->conn->exec($query);
+    }
+
     public function resultset()
     {
         $this->execute();
@@ -62,6 +70,11 @@ abstract class Model
     public function lastInsertId()
     {
         return $this->conn->lastInsertId();
+    }
+
+    public function dbExists()
+    {
+        return $this->db_exists;
     }
 
     public function __destruct()

@@ -53,7 +53,7 @@
                         </a>
 
                         <a href="#"
-                            class="btn btn-danger mb-2 show-content"
+                            class="btn btn-danger w-100 w-md-auto mb-2 show-content"
                             data-id="<?php echo $stock['code']; ?>"
                             data-type="permanent-delete"
                             data-text="<?php echo $stock['description']; ?>">

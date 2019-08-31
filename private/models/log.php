@@ -1,21 +1,24 @@
 <?php
+
 class LogModel extends Model
 {
     /**
-     * Show log view
+     * Show log view.
      */
     public function index()
     {
         // Find all records
-        $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description FROM log
+        $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description, users.username AS username FROM log
                     JOIN transaction
                         ON log.trans_code = transaction.id
+                    LEFT JOIN users
+                        ON users.id = transaction.user_id
                     JOIN stock_transaction
                         ON stock_transaction.trans_code = transaction.id
                     JOIN stock
                         ON stock_transaction.stock_code = stock.code
                     GROUP BY transaction.id
-                    ORDER BY transaction.date ASC');
+                    ORDER BY transaction.date ASC, transaction.id ASC');
         $log = $this->resultset();
 
         return [
@@ -24,7 +27,7 @@ class LogModel extends Model
     }
 
     /**
-     * Show transaction details view
+     * Show transaction details view.
      */
     public function show($id)
     {
@@ -37,8 +40,10 @@ class LogModel extends Model
         $transaction = $this->resultset();
 
         // Find transaction type, date and notes
-        $this->query('SELECT * FROM transaction
-                    WHERE id = :id');
+        $this->query('SELECT transaction.*, users.name FROM transaction
+                    JOIN users
+                        ON users.id = transaction.user_id
+                    WHERE transaction.id = :id');
         $this->bind(':id', $id);
         $data = $this->singleRow();
 
@@ -49,14 +54,16 @@ class LogModel extends Model
     }
 
     /**
-     * Filter log view
+     * Filter log view.
      */
     public function filter($id)
     {
         // Find all records
-        $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description  FROM log
+        $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description, users.username  FROM log
                     JOIN transaction
                         ON log.trans_code = transaction.id
+                    JOIN users
+                        ON users.id = transaction.user_id
                     JOIN stock_transaction
                         ON transaction.id = stock_transaction.trans_code
                     JOIN stock
@@ -76,7 +83,7 @@ class LogModel extends Model
     }
 
     /**
-     * Reverse transaction
+     * Reverse transaction.
      */
     public function reverse($id)
     {
@@ -97,7 +104,7 @@ class LogModel extends Model
 
         try {
             switch ($type['type']) {
-                case '1':{
+                case '1':
                         foreach ($transactions as $transaction) {
                             // Codes to delete
                             $stock_code = $transaction['stock_code'];
@@ -117,7 +124,7 @@ class LogModel extends Model
                             $record = $this->singleRow();
 
                             switch ($record['type']) {
-                                case 'kit':{
+                                case 'kit':
                                         // Search kit components
                                         $this->query('SELECT stock.*, kit_components.* FROM stock
                                                 LEFT JOIN kit_components
@@ -129,14 +136,25 @@ class LogModel extends Model
                                         foreach ($kits_info as $kit_info) {
                                             // Update kit components stock
                                             $component_quantity = $kit_info['quantity'] * $transaction['amount'];
-                                            $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code');
+                                            $this->query('UPDATE stock SET stock = stock - :quantity WHERE code = :code AND type <> :type');
                                             $this->bind(':quantity', $component_quantity);
                                             $this->bind(':code', $kit_info['component_id']);
+                                            $this->bind(':type', 'service');
                                             $this->execute();
+
+                                            // Search kits to which belongs component
+                                            $this->query('SELECT stock.*, kit_components.* FROM stock
+                                                        JOIN kit_components
+                                                            ON kit_components.component_id = stock.code
+                                                        WHERE code = :code');
+                                            $this->bind(':code', $kit_info['component_id']);
+                                            $kits = $this->resultset();
+
+                                            $this->refresh_kits($kits);
                                         }
                                         break;
-                                    }
-                                case 'single':{
+
+                                case 'single':
                                         // Search kits to which belongs component
                                         $this->query('SELECT stock.*, kit_components.* FROM stock
                                                 JOIN kit_components
@@ -145,36 +163,10 @@ class LogModel extends Model
                                         $this->bind(':code', $stock_code);
                                         $kits = $this->resultset();
 
-                                        // Loop through each kit to update stock
-                                        foreach ($kits as $kit) {
-                                            // Search kits info
-                                            $this->query('SELECT stock.*, kit_components.* FROM stock
-                                                LEFT JOIN kit_components
-                                                    ON kit_components.component_id = stock.code
-                                                WHERE kit_id = :code');
-                                            $this->bind(':code', $kit['kit_id']);
-                                            $kits_info = $this->resultset();
-
-                                            // Calculate component quantity to set kit stock a min result
-                                            $components_quantity = [];
-
-                                            foreach ($kits_info as $kit_info) {
-                                                // Result = rounded down value of component stock divided by inserted quantity
-                                                $result = floor((int) $kit_info['stock'] / $kit_info['quantity']);
-                                                array_push($components_quantity, $result);
-                                            }
-
-                                            $kit_stock = min($components_quantity);
-
-                                            // Update kit stock
-                                            $this->query('UPDATE stock SET stock = :quantity WHERE code = :code');
-                                            $this->bind(':quantity', $kit_stock);
-                                            $this->bind(':code', $kit['kit_id']);
-                                            $this->execute();
-                                        }
+                                        $this->refresh_kits($kits);
 
                                         break;
-                                    }
+
                                 default:
                                     break;
                             }
@@ -183,16 +175,17 @@ class LogModel extends Model
                         Functions::flash('success', 'La transacción ha sido revertida correctamente.');
 
                         break;
-                    }
-                case '2':{
+
+                case '2':
                         foreach ($transactions as $transaction) {
                             // Codes to delete
                             $stock_code = $transaction['stock_code'];
 
-                            // Add amount if it's an output
-                            $this->query('UPDATE stock SET stock = stock + :amount WHERE code = :code');
+                            // Add amount if it's an output and item is not a service
+                            $this->query('UPDATE stock SET stock = stock + :amount WHERE code = :code AND type <> :type');
                             $this->bind(':code', $stock_code);
                             $this->bind(':amount', $transaction['amount']);
+                            $this->bind(':type', 'service');
                             $this->execute();
 
                             // Search kit
@@ -204,7 +197,7 @@ class LogModel extends Model
                             $record = $this->singleRow();
 
                             switch ($record['type']) {
-                                case 'kit':{
+                                case 'kit':
                                         // Search kit components
                                         $this->query('SELECT stock.*, kit_components.* FROM stock
                                                 LEFT JOIN kit_components
@@ -214,16 +207,27 @@ class LogModel extends Model
                                         $kits_info = $this->resultset();
 
                                         foreach ($kits_info as $kit_info) {
-                                            // Update kit components stock
+                                            // Update kit components stock if component is not a service
                                             $component_quantity = $kit_info['quantity'] * $transaction['amount'];
-                                            $this->query('UPDATE stock SET stock = stock + :quantity WHERE code = :code');
+                                            $this->query('UPDATE stock SET stock = stock + :quantity WHERE code = :code AND type <> :type');
                                             $this->bind(':quantity', $component_quantity);
                                             $this->bind(':code', $kit_info['component_id']);
+                                            $this->bind(':type', 'service');
                                             $this->execute();
+
+                                            // Search kits to which belongs component
+                                            $this->query('SELECT stock.*, kit_components.* FROM stock
+                                                        JOIN kit_components
+                                                            ON kit_components.component_id = stock.code
+                                                        WHERE code = :code');
+                                            $this->bind(':code', $kit_info['component_id']);
+                                            $kits = $this->resultset();
+
+                                            $this->refresh_kits($kits);
                                         }
                                         break;
-                                    }
-                                case 'single':{
+
+                                case 'single':
                                         // Search kits to which belongs component
                                         $this->query('SELECT stock.*, kit_components.* FROM stock
                                                 JOIN kit_components
@@ -232,36 +236,10 @@ class LogModel extends Model
                                         $this->bind(':code', $stock_code);
                                         $kits = $this->resultset();
 
-                                        // Loop through each kit to update stock
-                                        foreach ($kits as $kit) {
-                                            // Search kits info
-                                            $this->query('SELECT stock.*, kit_components.* FROM stock
-                                                LEFT JOIN kit_components
-                                                    ON kit_components.component_id = stock.code
-                                                WHERE kit_id = :code');
-                                            $this->bind(':code', $kit['kit_id']);
-                                            $kits_info = $this->resultset();
-
-                                            // Calculate component quantity to set kit stock a min result
-                                            $components_quantity = [];
-
-                                            foreach ($kits_info as $kit_info) {
-                                                // Result = rounded down value of component stock divided by inserted quantity
-                                                $result = floor((int) $kit_info['stock'] / $kit_info['quantity']);
-                                                array_push($components_quantity, $result);
-                                            }
-
-                                            $kit_stock = min($components_quantity);
-
-                                            // Update kit stock
-                                            $this->query('UPDATE stock SET stock = :quantity WHERE code = :code');
-                                            $this->bind(':quantity', $kit_stock);
-                                            $this->bind(':code', $kit['kit_id']);
-                                            $this->execute();
-                                        }
+                                        $this->refresh_kits($kits);
 
                                         break;
-                                    }
+
                                 default:
                                     break;
                             }
@@ -270,7 +248,7 @@ class LogModel extends Model
                         Functions::flash('success', 'La transacción ha sido revertida correctamente.');
 
                         break;
-                    }
+
                 default:
                     break;
             }
@@ -278,6 +256,40 @@ class LogModel extends Model
             Functions::flash('error', 'No se pudo revertir la transacción. <br /> Por favor, intente de nuevo.');
         }
 
-        header('Location:' . ROOT_URL);
+        header('Location:'.ROOT_URL);
+    }
+
+    private function refresh_kits(array $kits)
+    {
+        // Loop through each kit to update stock
+        foreach ($kits as $kit) {
+            // Search kits info
+            $this->query('SELECT stock.*, kit_components.* FROM stock
+                LEFT JOIN kit_components
+                    ON kit_components.component_id = stock.code
+                WHERE kit_id = :code');
+            $this->bind(':code', $kit['kit_id']);
+            $kits_info = $this->resultset();
+
+            // Calculate component quantity to set kit stock a min result
+            $components_quantity = [];
+
+            foreach ($kits_info as $kit_info) {
+                // Ignore services for kit stock calculation
+                if ($kit_info['type'] != 'service') {
+                    // Result = rounded down value of component stock divided by inserted quantity
+                    $result = floor((int) $kit_info['stock'] / $kit_info['quantity']);
+                    array_push($components_quantity, $result);
+                }
+            }
+
+            $kit_stock = min($components_quantity);
+
+            // Update kit stock
+            $this->query('UPDATE stock SET stock = :quantity WHERE code = :code');
+            $this->bind(':quantity', $kit_stock);
+            $this->bind(':code', $kit['kit_id']);
+            $this->execute();
+        }
     }
 }

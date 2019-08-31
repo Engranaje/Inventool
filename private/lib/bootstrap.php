@@ -54,19 +54,19 @@ class Bootstrap
             $this->id = $this->request['id'];
         }
 
-        if ($this->request['secondaction'] == '') {
+        if ($this->request['secondAction'] == '') {
             /**
              * If second action is not set,
              * which happens if no ID is entered,
              * then call index as second action.
              */
-            $this->secondaction = 'index';
+            $this->secondAction = 'index';
         } else {
-            if (gettype($this->request['secondaction']) == 'array') {
+            if (gettype($this->request['secondAction']) == 'array') {
                 header('Location:' . ROOT_URL . '/404.php');
             }
 
-            $this->secondaction = $this->request['secondaction'];
+            $this->secondAction = $this->request['secondAction'];
         }
     }
 
@@ -77,7 +77,7 @@ class Bootstrap
 
             if (in_array('Controller', $parents)) {
                 if (method_exists($this->controller, $this->action)) {
-                    return new $this->controller($this->action, $this->secondaction, $this->id, $this->request);
+                    return new $this->controller($this->action, $this->secondAction, $this->id, $this->request);
                 } else {
                     header('Location:' . ROOT_URL . '/404.php');
                 }

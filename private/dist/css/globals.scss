@@ -43,6 +43,43 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+.user-dropdown-menu {
+    display: none;
+
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+
+    background-color: $white;
+    z-index: 9000;
+}
+
+@media (min-width: 768px) {
+    .user-dropdown-menu {
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: 0;
+        min-width: 250px;
+    }
+
+    #user-dropdown:hover .user-dropdown-menu {
+        display: block;
+    }
+}
+
+.user-dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-dropdown-menu ul li,
+.user-dropdown-menu ul li a {
+    color: $main !important;
+    font-size: 18px;
+}
+
 /* Fonts */
 a {
     transition: all 0.3s ease;
@@ -62,6 +99,16 @@ a:hover {
 .lzi.alert::before {
     display: inline-block;
     margin: 0 5px 0 0;
+}
+
+.big-icon {
+    font-size: 60px;
+}
+
+@media (min-width: 768px){
+    .big-icon {
+        font-size: 100px;
+    }
 }
 
 /* All containers */
@@ -107,4 +154,12 @@ a:hover {
         width: 50%;
         max-width: 100%;
     }
+}
+
+.center-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    margin-top: -10px;
 }
