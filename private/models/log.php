@@ -62,7 +62,7 @@ class LogModel extends Model
         $this->query('SELECT log.*, transaction.*, stock_transaction.*, stock.description, users.username  FROM log
                     JOIN transaction
                         ON log.trans_code = transaction.id
-                    JOIN users
+                    LEFT JOIN users
                         ON users.id = transaction.user_id
                     JOIN stock_transaction
                         ON transaction.id = stock_transaction.trans_code
