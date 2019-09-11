@@ -17,7 +17,7 @@
 
         <?php
             if (Functions::has_message('success')) {
-        ?>
+                ?>
 
                 <div class="lzi alert-msg alert-success text-center mx-auto mt-3 mb-0" role="alert">
                     <div class="d-inline-block m-0">
@@ -28,8 +28,8 @@
                 </div>
 
         <?php
-            }else if(Functions::has_message(['error', 'username', 'password'])){
-        ?>
+            } elseif (Functions::has_message(['error', 'username', 'password'])) {
+                ?>
             <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
                 <div class="d-inline-block m-0">
                     <p class="mb-0">
@@ -37,16 +37,17 @@
                     </p>
                 </div>
             </div>
-        <?php } ?>
+        <?php
+            } ?>
 
         <div class="card">
             <div class="card-header">Información de usuario</div>
             <div class="card-body">
-                <p><strong>Nombre:</strong> <?php echo $user['name']; ?></span></p>
-                <p><strong>Nombre de usuario:</strong> <?php echo $user['username']; ?></span></p>
-                <p><strong>Correo:</strong> <?php echo $user['email']; ?></span></p>
-                <p><strong>Rol</strong>: <?php echo $role; ?></span></p>
-                <p><strong>Contraseña:</strong> <?php echo $password; ?></span></p>
+                <p><strong>Nombre:</strong> <?php echo $user['name']; ?></p>
+                <p><strong>Nombre de usuario:</strong> <?php echo $user['username']; ?></p>
+                <p><strong>Correo:</strong> <?php echo $user['email']; ?></p>
+                <p><strong>Rol</strong>: <?php echo $role; ?></p>
+                <p><strong>Contraseña:</strong> <?php echo $password; ?></p>
             </div>
             <div class="card-footer">El usuario puede entrar con esta contraseña provisional, la cual podrá seguir utilizando o cambiar desde su perfil al iniciar sesión</div>
         </div>

@@ -12,7 +12,7 @@ class AuthModel extends Model
     {
         $error_message = 'No se pudo iniciar sesión. <br /> Por favor, intente de nuevo o contacte con el administrador.';
 
-        if (!isset($_POST['token'])) {
+        if (!isset($_POST['token']) || !isset($_SESSION['token'])) {
             return;
         }
 
@@ -295,6 +295,7 @@ class AuthModel extends Model
 
                 if (!$user) {
                     Functions::flash('error', 'No hay un usuario registrado con este correo');
+
                     return;
                 }
 
@@ -383,6 +384,7 @@ class AuthModel extends Model
                 /* Send email */
                 if ($mail->send()) {
                     Functions::flash('success', 'Se ha enviado el correo de recuperación de contraseña. <br /> Revise su correo electrónico.');
+
                     return;
                 }
             } catch (Exception $e) {
@@ -407,8 +409,9 @@ class AuthModel extends Model
         $this->bind(':hash', $hash);
         $user = $this->singleRow();
 
-        if(!$user){
-            header('Location:' . ROOT_URL . '/errors/403.php');
+        if (!$user) {
+            header('Location:'.ROOT_URL.'/errors/403.php');
+
             return;
         }
 
@@ -425,7 +428,7 @@ class AuthModel extends Model
              */
             $data = Functions::form_data([
                 'password',
-                'confirm_password'
+                'confirm_password',
             ]);
 
             // Confirm password
