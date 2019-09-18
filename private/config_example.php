@@ -24,7 +24,7 @@ if (!defined('ROOT_URL')) {
 }
 // The path to the private folder, parting from the public path
 if (!defined('PRIVATE_PATH')) {
-    define('PRIVATE_PATH', '../private');
+    define('PRIVATE_PATH', '../Private');
 }
 
 /**
@@ -53,6 +53,13 @@ if (!defined('FROM_EMAIL')) {
 // The email password
 if (!defined('EMAIL_PASS')) {
     define('EMAIL_PASS', 'your-email-password');
+}
+
+/**
+ * Configuration for demo
+ */
+if (!defined('DEMO_MODE')) {
+    define('DEMO_MODE', false);
 }
 
 /**

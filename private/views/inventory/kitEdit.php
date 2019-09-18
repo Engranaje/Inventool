@@ -64,7 +64,7 @@
                         <input type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" value="<?php echo $component['quantity']; ?>" required>
 
                         <?php
-                            if($key >= 2){
+                            if($key >= 1){
                                 echo '<a href="#" class="btn delete-component" onClick="deleteComponent(event)"><i class="lzi delete lzi-danger"></i></a>';
                             }
                         ?>

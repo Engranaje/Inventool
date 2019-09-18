@@ -2,6 +2,28 @@ $(document).ready(() => {
     $('.preventDefault').click(function (e) {
         e.preventDefault();
     });
+    $('#data-table').DataTable({
+        "language": {
+            decimal: ".",
+            thousands: ",",
+            lengthMenu:     "Mostrar _MENU_ artículos",
+            emptyTable: "No hay artículos para mostrar",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            info: "Mostrando del _START_ al _END_ de _TOTAL_ artículos",
+            infoEmpty: "No se encontró el artículo",
+            zeroRecords:    "No se encontró ningún artículo",
+            infoFiltered:   "(filtrado de _MAX_ artículos)",
+            searchPlaceholder: "Buscar artículos",
+            paginate: {
+                "first":      "Primera",
+                "last":       "Última",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },
+          }
+    });
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {
@@ -143,20 +165,6 @@ $(document).ready(() => {
             $(this).fadeOut();
             $('.form-container-box').fadeOut();
         }
-    });
-
-    /** Search */
-    $('#search').on('input', function (e) {
-        const exp = new RegExp(e.target.value, 'i'),
-            records = document.querySelectorAll('table.table tbody tr');
-
-        records.forEach(tr => {
-            tr.style.display = 'none';
-
-            if (tr.childNodes[3].childNodes[1].textContent.replace(/\s/g, ' ').search(exp) != -1) {
-                tr.style.display = 'table-row';
-            }
-        });
     });
 
     /** Stock entry */
@@ -365,7 +373,8 @@ $(document).ready(() => {
 
     removeOption = e => {
         let prev = $(e.target).data('val');
-        if (prev != 'null') {
+
+        if (prev != 'null' && prev != undefined && prev != 'undefined' && prev != null) {
             let text = $(e.target).children(`option[value=${prev}]`).text();
             let prevOption = `<option value="${prev}">${text}</option>`;
             $('.components').not($(e.target)).append(prevOption);

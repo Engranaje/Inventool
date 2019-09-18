@@ -366,3 +366,29 @@ input[type=radio]:checked::after {
   max-height: 365px;
 }
 
+.page-item.active {
+  border-bottom: none;
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #FBFEF9;
+  background-color: #2C79B9;
+  border-color: #2C79B9;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #2C79B9;
+  background-color: #FBFEF9;
+}
+
+.page-link:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+

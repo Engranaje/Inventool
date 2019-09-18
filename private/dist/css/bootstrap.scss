@@ -153,3 +153,29 @@ input[type=radio]:checked::after {
 .fh-table {
     max-height: 365px;
 }
+
+// Pagination
+.page-item.active {
+    border-bottom: none;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: $white;
+    background-color: $main;
+    border-color: $main;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: $main;
+    background-color: $white;
+}
+
+.page-link:focus {
+    box-shadow: none;
+}

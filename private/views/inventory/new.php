@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="type">Tipo de producto</label>
             <div class="form-control d-flex">
-                <input type="radio" name="type" id="singular-product" value="single" checked> <label class="ml-1">Singular</label>
+                <input type="radio" name="type" id="singular-product" value="single" checked> <label class="ml-1">Terminado</label>
                 <input type="radio" name="type" id="kit-component" class="ml-5" value="kit"> <label class="ml-1">Kit</label>
                 <input type="radio" name="type" id="service-product" class="ml-5" value="service"> <label class="ml-1">Servicio</label>
             </div>
@@ -40,28 +40,6 @@
             <div id="kit-components">
                 <div class="d-flex">
                     <select name="components[]" class="form-control flex-4 components" onChange="removeOption(event)" onClick="setOption(event)" disabled required>
-                        <option value="null">-- Seleccionar un componente --</option>
-
-                        <?php
-                            if (!empty($viewmodel)) {
-                                foreach ($viewmodel as $stock) {
-                        ?>
-
-                            <option value="<?php echo $stock['code']; ?>">
-                                <?php echo $stock['description']; ?>
-                            </option>
-
-                        <?php
-                                }
-                            }
-                        ?>
-                    </select>
-
-                    <input type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" disabled required>
-                </div>
-
-                <div class="d-flex">
-                    <select name="components[]" class="form-control flex-4 components" onChange="removeOption(event)" onClick="setOption(event)"  disabled required>
                         <option value="null">-- Seleccionar un componente --</option>
 
                         <?php

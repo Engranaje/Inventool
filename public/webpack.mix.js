@@ -1,4 +1,4 @@
-let mix = require('webpack-mix').mix;
+let mix = require('./node_modules/webpack-mix/src').mix;
 
 /*
  |--------------------------------------------------------------------------
@@ -14,10 +14,12 @@ let mix = require('webpack-mix').mix;
 mix.styles([
     '../private/dist/css/normalize.css',
     '../private/dist/css/bootstrap.min.css',
-    '../private/dist/Lizziecons/lizziecons.css'
+    '../private/dist/Lizziecons/lizziecons.css',
+    '../private/dist/css/datatables.min.css'
 ], './dist/main.css').babel([
     '../private/dist/js/jquery.js',
     '../private/dist/js/bootstrap.min.js',
+    '../private/dist/js/datatables.min.js',
     '../private/dist/js/app.js'
 ], './dist/main.js');
 
