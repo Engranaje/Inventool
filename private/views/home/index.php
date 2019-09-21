@@ -25,11 +25,11 @@
 <div class="mb-3">
     <div class="display-4 text-center mb-3">Seleccione el tipo de transacción</div>
     <div class="row mx-0 mb-3 justify-content-center">
-        <div class="menu-option pl-0 col-md-6 d-inline-block">
+        <div class="menu-option pl-md-0 col-12 col-md-6 mb-3 mb-md-0 d-inline-block">
             <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-primary btn-block">Entrada</a>
         </div>
 
-        <div class="menu-option pr-0 col-md-6 d-inline-block">
+        <div class="menu-option pr-md-0 col-12 col-md-6 d-inline-block">
             <a href="<?php echo ROOT_URL; ?>/remove" class="btn btn-danger btn-block">Salida</a>
         </div>
     </div>
@@ -142,14 +142,6 @@
                         </tr>
                     <?php
                             }
-                        } else {
-                    ?>
-
-                        <tr>
-                            <td>Aún no ha agregado registros</td>
-                        </tr>
-
-                    <?php
                         }
                     ?>
                 </tbody>
