@@ -86,10 +86,16 @@ class NewModel extends Model
                     }
 
                     try {
-                        $this->query('INSERT INTO stock (type, description, stock) VALUES (:type, :description, :stock)');
+                        $demo_id = null;
+                        if(DEMO_MODE){
+                            $session = new Functions();
+                            $demo_id = $session->getDemoId();
+                        }
+                        $this->query('INSERT INTO stock (type, description, stock, demo_id) VALUES (:type, :description, :stock, :demo_id)');
                         $this->bind(':type', $type);
                         $this->bind(':description', $description);
                         $this->bind(':stock', $stock);
+                        $this->bind(':demo_id', $demo_id);
                         $this->execute();
                         $kit_id = $this->lastInsertId();
 
@@ -108,10 +114,11 @@ class NewModel extends Model
 
                                         foreach ($components as $key => $component) {
                                             // Insert records
-                                            $this->query('INSERT INTO kit_components (kit_id, component_id, quantity) VALUES (:kit_id, :component_id, :quantity)');
+                                            $this->query('INSERT INTO kit_components (kit_id, component_id, quantity, demo_id) VALUES (:kit_id, :component_id, :quantity, :demo_id)');
                                             $this->bind(':kit_id', $kit_id);
                                             $this->bind(':component_id', $component);
                                             $this->bind(':quantity', $quantity[$key]);
+                                            $this->bind(':demo_id', $demo_id);
                                             $this->execute();
                                         }
                                         Functions::flash('success', 'El kit ha sido creado correctamente.');

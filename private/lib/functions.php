@@ -426,9 +426,21 @@ class Functions extends Session
         }
     }
 
+    // Logout
+    public static function logout()
+    {
+        $session = new Functions();
+        header('location:'.ROOT_URL.'/auth/logout/'.$session->getUserToken());
+    }
+
     /**
      * Get data.
      */
+    public function getDemoId()
+    {
+        return $this->demo_id;
+    }
+
     public function getUserId()
     {
         return $this->user_id;

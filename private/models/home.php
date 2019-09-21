@@ -6,6 +6,22 @@ class HomeModel extends Model
      */
     public function index()
     {
+        if(DEMO_MODE){
+            $address = address();
+            $this->query('SELECT address, created_at FROM demo WHERE address = :address');
+            $this->bind(':address', $address);
+            $user = $this->singleRow();
+
+            if($user){
+                $time = time() - strtotime($user['created_at']);
+
+                if($time > 60 * 30 || $time < 0){
+                    $model = new AuthModel();
+                    $model->cleanDB($address);
+                    Functions::logout();
+                }
+            }
+        }
         // Find all records
         $this->query('SELECT * FROM stock WHERE deleted_at IS NULL');
         $stock = $this->resultset();

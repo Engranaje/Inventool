@@ -44,12 +44,18 @@ class RemoveModel extends Model
             $user_id = $session->getUserId();
 
             try {
+                $demo_id = null;
+                if(DEMO_MODE){
+                    $session = new Functions();
+                    $demo_id = $session->getDemoId();
+                }
                 // Insert transaction
-                $this->query('INSERT INTO transaction (type, user_id, notes, date) VALUES (:type, :user, :notes, :date)');
+                $this->query('INSERT INTO transaction (type, user_id, notes, date, demo_id) VALUES (:type, :user, :notes, :date, :demo_id)');
                 $this->bind(':type', 2);
                 $this->bind(':user', $user_id);
                 $this->bind(':notes', $data['notes']);
                 $this->bind(':date', $data['date']);
+                $this->bind(':demo_id', $demo_id);
                 $this->execute();
                 $trans_code = $this->lastInsertId();
 

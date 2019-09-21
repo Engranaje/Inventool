@@ -12,8 +12,7 @@ abstract class Model
             $this->query("SET NAMES 'utf8'");
             $this->execute();
         } catch (PDOException $e) {
-            // echo 'Hubo un error al intentar conectar con la base de datos. Si el error le afecta, por favor, póngase en contacto con el administrador';
-            header('Location:'.ROOT_URL.'/seed');
+            echo 'Hubo un error al intentar conectar con la base de datos. Asegúrese de que la base de datos existe y el usuario y contraseña son los especificados en la configuración.';
         }
 
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

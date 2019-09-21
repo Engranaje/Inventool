@@ -2,6 +2,7 @@
 abstract class Session
 {
     protected $session;
+    protected $demo_id;
     protected $user_id;
     protected $name;
     protected $username;
@@ -17,6 +18,16 @@ abstract class Session
             $this->session = $_SESSION;
         } else {
             $this->session = $session;
+        }
+
+        // Check session demo id
+        if (isset($this->session['demo_id']) && !empty($this->session['demo_id'])) {
+            $this->demo_id = filter_var($this->session['demo_id'], FILTER_SANITIZE_STRING);
+
+            // Don't allow an array on session
+            if (gettype($this->demo_id) == 'array' && !is_string($this->demo_id)) {
+                header('Location:' . ROOT_URL . '/404.php');
+            }
         }
 
         // Check session user id

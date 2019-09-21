@@ -19,6 +19,9 @@ require '../private/config.php';
 /** Language variables */
 require PRIVATE_PATH.'/dist/lang/es.php';
 
+/** Helper */
+require PRIVATE_PATH.'/helpers/helper.php';
+
 /**
  * Main clases.
  */

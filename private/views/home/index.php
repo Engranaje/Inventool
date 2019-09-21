@@ -86,7 +86,7 @@
                                 <input
                                     type="text"
                                     name="description"
-                                    class="d-none inv_input form-control"
+                                    class="d-none inv_input form-control col-md-10"
                                     id="inv_<?php echo $stock['code']; ?>"
                                     value="<?php echo $stock['description']; ?>"
                                     disabled>

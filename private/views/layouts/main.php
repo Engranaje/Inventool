@@ -34,6 +34,15 @@ $session = new Functions();
 if ($page != 'auth') {
     $session->require_auth();
 }
+
+if (DEMO_MODE) {
+    // logout after 30 minutes if demo mode is on
+    if(isset($_SESSION['login_time'])){
+        if(time() - $_SESSION['login_time'] > 60 * 30){
+            header('location:'.ROOT_URL.'/auth/logout/'.$session->getUserToken());
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -101,11 +110,19 @@ if ($page != 'auth') {
                                 </li>
                             </ul>
                         <?php } elseif ($action == 'login' && USER_REGISTRATION) { ?>
-                            <ul class="navbar-nav m-0">
-                                <li class="nav-item<?php echo ($page === 'new') ? ' active' : ''; ?>">
-                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/auth/register">Registrarse</a>
-                                </li>
-                            </ul>
+                            <?php if(DEMO_MODE){ ?>
+                                <ul class="navbar-nav m-0">
+                                    <li class="nav-item<?php echo ($page === 'new') ? ' active' : ''; ?>">
+                                        <a class="nav-link" href="<?php echo ROOT_URL; ?>/auth/register_demo">Registrarse</a>
+                                    </li>
+                                </ul>
+                            <?php }else{ ?>
+                                <ul class="navbar-nav m-0">
+                                    <li class="nav-item<?php echo ($page === 'new') ? ' active' : ''; ?>">
+                                        <a class="nav-link" href="<?php echo ROOT_URL; ?>/auth/register">Registrarse</a>
+                                    </li>
+                                </ul>
+                            <?php } ?>
                         <?php }?>
                     </div>
                 </nav>
@@ -118,5 +135,19 @@ if ($page != 'auth') {
     </main>
 
     <script src="<?php echo ROOT_URL; ?>/dist/main.js"></script>
+
+    <?php
+        if(DEMO_MODE){
+            if(($page == 'auth' && $action == 'login') || ($page == 'admin' && $action == 'user') ){
+    ?>
+        <script>
+            $(window).on('load',function(){
+                $('#demo-mode-modal').modal('show');
+            });
+        </script>
+    <?php
+            }
+        }
+    ?>
 </body>
 </html>
