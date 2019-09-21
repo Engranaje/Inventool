@@ -297,8 +297,9 @@ class AuthModel extends Model
             try {
                 $address = address();
 
-                $this->query('INSERT INTO demo (address) VALUES (:address)');
+                $this->query('INSERT INTO demo (address, created_at) VALUES (:address, :created)');
                 $this->bind(':address', $address);
+                $this->bind(':created', Functions::now());
                 $this->execute();
                 $demo_id = $this->lastInsertId();
 
