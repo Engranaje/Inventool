@@ -3,6 +3,8 @@ Inventool es una aplicación web compacta para el manejo de entradas y salidas d
 
 Para más información sobre la misma, puede visitar el [este artículo](http://engranaje.me/entrada/vision-general-de-inventool-una-aplicacion-compacta-para-el-manejo-de-inventario) relacionado en [Engranaje](http://engranaje.me).
 
+Si quiere probar un demo, puede ingresar a [este enlace](http://www.engranaje.me/inventool.demo).
+
 ## Visión general
 Manejar un inventario con Inventool es sencillo.
 
