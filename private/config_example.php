@@ -18,6 +18,7 @@ if (!defined('DB_NAME')) {
 /**
  * URL
  * */
+ 
 // The application root URL
 if (!defined('ROOT_URL')) {
     define('ROOT_URL', 'http://inventool.test');

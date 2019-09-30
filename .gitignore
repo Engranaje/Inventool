@@ -1,4 +1,4 @@
 /public/node_modules
 /private/config.php
 /public/package-lock.json
-/.vscode
+/vscode
