@@ -24,7 +24,7 @@ if (!defined('ROOT_URL')) {
 }
 // The path to the private folder, parting from the public path
 if (!defined('PRIVATE_PATH')) {
-    define('PRIVATE_PATH', '../Private');
+    define('PRIVATE_PATH', '../private');
 }
 
 /**
