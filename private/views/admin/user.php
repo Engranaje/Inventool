@@ -3,6 +3,9 @@
     $_SESSION['submitted'] = false;
     $user = $viewmodel['user'];
 ?>
+
+<h1 class="text-center mb-4">Editar usuario</h1>
+
 <div class="row justify-content-center">
     <div class="col-md-6">
         <?php if($viewmodel['id'] != $session->getUserId()){ ?>

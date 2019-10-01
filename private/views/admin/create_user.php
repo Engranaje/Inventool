@@ -40,6 +40,8 @@
 
     <?php } ?>
 
+        <h1 class="text-center mb-4">Nuevo usuario</h1>
+
         <form method="post">
             <input type="hidden" name="token" value="<?php echo $session->getToken(); ?>">
 

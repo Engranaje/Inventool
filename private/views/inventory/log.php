@@ -9,97 +9,89 @@
 <?php
     } ?>
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Tipo</th>
+<h1>Lista de transacciones</h1>
 
-                <th scope="col">Responsable</th>
-
-                <th scope="col">Notas</th>
-
-                <?php if (isset($viewmodel['filter'])) {
-        ?>
-                    <!-- Only show amount in filter view -->
-                    <th scope="col">Anterior</th>
-
-                    <th scope="col">Cantidad</th>
-                <?php
-    } else {
-        ?>
-                        <th scope="col" class="d-none print">Registro</th>
-                <?php
-    } ?>
-
-                <th scope="col">Fecha</th>
-
-                <th scope="col" class="<?php echo $action == 'index' ? 'w-150p ' : ''; ?>noprint">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                if (!empty($viewmodel['log'])) {
-                    foreach ($viewmodel['log'] as $log) {
-                        ?>
+<div class="table-responsive mt-4">
+    <div class="col-md-12 mb-4 py-1">
+        <table class="table" id="data-table" data-model-singular="transacción" data-model-plural="transacciones">
+            <thead>
                 <tr>
-                    <td>
-                        <?php echo ($log['type'] == '1') ? 'Entrada' : 'Salida'; ?>
-                    </td>
+                    <th scope="col">Tipo</th>
 
-                    <td>
-                        <p class="m-0 inv_p">
-                            <?php echo $log['username'] ? $log['username'] : 'Indefinido'; ?>
-                        </p>
-                    </td>
+                    <th scope="col">Responsable</th>
 
-                    <td>
-                        <p class="m-0 inv_p">
-                            <?php echo $log['notes']; ?>
-                        </p>
-                    </td>
+                    <th scope="col">Notas</th>
 
-                    <?php if (isset($viewmodel['filter'])) {
-                            ?>
+                    <?php if (isset($viewmodel['filter'])) { ?>
                         <!-- Only show amount in filter view -->
-                        <td>
-                            <?php echo $log['previous']; ?>
-                        </td>
+                        <th scope="col">Anterior</th>
 
-                        <td>
-                            <?php echo $log['amount']; ?>
-                        </td>
-                    <?php
-                        } else {
+                        <th scope="col">Cantidad</th>
+                    <?php } else { ?>
+                            <th scope="col" class="d-none print">Registro</th>
+                    <?php } ?>
+
+                    <th scope="col">Fecha</th>
+
+                    <th scope="col" class="<?php echo $action == 'index' ? 'w-150p ' : ''; ?>noprint">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    if (!empty($viewmodel['log'])) {
+                        foreach ($viewmodel['log'] as $log) {
                             ?>
-                        <td class="d-none print">
-                            <?php echo $log['description']; ?>
+                    <tr>
+                        <td>
+                            <?php echo ($log['type'] == '1') ? 'Entrada' : 'Salida'; ?>
                         </td>
-                    <?php
-                        } ?>
 
-                    <td>
-                        <?php echo date('d/m/y', strtotime($log['date'])); ?>
-                    </td>
+                        <td>
+                            <p class="m-0 inv_p">
+                                <?php echo $log['username'] ? $log['username'] : 'Indefinido'; ?>
+                            </p>
+                        </td>
 
-                    <td class="noprint">
-                        <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary w-100 w-md-auto mb-2"><i class="lzi lupa"></i></a>
-                    </td>
-                </tr>
-            <?php
+                        <td>
+                            <p class="m-0 inv_p">
+                                <?php echo $log['notes']; ?>
+                            </p>
+                        </td>
+
+                        <?php if (isset($viewmodel['filter'])) {
+                                ?>
+                            <!-- Only show amount in filter view -->
+                            <td>
+                                <?php echo $log['previous']; ?>
+                            </td>
+
+                            <td>
+                                <?php echo $log['amount']; ?>
+                            </td>
+                        <?php
+                            } else {
+                                ?>
+                            <td class="d-none print">
+                                <?php echo $log['description']; ?>
+                            </td>
+                        <?php
+                            } ?>
+
+                        <td>
+                            <?php echo date('d/m/y', strtotime($log['date'])); ?>
+                        </td>
+
+                        <td class="noprint">
+                            <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary w-100 w-md-auto mb-2"><i class="lzi lupa"></i></a>
+                        </td>
+                    </tr>
+                <?php
+                        }
                     }
-                } else {
-                    ?>
-
-                <tr>
-                    <td>Aún no hay actividades registradas</td>
-                </tr>
-
-            <?php
-                }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <?php // TODO: Rango de fecha en reporte?>

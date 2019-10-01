@@ -2,20 +2,24 @@ $(document).ready(() => {
     $('.preventDefault').click(function (e) {
         e.preventDefault();
     });
+    const data_model_plural = $('#data-table').data('model-plural');
+    const data_model_singular = $('#data-table').data('model-singular');
+    const article = data_model_singular == 'transacción' ? 'la' : 'el';
+    const none = data_model_singular == 'transacción' ? 'ninguna' : 'ningún';
     $('#data-table').DataTable({
         "language": {
             decimal: ".",
             thousands: ",",
-            lengthMenu:     "Mostrar _MENU_ artículos",
-            emptyTable: "No hay artículos para mostrar",
+            lengthMenu:     `Mostrar _MENU_ ${ data_model_plural  }`,
+            emptyTable: `No hay ${ data_model_plural  } para mostrar`,
             loadingRecords: "Cargando...",
             processing: "Procesando...",
             search: "Buscar:",
-            info: "Mostrando del _START_ al _END_ de _TOTAL_ artículos",
-            infoEmpty: "No se encontró el artículo",
-            zeroRecords:    "No se encontró ningún artículo",
-            infoFiltered:   "(filtrado de _MAX_ artículos)",
-            searchPlaceholder: "Buscar artículos",
+            info: `Mostrando del _START_ al _END_ de _TOTAL_ ${ data_model_plural  }`,
+            infoEmpty: `No se encontró ${ article } ${ data_model_singular }`,
+            zeroRecords:    `No se encontró ${ none } ${ data_model_singular }`,
+            infoFiltered:   `(filtrado de _MAX_ ${ data_model_plural  })`,
+            searchPlaceholder: `Buscar ${ data_model_plural  }`,
             paginate: {
                 "first":      "Primera",
                 "last":       "Última",

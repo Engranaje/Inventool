@@ -2,6 +2,8 @@
     $_SESSION['token_time'] = time();
 ?>
 
+<h1 class="text-center mb-4">Nuevo artículo</h1>
+
 <div class="col-md-10 col-lg-7 mx-auto">
     <form action="<?php echo ROOT_URL; ?>/new/create" method="post" id="add-form">
         <input type="hidden"

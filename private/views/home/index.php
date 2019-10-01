@@ -54,7 +54,7 @@
             value="1">
 
         <div class="col-md-12 mb-4 py-1">
-            <table class="table" id="data-table">
+            <table class="table" id="data-table" data-model-singular="artículo" data-model-plural="artículos">
                 <thead>
                     <tr>
                         <th scope="col">Código</th>
