@@ -23,37 +23,36 @@
 ?>
 
 <div class="mb-3">
-    <div class="display-4 text-center mb-3">Seleccione el tipo de transacción</div>
+    <div class="display-md-4 text-center mb-3">Seleccione el tipo de transacción</div>
     <div class="row mx-0 mb-3 justify-content-center">
-        <div class="menu-option pl-md-0 col-12 col-md-6 mb-3 mb-md-0 d-inline-block">
+        <div class="menu-option col-12 col-md-6 mb-3 mb-md-0 d-inline-block">
             <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-primary btn-block big-font">Entrada</a>
         </div>
 
-        <div class="menu-option pr-md-0 col-12 col-md-6 d-inline-block">
+        <div class="menu-option col-12 col-md-6 d-inline-block">
             <a href="<?php echo ROOT_URL; ?>/remove" class="btn btn-secondary btn-block big-font">Salida</a>
         </div>
     </div>
 </div>
 
-<h1>Lista de artículos</h1>
+<h1 class="display-md-4">Lista de artículos</h1>
 
-<div class="table-responsive mt-4">
-    <?php
+<?php
         $_SESSION['token_time'] = time();
     ?>
 
-    <form action="<?php echo ROOT_URL; ?>/home/update" method="post">
-        <input
-            type="hidden"
-            name="token"
-            value="<?php echo $session->getToken(); ?>">
+    <form action="<?php echo ROOT_URL; ?>/home/update" method="post" id="edit-item-form">
+            <input
+                type="hidden"
+                name="token"
+                value="<?php echo $session->getToken(); ?>">
 
-        <input
-            type="hidden"
-            name="validate_field"
-            value="1">
+            <input
+                type="hidden"
+                name="validate_field"
+                value="1">
 
-        <div class="col-md-12 mb-4 py-1">
+        <div class="table-responsive my-4 pt-2">
             <table class="table" id="data-table" data-model-singular="artículo" data-model-plural="artículos">
                 <thead>
                     <tr>
@@ -86,7 +85,7 @@
                                 <input
                                     type="text"
                                     name="description"
-                                    class="d-none inv_input form-control col-md-10"
+                                    class="d-none inv_input form-control col-10"
                                     id="inv_<?php echo $stock['code']; ?>"
                                     value="<?php echo $stock['description']; ?>"
                                     disabled>
@@ -116,22 +115,22 @@
                                 <td>
                                     <?php if ($stock['type'] != 'kit') { ?>
                                         <a href="#"
-                                        class="show-field btn btn-primary btn-sqr w-md-auto mb-2 inv_edit"
+                                        class="show-field btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2 inv_edit"
                                         data-id="<?php echo $stock['code']; ?>">
                                     <?php } else { ?>
-                                        <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-primary btn-sqr w-md-auto mb-2">
+                                        <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2">
                                     <?php } ?>
                                             <i class="lzi pencil"></i>
                                         </a>
 
-                                    <button
-                                        type="submit"
-                                        class="btn btn-success btn-sqr mb-2 d-none inv_save">
+                                    <a class="btn button btn-primary text-white d-block d-md-inline-block btn-sqr mb-2 d-none-i inv_save"
+                                        onclick="event.preventDefault();
+                                                document.getElementById('edit-item-form').submit();">
                                         <i class="lzi check"></i>
-                                    </button>
+                                    </a>
 
                                     <a href="#"
-                                        class="btn btn-secondary btn-sqr ml-3 mb-2 show-content"
+                                        class="btn btn-secondary d-block d-md-inline-block btn-sqr ml-md-3 mb-2 show-content"
                                         data-type="delete"
                                         data-text="<?php echo $stock['description']; ?>"
                                         data-id="<?php echo $stock['code']; ?>">
@@ -148,7 +147,6 @@
             </table>
         </div>
     </form>
-</div>
 
 <?php include_once PRIVATE_PATH.'/views/inc/delete-container.php'; ?>
 

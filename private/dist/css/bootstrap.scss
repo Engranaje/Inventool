@@ -51,6 +51,10 @@
     opacity: 1;
 }
 
+.d-none-i {
+    display: none !important;
+}
+
 /* Fonts */
 .text-success {
     color: $success !important;
@@ -74,6 +78,23 @@
 .btn {
     color: $white !important;
     font-weight: 400;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.btn.btn-primary:focus,
+.btn.btn-secondary:focus {
+    box-shadow: none !important;
+}
+
+.btn.btn-primary:active {
+    background-color: $primary !important;
+}
+
+.btn.btn-secondary:active {
+    background-color: $secondary !important;
 }
 
 .btn-sqr {
@@ -149,7 +170,28 @@
     color: $font-color !important;
 }
 
+.text-white {
+    color: $bg-color !important;
+}
+
+.text-white:hover {
+    color: $bg-color !important;
+}
+
 /* Forms and tables */
+.form-control.form-control-sm {
+    margin-right: 5px !important;
+}
+
+@media (min-width: 768px){
+    .form-control.form-control-sm {
+        margin-right: 0;
+    }
+}
+
+.form-control.form-control-sm:focus {
+    outline: none !important;
+}
 
 .noresize {
     resize: none;
@@ -188,7 +230,49 @@ input[type=radio]:checked::after {
     max-height: 365px;
 }
 
+#data-table_length {
+    text-align: left;
+}
+
+#data-table_filter {
+    text-align: left;
+    margin-left: -15px;
+}
+
+.paginate_button.disabled {
+    background-color: rgba($color: $bg-color, $alpha: 0.5);
+    color: rgba($color: $font-color, $alpha: 0.5)
+}
+
+.paginate_button.disabled a {
+    color: rgba($color: $font-color, $alpha: 0.5) !important;
+}
+
 // Pagination
+.pagination {
+    text-align: center;
+    justify-content: center !important;
+    align-items: center;
+    margin-top: 20px !important;
+}
+
+@media (min-width: 768px){
+    #data-table_filter {
+        text-align: right;
+        margin-left: 15px;
+    }
+
+    .pagination {
+        text-align: center;
+        justify-content: flex-end !important;
+        align-items: center;
+        margin-top: 0 !important;
+    }
+}
+
+.paginate_button.page-item.active {
+    border: none !important;
+}
 .page-item.active {
     border-bottom: none;
 }
@@ -206,8 +290,8 @@ input[type=radio]:checked::after {
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: $main !important;
-    background-color: $white !important;
+    color: $font-color !important;
+    background-color: transparent !important;
 }
 
 .page-link:focus {

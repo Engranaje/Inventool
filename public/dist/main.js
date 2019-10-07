@@ -5415,8 +5415,8 @@ $(document).ready(function () {
 
         // Hide all inputs, hide all save buttons, disable all inputs, show all descriptions and show all edit buttons
         $('.inv_input').addClass('d-none');
-        $('.inv_save').addClass('d-none');
-        $('.inv_edit').removeClass('d-none');
+        $('.inv_save').addClass('d-none-i');
+        $('.inv_edit').removeClass('d-none-i');
         $('.inv_p').show();
         $('.inv_input').attr('disabled', true);
 
@@ -5430,9 +5430,9 @@ $(document).ready(function () {
         $("#inv_code_" + id).attr('disabled', false);
 
         // Show current record's save button
-        $(this).parent().children('.btn-success').removeClass('d-none');
+        $(this).parent().children('.inv_save').removeClass('d-none-i');
         // Hide current record's edit button
-        $(this).addClass('d-none');
+        $(this).addClass('d-none-i');
     });
 
     /** content container */
@@ -5510,6 +5510,13 @@ $(document).ready(function () {
             $(this).fadeOut();
             $('.recover-container-box').fadeOut();
         }
+    });
+
+    /** Show menu title at hover */
+    $('.show-title').hover(function () {
+        $(this).parent().children('.menu-title').show();
+    }, function () {
+        $(this).parent().children('.menu-title').hide();
     });
 
     /** Form container */

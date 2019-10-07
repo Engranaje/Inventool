@@ -81,17 +81,29 @@ if (DEMO_MODE) {
                     <div class="collapse navbar-collapse justify-content-end" id="primary-navbar">
                         <?php if ($session->is_logged()) { ?>
                             <ul class="navbar-nav m-0 align-items-center">
-                                <li class="nav-item mr-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
-                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/new"><i class="lzi add"></i></a>
+                                <li class="nav-item position-relative mr-md-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
+                                    <a class="nav-link show-title" href="<?php echo ROOT_URL; ?>/new"><i class="lzi add"></i></a>
+
+                                    <div class="menu-title">
+                                        <p class="m-0">Agregar artículo</p>
+                                    </div>
                                 </li>
 
-                                <li class="nav-item mr-3<?php echo ($page === 'log') ? ' active' : ''; ?>">
-                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/log"><i class="lzi calendar-alt"></i></a>
+                                <li class="nav-item position-relative mr-md-3<?php echo ($page === 'log') ? ' active' : ''; ?>">
+                                    <a class="nav-link show-title" href="<?php echo ROOT_URL; ?>/log"><i class="lzi calendar-alt"></i></a>
+
+                                    <div class="menu-title">
+                                        <p class="m-0">Ver transacciones</p>
+                                    </div>
                                 </li>
 
                                 <?php if ($session->is_admin()) { ?>
-                                    <li class="nav-item mr-3<?php echo ($page === 'trash') ? ' active' : ''; ?>">
-                                        <a class="nav-link" href="<?php echo ROOT_URL; ?>/trash"><i class="lzi trashcan"></i></a>
+                                    <li class="nav-item position-relative mr-md-3<?php echo ($page === 'trash') ? ' active' : ''; ?>">
+                                        <a class="nav-link show-title" href="<?php echo ROOT_URL; ?>/trash"><i class="lzi trashcan"></i></a>
+
+                                        <div class="menu-title">
+                                        <p class="m-0">Artículos eliminados</p>
+                                    </div>
                                     </li>
                                 <?php } ?>
 

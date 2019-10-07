@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Literata:400,600,700&display=swap');
 
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+
 body {
     background-color: $bg-color !important;
     font-family: 'Literata', Arial;
@@ -82,14 +90,60 @@ nav a:hover {
     font-size: 18px;
 }
 
+.menu-title {
+    display: none;
+    position: absolute;
+    background-color: rgba($color: $bg-color, $alpha: 0.8);
+    width: max-content;
+
+    border: 1px solid $secondary;
+    padding: 5px;
+    border-radius: 22px;
+
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 10;
+}
+
 /* Fonts */
-.big-font {
+.display-md-4 {
     font-size: 22px;
+}
+
+.big-font {
+    font-size: 16px;
+}
+
+@media (min-width: 480px){
+    .display-md-4 {
+        font-size: 32px;
+    }
+
+    .big-font {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 768px){
+    .display-md-4 {
+        font-size: 38px;
+    }
+
+    .big-font {
+        font-size: 22px;
+    }
 }
 
 a {
     transition: all 0.3s ease;
     color: $secondary-hover;
+}
+
+a,
+button,
+button:focus {
     outline: none !important;
 }
 
