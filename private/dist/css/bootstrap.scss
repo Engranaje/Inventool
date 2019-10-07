@@ -66,7 +66,7 @@
 
 /* Background */
 .bg-primary {
-    background-color: $main;
+    background-color: $main !important;
 }
 
 
@@ -76,19 +76,53 @@
     font-weight: 400;
 }
 
+.btn-sqr {
+    border-radius: 5px !important;
+}
+
+.btn-primary {
+    background: $primary 0% 0% no-repeat padding-box;;
+    color: $font-color !important;
+    border: none !important;
+    border-radius: 23px;
+    opacity: 1;
+}
+
+.btn-primary:hover {
+    background: $primary-hover 0% 0% no-repeat padding-box;
+    color: $font-color !important;
+    opacity: 1;
+    border: none !important;
+}
+
+.btn-secondary {
+    background: $secondary 0% 0% no-repeat padding-box;;
+    color: $font-color !important;
+    border: none !important;
+    border-radius: 22px;
+    opacity: 1;
+}
+
+.btn-secondary:hover {
+    background: $secondary-hover 0% 0% no-repeat padding-box;;
+    color: $bg-color !important;
+    border: none !important;
+    opacity: 1;
+}
+
 .btn-success {
-    background-color: $success;
-    border-color: $success;
+    background-color: $success !important;
+    border-color: $success !important;
 }
 
 .btn-success:hover {
-    background-color: darken($color: $success, $amount: 3);
-    border-color: darken($color: $success, $amount: 3);
+    background-color: $primary-hover !important;
+    border-color: $primary-hover !important;
 }
 
 .btn-danger {
-    background-color: $danger;
-    border-color: $danger;
+    background-color: $danger !important;
+    border-color: $danger !important;
 }
 
 .btn-danger:hover {
@@ -97,8 +131,8 @@
 }
 
 .btn-warning {
-    background-color: $warning;
-    border-color: $warning;
+    background-color: $warning !important;
+    border-color: $warning !important;
 }
 
 .btn-warning:hover {
@@ -108,7 +142,7 @@
 
 .active {
     font-weight: 600 !important;
-    border-bottom: 2px solid $font-color;
+    border-bottom: 2px solid $font-color !important;
 }
 
 .active a {
@@ -126,8 +160,8 @@ input[type=radio] {
     position: relative;
     -webkit-appearance: none;
     appearance: none;
-    background-color: $white;
-    border: 1px solid $font-color;
+    background-color: $white !important;
+    border: 1px solid $font-color !important;
     padding: 10px;
     border-radius: 50%;
     outline: none;
@@ -147,7 +181,7 @@ input[type=radio]:checked::after {
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    background: $success;
+    background: $success !important;
 }
 
 .fh-table {
@@ -161,9 +195,9 @@ input[type=radio]:checked::after {
 
 .page-item.active .page-link {
     z-index: 1;
-    color: $white;
-    background-color: $main;
-    border-color: $main;
+    color: $white !important;
+    background-color: $main !important;
+    border-color: $main !important;
 }
 
 .page-link {
@@ -172,8 +206,8 @@ input[type=radio]:checked::after {
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: $main;
-    background-color: $white;
+    color: $main !important;
+    background-color: $white !important;
 }
 
 .page-link:focus {

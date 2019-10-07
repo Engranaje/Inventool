@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Literata:400,600,700&display=swap');
 
 body {
-    background-color: $bg-color;
+    background-color: $bg-color !important;
     font-family: 'Literata', Arial;
 }
 
@@ -20,7 +20,7 @@ p {
 }
 
 .lzi-danger::before {
-    color: $danger;
+    color: $danger !important;
 }
 
 .delete-component {
@@ -29,9 +29,13 @@ p {
 }
 
 /* Header */
+.logo-img {
+    width: 195px;
+}
+
 nav a {
-    color: $white !important;
-    font-size: 18px;
+    color: $font-color !important;
+    font-size: 22px;
     transition: all 0.3s ease;
 }
 
@@ -50,7 +54,7 @@ nav a:hover {
     padding: 10px;
     border-radius: 10px;
 
-    background-color: $white;
+    background-color: $white !important;
     z-index: 9000;
 }
 
@@ -58,8 +62,6 @@ nav a:hover {
     .user-dropdown-menu {
         position: absolute;
         top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
         right: 0;
         min-width: 250px;
     }
@@ -81,13 +83,19 @@ nav a:hover {
 }
 
 /* Fonts */
+.big-font {
+    font-size: 22px;
+}
+
 a {
     transition: all 0.3s ease;
+    color: $secondary-hover;
+    outline: none !important;
 }
 
 a:hover {
     text-decoration: none;
-    color: darken($color: $main, $amount: 1.5);
+    color: $secondary
 }
 
 /* Icons */

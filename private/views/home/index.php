@@ -26,11 +26,11 @@
     <div class="display-4 text-center mb-3">Seleccione el tipo de transacción</div>
     <div class="row mx-0 mb-3 justify-content-center">
         <div class="menu-option pl-md-0 col-12 col-md-6 mb-3 mb-md-0 d-inline-block">
-            <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-primary btn-block">Entrada</a>
+            <a href="<?php echo ROOT_URL; ?>/add" class="btn btn-primary btn-block big-font">Entrada</a>
         </div>
 
         <div class="menu-option pr-md-0 col-12 col-md-6 d-inline-block">
-            <a href="<?php echo ROOT_URL; ?>/remove" class="btn btn-danger btn-block">Salida</a>
+            <a href="<?php echo ROOT_URL; ?>/remove" class="btn btn-secondary btn-block big-font">Salida</a>
         </div>
     </div>
 </div>
@@ -116,22 +116,22 @@
                                 <td>
                                     <?php if ($stock['type'] != 'kit') { ?>
                                         <a href="#"
-                                        class="show-field btn btn-warning w-md-auto mb-2 inv_edit"
+                                        class="show-field btn btn-primary btn-sqr w-md-auto mb-2 inv_edit"
                                         data-id="<?php echo $stock['code']; ?>">
                                     <?php } else { ?>
-                                        <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-warning w-md-auto mb-2">
+                                        <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-primary btn-sqr w-md-auto mb-2">
                                     <?php } ?>
                                             <i class="lzi pencil"></i>
                                         </a>
 
                                     <button
                                         type="submit"
-                                        class="btn btn-success mb-2 d-none inv_save">
+                                        class="btn btn-success btn-sqr mb-2 d-none inv_save">
                                         <i class="lzi check"></i>
                                     </button>
 
                                     <a href="#"
-                                        class="btn btn-danger mb-2 show-content"
+                                        class="btn btn-secondary btn-sqr ml-3 mb-2 show-content"
                                         data-type="delete"
                                         data-text="<?php echo $stock['description']; ?>"
                                         data-id="<?php echo $stock['code']; ?>">

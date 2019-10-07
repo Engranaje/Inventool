@@ -54,6 +54,8 @@ if (DEMO_MODE) {
 
     <title>Inventool</title>
 
+    <link rel="shortcut icon" href="<?php echo ROOT_URL; ?>/favicon.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="<?php echo ROOT_URL; ?>/dist/main.css">
     <link rel="stylesheet" href="<?php echo ROOT_URL; ?>/dist/style.css">
 </head>
@@ -62,7 +64,9 @@ if (DEMO_MODE) {
         <div class="row container m-auto">
             <div class="col-md-12 p-0">
                 <nav class="navbar navbar-expand-md navbar-light bg-primary px-0 mx-0">
-                    <a class="navbar-brand" href="<?php echo ROOT_URL; ?>">Inventool</a>
+                    <a class="navbar-brand" href="<?php echo ROOT_URL; ?>">
+                        <img src="<?php echo ROOT_URL; ?>/dist/img/inventool.png" alt="Inventool logo" class="img-fluid logo-img">
+                    </a>
 
                     <button class="navbar-toggler"
                         type="button"
@@ -77,17 +81,17 @@ if (DEMO_MODE) {
                     <div class="collapse navbar-collapse justify-content-end" id="primary-navbar">
                         <?php if ($session->is_logged()) { ?>
                             <ul class="navbar-nav m-0 align-items-center">
-                                <li class="nav-item<?php echo ($page === 'new') ? ' active' : ''; ?>">
-                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/new">Nuevo</a>
+                                <li class="nav-item mr-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
+                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/new"><i class="lzi add"></i></a>
                                 </li>
 
-                                <li class="nav-item<?php echo ($page === 'log') ? ' active' : ''; ?>">
-                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/log">Actividades</a>
+                                <li class="nav-item mr-3<?php echo ($page === 'log') ? ' active' : ''; ?>">
+                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>/log"><i class="lzi calendar-alt"></i></a>
                                 </li>
 
                                 <?php if ($session->is_admin()) { ?>
-                                    <li class="nav-item<?php echo ($page === 'trash') ? ' active' : ''; ?>">
-                                        <a class="nav-link" href="<?php echo ROOT_URL; ?>/trash">Papelera</a>
+                                    <li class="nav-item mr-3<?php echo ($page === 'trash') ? ' active' : ''; ?>">
+                                        <a class="nav-link" href="<?php echo ROOT_URL; ?>/trash"><i class="lzi trashcan"></i></a>
                                     </li>
                                 <?php } ?>
 
