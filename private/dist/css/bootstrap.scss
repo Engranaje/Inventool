@@ -40,6 +40,12 @@
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: .25rem;
+
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    z-index: 9999;
+    opacity: 0.9;
 }
 
 .is-invalid {

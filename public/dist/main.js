@@ -5360,6 +5360,7 @@ $(document).ready(function () {
     $('.preventDefault').click(function (e) {
         e.preventDefault();
     });
+
     var data_model_plural = $('#data-table').data('model-plural');
     var data_model_singular = $('#data-table').data('model-singular');
     var article = data_model_singular == 'transacción' ? 'la' : 'el';
@@ -5399,6 +5400,11 @@ $(document).ready(function () {
         }
         return val;
     }
+
+    // Hide alert message after three seconds
+    setTimeout(function () {
+        $('.alert-msg').fadeOut();
+    }, 3000);
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {

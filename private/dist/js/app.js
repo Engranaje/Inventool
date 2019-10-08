@@ -2,6 +2,7 @@ $(document).ready(() => {
     $('.preventDefault').click(function (e) {
         e.preventDefault();
     });
+
     const data_model_plural = $('#data-table').data('model-plural');
     const data_model_singular = $('#data-table').data('model-singular');
     const article = data_model_singular == 'transacción' ? 'la' : 'el';
@@ -43,6 +44,11 @@ $(document).ready(() => {
         }
         return val;
     }
+
+    // Hide alert message after three seconds
+    setTimeout(() => {
+        $('.alert-msg').fadeOut();
+    }, 3000);
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {
