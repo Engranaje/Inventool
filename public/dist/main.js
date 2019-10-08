@@ -5365,6 +5365,13 @@ $(document).ready(function () {
     var article = data_model_singular == 'transacción' ? 'la' : 'el';
     var none = data_model_singular == 'transacción' ? 'ninguna' : 'ningún';
     $('#data-table').DataTable({
+        "info": false,
+        "columnDefs": [{
+            "render": function render(data, type, row) {
+                return commaSeparateNumber(data);
+            },
+            "targets": [2]
+        }],
         "language": {
             decimal: ".",
             thousands: ",",
@@ -5386,6 +5393,12 @@ $(document).ready(function () {
             }
         }
     });
+    function commaSeparateNumber(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+        }
+        return val;
+    }
 
     // Numeric inputs control
     $('input[type=number]').on('keydown', function (e) {

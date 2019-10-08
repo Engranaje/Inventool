@@ -456,6 +456,19 @@ a:hover {
 
 /* Forms and tables */
 
+.form-control {
+  border-radius: 10px;
+  border-color: #89A6BF;
+  background-color: #EAEEF2;
+}
+
+.form-control:focus {
+  background-color: #EAEEF2 !important;
+  border-color: #89A6BF !important;
+  -webkit-box-shadow: 0 0 0 2px #89A6BF;
+          box-shadow: 0 0 0 2px #89A6BF;
+}
+
 .form-control.form-control-sm {
   margin-right: 5px !important;
 }
@@ -584,5 +597,9 @@ input[type=radio]:checked::after {
 .page-link:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+.col-sm-12.col-md-7 {
+  padding: 0;
 }
 

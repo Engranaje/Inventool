@@ -100,14 +100,13 @@
                             </td>
 
                             <td>
-                                <?php
-                                    if ($stock['type'] != 'service') {
-                                        echo $stock['stock'];
-                                    } else {
-                                        echo '&#8734;';
-                                    }
-                                ?>
-
+                                    <?php
+                                        if ($stock['type'] != 'service') {
+                                            echo $stock['stock'];
+                                        } else {
+                                            echo '&#8734;';
+                                        }
+                                    ?>
                             </td>
 
                             <!-- Actions -->

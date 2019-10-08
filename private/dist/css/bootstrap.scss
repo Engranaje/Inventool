@@ -179,6 +179,18 @@
 }
 
 /* Forms and tables */
+.form-control {
+    border-radius: 10px;
+    border-color: $main;
+    background-color: $bg-color;
+}
+
+.form-control:focus {
+    background-color: $bg-color !important;
+    border-color: $main !important;
+    box-shadow: 0 0 0 2px $main
+}
+
 .form-control.form-control-sm {
     margin-right: 5px !important;
 }
@@ -296,4 +308,8 @@ input[type=radio]:checked::after {
 
 .page-link:focus {
     box-shadow: none;
+}
+
+.col-sm-12.col-md-7 {
+    padding: 0;
 }
