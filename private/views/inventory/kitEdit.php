@@ -35,7 +35,7 @@
                         foreach ($viewmodel['components'] as $key => $component) {
                 ?>
                     <div class="d-flex">
-                        <select name="components[]" class="form-control flex-4 components" onChange="removeOption(event)" onClick="setOption(event)" required>
+                        <select name="components[]" class="form-control flex-4 components select-box" onChange="removeOption(event)" onClick="setOption(event)" required>
                             <?php
                                 if (!empty($viewmodel['stock'])) {
                                     foreach ($viewmodel['stock'] as $stock) {
@@ -61,7 +61,7 @@
                             ?>
                         </select>
 
-                        <input type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" value="<?php echo $component['quantity']; ?>" required>
+                        <input type="text" data-input-type="number" name="quantity[]" class="form-control flex-1 components" min="0" placeholder="Cantidad" value="<?php echo $component['quantity']; ?>" required>
 
                         <?php
                             if($key >= 1){
@@ -75,12 +75,12 @@
                 ?>
             </div>
 
-                <a href="#" class="btn btn-success mt-3" id="add-kit-component"><i class="lzi add"></i></a>
+                <a href="#" class="btn btn-primary btn-sqr mt-3" id="add-kit-component"><i class="lzi add"></i></a>
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="<?php echo ROOT_URL; ?>" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-primary btn-sqr">Guardar</button>
+            <a href="<?php echo ROOT_URL; ?>" class="btn btn-secondary btn-sqr">Cancelar</a>
         </div>
     </form>
 </div>
