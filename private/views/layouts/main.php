@@ -82,7 +82,10 @@ if (DEMO_MODE) {
                         <?php if ($session->is_logged()) { ?>
                             <ul class="navbar-nav m-0 align-items-center">
                                 <li class="nav-item position-relative mr-md-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
-                                    <a class="nav-link show-title" href="<?php echo ROOT_URL; ?>/new"><i class="lzi add"></i></a>
+                                    <a class="nav-link button show-title show-content"
+                                        data-type="new-item">
+                                        <i class="lzi add"></i>
+                                    </a>
 
                                     <div class="menu-title">
                                         <p class="m-0">Agregar artículo</p>

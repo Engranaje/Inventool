@@ -22,8 +22,8 @@
                 id="recover_code"
                 value="">
 
-            <button type="submit" class="btn btn-success">Recuperar</button>
-            <a href="#" class="btn btn-primary preventDefault btn-cancel">Cancelar</a>
+            <button type="submit" class="btn btn-primary btn-sqr">Recuperar</button>
+            <a href="#" class="btn btn-secondary btn-sqr preventDefault btn-cancel">Cancelar</a>
         </form>
     </div>
 </div>

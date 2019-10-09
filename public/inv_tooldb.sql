@@ -44,7 +44,7 @@ CREATE TABLE `kit_components` (
   `id` bigint(20) NOT NULL,
   `kit_id` int(11) NOT NULL,
   `component_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `quantity` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `demo_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -91,7 +91,7 @@ CREATE TABLE `stock` (
   `code` int(11) NOT NULL,
   `type` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stock` bigint(20) NOT NULL,
+  `stock` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL,
   `demo_id` bigint(20) DEFAULT NULL

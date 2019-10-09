@@ -2,6 +2,14 @@
     height: 100vh;
 }
 
+.h-22p {
+    height: 22px !important;
+}
+
+#product_type_box {
+    height: 113px !important;
+}
+
 .w-150p {
     width: 20%;
 }
@@ -9,6 +17,9 @@
 @media (min-width: 768px) {
     .w-md-auto {
         width: auto !important;
+    }
+    #product_type_box {
+        height: auto !important;
     }
 }
 
@@ -220,8 +231,8 @@ input[type=radio] {
     position: relative;
     -webkit-appearance: none;
     appearance: none;
-    background-color: $white !important;
-    border: 1px solid $font-color !important;
+    background-color: $bg-color !important;
+    border: 1px solid $main !important;
     padding: 10px;
     border-radius: 50%;
     outline: none;
@@ -241,7 +252,7 @@ input[type=radio]:checked::after {
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    background: $success !important;
+    background: $main !important;
 }
 
 .fh-table {
@@ -318,4 +329,37 @@ input[type=radio]:checked::after {
 
 .col-sm-12.col-md-7 {
     padding: 0;
+}
+
+// Select box
+.select2-selection.select2-selection--single {
+    border-radius: 10px;
+    border: 1px solid $main;
+    background-color: transparent;
+    height: 100%;
+    padding: 3px;
+}
+.select2.select2-container.select2-container--default.select2-container--above {
+    min-width: 300px;
+    width: 60%;
+}
+.select2.select2-container.select2-container--default {
+    flex: 4;
+    min-width: 300px;
+    width: 100% !important;
+}
+
+.select2.select2-container.select2-container--default.select2-container--below {
+    min-width: 300px;
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100% !important;
+}
+
+.select2-results ul,
+.select2-search,
+.select2-search input {
+    background-color: $bg-color !important;
 }

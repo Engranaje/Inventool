@@ -143,7 +143,8 @@ a {
 
 a,
 button,
-button:focus {
+button:focus,
+input, span {
     outline: none !important;
 }
 
@@ -216,6 +217,9 @@ a:hover {
     .recover-container-box {
         width: 50%;
         max-width: 100%;
+    }
+    .new-item-container{
+        width: 95%;
     }
 }
 

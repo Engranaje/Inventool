@@ -50,20 +50,8 @@ $(document).ready(() => {
         $('.alert-msg').fadeOut();
     }, 3000);
 
-    // Numeric inputs control
-    $('input[type=number]').on('keydown', function (e) {
-        return numberControl(e.key, $(this));
-    });
-
-    numberControl = (key, input) => {
-        if (key == '.' && (input.val() == '' || input.val().indexOf('.') >= 0)) return false;
-
-        if (key == 'e' || key == '-' || key == '+') {
-            return false;
-        } else {
-            return key;
-        }
-    }
+    // Initialize Select2
+    $('.select-box').select2();
 
     // Prevent form from submitting more than once
     $('form').submit(function () {
@@ -370,7 +358,7 @@ $(document).ready(() => {
         // If all components are selected, which can be verified if the first select has only one possible option, then return. If last component's option is not selected, return
         let options = $('#kit-components div:first-of-type select option').length;
         let lastSelect = $('#kit-components div:last-of-type select').val();
-        if (options <= 1 || lastSelect == 'null') return;
+        if (options <= 1 || lastSelect == 'null' || lastSelect == null) return;
 
         // Retrieve first component elements to create new component row
         let component = $('#kit-components div:first-of-type').html();
@@ -383,6 +371,7 @@ $(document).ready(() => {
             </div>
         `;
         $('#kit-components').append(html);
+        $('#kit-components div:last-of-type span:last-of-type').remove();
 
         // Append default option as the first option of the new component
         $('#kit-components div:last-of-type').children('select').prepend(defaultOption);
@@ -392,11 +381,13 @@ $(document).ready(() => {
         // Remove first select's selected value from new component
         $(`#kit-components div:last-of-type .components option[value=${select}]`).remove();
         $(`#kit-components div:last-of-type .components`).val('null');
+        $(`#kit-components div:last-of-type .components:nth-child(2)`).val('');
+
+        $('.select-box').select2();
 
         // Append number control function to added input
-        $(document).on('keydown', 'input[type=number]', function (e) {
-            return numberControl(e.key, $(this));
-        });
+        let inputs = document.querySelectorAll('input[data-input-type="number"]');
+        numberControl(inputs);
     });
 
     setOption = e => {

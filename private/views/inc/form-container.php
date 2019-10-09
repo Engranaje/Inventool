@@ -40,7 +40,7 @@
           <input type="number" class="form-control" id="quantity" min="0" value="1">
         </div>
 
-        <a href="3" class="btn btn-primary preventDefault" onClick="selectEntry()">Aceptar</a>
-        <a href="#" class="btn btn-danger preventDefault btn-cancel">Cancelar</a>
+        <a href="3" class="btn btn-primary btn-sqr preventDefault" onClick="selectEntry()">Aceptar</a>
+        <a href="#" class="btn btn-secondary btn-sqr preventDefault btn-cancel">Cancelar</a>
     </div>
 </div>

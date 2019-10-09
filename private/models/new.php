@@ -29,15 +29,15 @@ class NewModel extends Model
                 // Only continue if time passed in form is greater than 1 seconds and less than 5 minutes
                 if ($tokenAge > 1 && $tokenAge < 250) {
 
-                    // Description
-                    if (isset($_POST['description']) && !empty($_POST['description'])) {
-                        $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+                    // Name
+                    if (isset($_POST['name']) && !empty($_POST['name'])) {
+                        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
                     }
 
                     // Stock
                     $stock = 0;
                     if (isset($_POST['stock']) && !empty($_POST['stock'])) {
-                        $stock = filter_var($_POST['stock'], FILTER_VALIDATE_INT);
+                        $stock = filter_var($_POST['stock'], FILTER_VALIDATE_FLOAT);
                     }
 
                     // Type
@@ -91,9 +91,9 @@ class NewModel extends Model
                             $session = new Functions();
                             $demo_id = $session->getDemoId();
                         }
-                        $this->query('INSERT INTO stock (type, description, stock, demo_id) VALUES (:type, :description, :stock, :demo_id)');
+                        $this->query('INSERT INTO stock (type, description, stock, demo_id) VALUES (:type, :name, :stock, :demo_id)');
                         $this->bind(':type', $type);
-                        $this->bind(':description', $description);
+                        $this->bind(':name', $name);
                         $this->bind(':stock', $stock);
                         $this->bind(':demo_id', $demo_id);
                         $this->execute();

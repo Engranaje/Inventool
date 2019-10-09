@@ -24,8 +24,8 @@
                 id="delete_code"
                 value="">
 
-            <button type="submit" class="btn btn-warning">Eliminar</button>
-            <a href="#" class="btn btn-primary preventDefault btn-cancel">Cancelar</a>
+            <button type="submit" class="btn btn-primary btn-sqr">Eliminar</button>
+            <a href="#" class="btn btn-secondary btn-sqr preventDefault btn-cancel">Cancelar</a>
         </form>
     </div>
 </div>

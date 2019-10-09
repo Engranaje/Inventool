@@ -15,11 +15,14 @@ mix.styles([
     '../private/dist/css/normalize.css',
     '../private/dist/css/bootstrap.min.css',
     '../private/dist/Lizziecons/lizziecons.css',
-    '../private/dist/css/datatables.min.css'
+    '../private/dist/css/datatables.min.css',
+    '../private/dist/css/select2.min.css'
 ], './dist/main.css').babel([
     '../private/dist/js/jquery.js',
     '../private/dist/js/bootstrap.min.js',
     '../private/dist/js/datatables.min.js',
+    '../private/dist/js/select2.min.js',
+    '../private/dist/js/numbers.js',
     '../private/dist/js/app.js'
 ], './dist/main.js');
 

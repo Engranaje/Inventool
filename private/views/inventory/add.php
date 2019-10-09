@@ -3,30 +3,32 @@
   $_SESSION['submitted'] = false;
 ?>
 
+<!-- Heading -->
 <h1 class="m-0 mb-3 text-success">
   Entrada
 </h1>
 
 <form action="<?php echo ROOT_URL; ?>/add/entry" method="post">
-  <input type="hidden" name="token" value="<?php echo $session->getToken(); ?>">
+    <input type="hidden" name="token" value="<?php echo $session->getToken(); ?>">
 
-  <div class="form-group row">
-    <div class="col-md-3 pr-md-0">
-      <label for="date">Fecha</label>
-      <input type="datetime-local"
-        name="date"
-        class="form-control"
-        value="<?php echo Functions::now(); ?>"
-        required/>
-    </div>
+    <!-- Date -->
+    <div class="form-group row">
+        <div class="col-md-3 pr-md-0">
+            <label for="date">Fecha</label>
+            <input type="datetime-local"
+                name="date"
+                class="form-control"
+                value="<?php echo Functions::now(); ?>"
+                required/>
+        </div>
 
-    <div class="col-md-9">
-      <label for="notes">Notas</label>
-      <textarea name="notes"
-        class="form-control noresize"
-        required></textarea>
-    </div>
-  </div><!-- .row -->
+        <div class="col-md-9">
+        <label for="notes">Notas</label>
+        <textarea name="notes"
+            class="form-control noresize"
+            required></textarea>
+        </div>
+    </div><!-- .row -->
 
   <div class="form-group">
     <a href="#" class="btn btn-success show-content preventDefault" data-type="form">Nueva línea</a>
