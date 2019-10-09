@@ -1,6 +1,6 @@
 <h1>Artículos eliminados</h1>
-<div class="table-responsive mt-4">
-    <div class="col-md-12 mb-4 py-1">
+<div class="row">
+    <div class="table-responsive my-4 pt-2 col-12">
         <table class="table" id="data-table" data-model-singular="artículo" data-model-plural="artículos">
             <thead>
                 <tr>
@@ -42,12 +42,12 @@
                         </td>
 
                         <td>
-                            <?php echo $stock['stock']; ?>
+                            <?php echo floatval($stock['stock']); ?>
                         </td>
 
                         <td>
                             <a href="#"
-                                class="show-recover btn btn-success w-100 w-md-auto mb-2 inv_edit"
+                                class="show-recover btn btn-primary btn-sqr w-100 w-md-auto mb-2 inv_edit"
                                 data-id="<?php echo $stock['code']; ?>"
                                 data-type="recover"
                                 data-text="<?php echo $stock['description']; ?>">
@@ -55,7 +55,7 @@
                             </a>
 
                             <a href="#"
-                                class="btn btn-danger w-100 w-md-auto mb-2 show-content"
+                                class="btn btn-secondary btn-sqr w-100 w-md-auto mb-2 show-content"
                                 data-id="<?php echo $stock['code']; ?>"
                                 data-type="permanent-delete"
                                 data-text="<?php echo $stock['description']; ?>">
