@@ -13,6 +13,8 @@
     ];
 ?>
 
+<h1 class="text-center">Perfil de usuario</h1>
+
 <div class="row justify-content-center">
     <div class="col-md-6">
         <?php if (Functions::has_message($types)) { ?>
@@ -85,9 +87,9 @@
             </div>
 
             <div class="my-4 row col-md-12 justify-content-between p-0 m-0">
-                <input type="submit" value="Actualizar" class="btn btn-primary col-md-5">
+                <input type="submit" value="Actualizar" class="btn btn-primary btn-sqr col-md-5">
                 <a href="#"
-                    class="btn btn-danger col-md-5 show-content"
+                    class="btn btn-secondary btn-sqr col-md-5 show-content"
                     data-type="permanent-delete"
                     data-record-type="el usuario"
                     data-text="<?php echo $user['name']; ?>"

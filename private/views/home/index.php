@@ -3,7 +3,7 @@
     if ($session->has_message('success')) {
 ?>
 
-        <div class="lzi alert-msg alert-success text-center mx-auto" role="alert">
+        <div class="lzi alert-msg alert-success text-center" role="alert">
             <p class="d-inline-block m-0">
                 <?php echo $session->message('success'); ?>
             </p>
@@ -14,7 +14,7 @@
     } elseif ($session->has_message('error')) {
 ?>
 
-        <div class="lzi alert-msg alert-danger text-center mx-auto" role="alert">
+        <div class="lzi alert-msg alert-danger text-center" role="alert">
             <p class="d-inline-block m-0">
                 <?php echo $session->message('error'); ?>
             </p>
