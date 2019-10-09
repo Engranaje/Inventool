@@ -115,7 +115,7 @@
                             <td>
                                     <?php
                                         if ($stock['type'] != 'service') {
-                                            echo $stock['stock'];
+                                            echo floatval( $stock['stock'] );
                                         } else {
                                             echo '&#8734;';
                                         }
