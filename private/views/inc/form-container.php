@@ -11,7 +11,7 @@
         <div class="form-group text-left">
           <label>Descripción</label>
           <select id="code" class="form-control select-box">
-            <option value="">-- Seleccionar el artículo --</option>
+            <option value="" disabled selected>-- Seleccionar el artículo --</option>
 
             <?php
               if (!empty($viewmodel['records'])) {
