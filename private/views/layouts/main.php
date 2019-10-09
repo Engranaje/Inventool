@@ -81,16 +81,19 @@ if (DEMO_MODE) {
                     <div class="collapse navbar-collapse justify-content-end" id="primary-navbar">
                         <?php if ($session->is_logged()) { ?>
                             <ul class="navbar-nav m-0 align-items-center">
-                                <li class="nav-item position-relative mr-md-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
-                                    <a class="nav-link button show-title show-content"
-                                        data-type="new-item">
-                                        <i class="lzi add"></i>
-                                    </a>
+                                <?php if($page == 'home'){ ?>
+                                    <!-- Only show add new item button if page is home -->
+                                    <li class="nav-item position-relative mr-md-3<?php echo ($page === 'new') ? ' active' : ''; ?>">
+                                        <a class="nav-link button show-title show-content"
+                                            data-type="new-item">
+                                            <i class="lzi add"></i>
+                                        </a>
 
-                                    <div class="menu-title">
-                                        <p class="m-0">Agregar artículo</p>
-                                    </div>
-                                </li>
+                                        <div class="menu-title">
+                                            <p class="m-0">Agregar artículo</p>
+                                        </div>
+                                    </li>
+                                <?php } ?>
 
                                 <li class="nav-item position-relative mr-md-3<?php echo ($page === 'log') ? ' active' : ''; ?>">
                                     <a class="nav-link show-title" href="<?php echo ROOT_URL; ?>/log"><i class="lzi calendar-alt"></i></a>
