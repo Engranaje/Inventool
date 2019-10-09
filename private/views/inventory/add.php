@@ -15,7 +15,7 @@
     <div class="form-group row">
         <div class="col-md-3 pr-md-0">
             <label for="date">Fecha</label>
-            <input type="datetime-local"
+            <input type="date"
                 name="date"
                 class="form-control"
                 value="<?php echo Functions::now(); ?>"
@@ -26,12 +26,13 @@
         <label for="notes">Notas</label>
         <textarea name="notes"
             class="form-control noresize"
+            autofocus
             required></textarea>
         </div>
     </div><!-- .row -->
 
   <div class="form-group">
-    <a href="#" class="btn btn-success show-content preventDefault" data-type="form">Nueva línea</a>
+    <a href="#" class="btn btn-primary btn-sqr show-content preventDefault" data-type="form">Nueva línea</a>
   </div>
 
   <div class="table-responsive fh-table">
@@ -52,8 +53,8 @@
   </div>
 
   <div class="form-group">
-    <button type="submit" class="btn btn-primary" id="btn-save" disabled>Guardar</button>
-    <a href="<?php echo ROOT_URL; ?>" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary btn-sqr" id="btn-save" disabled>Guardar</button>
+    <a href="<?php echo ROOT_URL; ?>" class="btn btn-secondary btn-sqr">Cancelar</a>
   </div>
 </form>
 

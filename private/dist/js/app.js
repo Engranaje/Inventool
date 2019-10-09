@@ -244,12 +244,12 @@ $(document).ready(() => {
 
                 <td class="quantity-children">
                   <p class="m-0">${quantity}</p>
-                  <input type="number" name="quantity[]" class="form-control d-none" min="0" value="${quantity}">
+                  <input type="text" data-input-type="number" name="quantity[]" class="form-control d-none" min="0" value="${quantity}">
                 </td>
 
                 <td class="action-children">
-                  <a href="#" class="btn btn-primary btn-edit" onClick="editQuantity(event)"><i class="lzi pencil"></i></a>
-                  <a href="#" class="btn btn-danger" onClick="deleteLine(event)"><i class="lzi delete"></i></a>
+                  <a href="#" class="btn btn-primary btn-sqr btn-edit" onClick="editQuantity(event)"><i class="lzi pencil"></i></a>
+                  <a href="#" class="btn btn-secondary btn-sqr" onClick="deleteLine(event)"><i class="lzi delete"></i></a>
                 </td>
             </tr>
         `;
@@ -266,8 +266,9 @@ $(document).ready(() => {
             option.remove();
 
             // Append number control function to added input
-            $(document).on('keydown', 'input[type=number]', function (e) {
-                return numberControl(e.key, $(this));
+            // Append number control function to added input
+            $(document).on('keydown', 'input[data-input-type=number]', function (e) {
+                numberControl($(this));
             });
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');

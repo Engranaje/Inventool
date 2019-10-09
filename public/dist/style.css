@@ -409,6 +409,15 @@ a:hover {
   opacity: 1;
 }
 
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: rgba(242, 211, 55, 0.5) !important;
+  color: rgba(0, 2, 38, 0.5) !important;
+  border: none !important;
+  border-radius: 23px;
+  opacity: 1;
+}
+
 .btn-primary:hover {
   background: #D8B13C 0% 0% no-repeat padding-box;
   color: #000226 !important;

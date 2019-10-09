@@ -10,7 +10,7 @@
 
         <div class="form-group text-left">
           <label>Descripción</label>
-          <select id="code" class="form-control">
+          <select id="code" class="form-control select-box">
             <option value="">-- Seleccionar el artículo --</option>
 
             <?php
@@ -37,7 +37,7 @@
 
         <div class="form-group text-left">
           <label>Cantidad:</label>
-          <input type="number" class="form-control" id="quantity" min="0" value="1">
+          <input type="text" data-input-type="number" class="form-control" id="quantity" min="0" value="1">
         </div>
 
         <a href="3" class="btn btn-primary btn-sqr preventDefault" onClick="selectEntry()">Aceptar</a>

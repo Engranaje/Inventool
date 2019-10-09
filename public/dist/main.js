@@ -6772,7 +6772,7 @@ $(document).ready(function () {
     };
 
     var addRow = function addRow(code, type, description, stock, quantity, option) {
-        var html = "\n            <tr>\n                <td class=\"code-children\">\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"types[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td class=\"description-children\">\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td class=\"stock-children\">\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" min=\"0\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-danger\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
+        var html = "\n            <tr>\n                <td class=\"code-children\">\n                  <p class=\"m-0\">" + code + "</p>\n                  <input type=\"hidden\" name=\"code[]\" class=\"form-control\" value=\"" + code + "\">\n                  <input type=\"hidden\" name=\"types[]\" class=\"form-control\" value=\"" + type + "\">\n                </td>\n\n                <td class=\"description-children\">\n                  <p class=\"m-0\">" + description + "</p>\n                </td>\n\n                <td class=\"stock-children\">\n                  <p class=\"m-0\">" + stock + "</p>\n                  <input type=\"number\" name=\"previous[]\" class=\"form-control d-none\" value=\"" + stock + "\">\n                </td>\n\n                <td class=\"quantity-children\">\n                  <p class=\"m-0\">" + quantity + "</p>\n                  <input type=\"text\" data-input-type=\"number\" name=\"quantity[]\" class=\"form-control d-none\" min=\"0\" value=\"" + quantity + "\">\n                </td>\n\n                <td class=\"action-children\">\n                  <a href=\"#\" class=\"btn btn-primary btn-sqr btn-edit\" onClick=\"editQuantity(event)\"><i class=\"lzi pencil\"></i></a>\n                  <a href=\"#\" class=\"btn btn-secondary btn-sqr\" onClick=\"deleteLine(event)\"><i class=\"lzi delete\"></i></a>\n                </td>\n            </tr>\n        ";
 
         if (code !== '' && description !== '' && quantity !== '') {
             $('table.table tbody').append(html);
@@ -6786,8 +6786,9 @@ $(document).ready(function () {
             option.remove();
 
             // Append number control function to added input
-            $(document).on('keydown', 'input[type=number]', function (e) {
-                return numberControl(e.key, $(this));
+            // Append number control function to added input
+            $(document).on('keydown', 'input[data-input-type=number]', function (e) {
+                numberControl($(this));
             });
         } else {
             document.querySelector('div.alert.alert-danger').classList.remove('d-none');

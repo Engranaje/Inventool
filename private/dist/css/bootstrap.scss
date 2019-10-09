@@ -119,8 +119,16 @@
 }
 
 .btn-primary {
-    background: $primary 0% 0% no-repeat padding-box;;
+    background: $primary 0% 0% no-repeat padding-box;
     color: $font-color !important;
+    border: none !important;
+    border-radius: 23px;
+    opacity: 1;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: rgba($color: $primary, $alpha: 0.5) !important;
+    color: rgba($color: $font-color, $alpha: 0.5) !important;
     border: none !important;
     border-radius: 23px;
     opacity: 1;
@@ -134,7 +142,7 @@
 }
 
 .btn-secondary {
-    background: $secondary 0% 0% no-repeat padding-box;;
+    background: $secondary 0% 0% no-repeat padding-box;
     color: $font-color !important;
     border: none !important;
     border-radius: 22px;
@@ -142,7 +150,7 @@
 }
 
 .btn-secondary:hover {
-    background: $secondary-hover 0% 0% no-repeat padding-box;;
+    background: $secondary-hover 0% 0% no-repeat padding-box;
     color: $bg-color !important;
     border: none !important;
     opacity: 1;

@@ -30,7 +30,7 @@ class Functions extends Session
      */
     public static function now()
     {
-        return date('Y-m-d\TH:i');
+        return date('Y-m-d');
     }
 
     /**
