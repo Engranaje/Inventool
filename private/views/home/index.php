@@ -60,108 +60,110 @@
                 value="1">
 
         <!-- Products table -->
-        <div class="table-responsive my-4 pt-2">
-            <table class="table" id="data-table" data-model-singular="artículo" data-model-plural="artículos">
-                <thead>
-                    <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Cantidad</th>
-                        <?php if ($session->is_authorized()) { ?>
-                            <th scope="col" class="w-150p">Acciones</th>
-                        <?php  } ?>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <?php
-                        if (!empty($viewmodel)) {
-                            foreach ($viewmodel as $stock) {
-                    ?>
+        <div class="row">
+            <div class="table-responsive my-4 pt-2 col-12">
+                <table class="table" id="data-table" data-model-singular="artículo" data-model-plural="artículos">
+                    <thead>
                         <tr>
-                            <!-- Product code -->
-                            <td>
-                                <?php echo $stock['code']; ?>
-                            </td>
-
-                            <!-- Product name -->
-                            <td>
-                                <p class="m-0 inv_p">
-                                    <a href="<?php echo ROOT_URL.'/log/filter/'.$stock['code']; ?>">
-                                        <?php echo $stock['description']; ?>
-                                    </a>
-                                </p>
-
-                                <!-- Product name for edit -->
-                                <input
-                                    type="text"
-                                    name="description"
-                                    class="d-none inv_input form-control col-10"
-                                    id="inv_<?php echo $stock['code']; ?>"
-                                    value="<?php echo $stock['description']; ?>"
-                                    disabled>
-
-                                <!-- Product code for edit -->
-                                <input
-                                    type="hidden"
-                                    name="code"
-                                    class="inv_input"
-                                    id="inv_code_<?php echo $stock['code']; ?>"
-                                    value="<?php echo $stock['code']; ?>"
-                                    disabled>
-                            </td>
-
-                            <!-- Product stock -->
-                            <td>
-                                    <?php
-                                        if ($stock['type'] != 'service') {
-                                            echo floatval( $stock['stock'] );
-                                        } else {
-                                            echo '&#8734;';
-                                        }
-                                    ?>
-                            </td>
-
-                            <!-- Actions -->
+                            <th scope="col">Código</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Cantidad</th>
                             <?php if ($session->is_authorized()) { ?>
+                                <th scope="col" class="w-150p">Acciones</th>
+                            <?php  } ?>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            if (!empty($viewmodel)) {
+                                foreach ($viewmodel as $stock) {
+                        ?>
+                            <tr>
+                                <!-- Product code -->
                                 <td>
-                                    <!-- Edit button -->
-                                    <?php if ($stock['type'] != 'kit') { ?>
-                                        <!-- Edit button for single and service products -->
-                                        <a href="#"
-                                        class="show-field btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2 inv_edit"
-                                        data-id="<?php echo $stock['code']; ?>">
-                                    <?php } else { ?>
-                                        <!-- Edit button for kits -->
-                                        <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2">
-                                    <?php } ?>
-                                            <i class="lzi pencil"></i>
+                                    <?php echo $stock['code']; ?>
+                                </td>
+
+                                <!-- Product name -->
+                                <td>
+                                    <p class="m-0 inv_p">
+                                        <a href="<?php echo ROOT_URL.'/log/filter/'.$stock['code']; ?>">
+                                            <?php echo $stock['description']; ?>
+                                        </a>
+                                    </p>
+
+                                    <!-- Product name for edit -->
+                                    <input
+                                        type="text"
+                                        name="description"
+                                        class="d-none inv_input form-control col-10"
+                                        id="inv_<?php echo $stock['code']; ?>"
+                                        value="<?php echo $stock['description']; ?>"
+                                        disabled>
+
+                                    <!-- Product code for edit -->
+                                    <input
+                                        type="hidden"
+                                        name="code"
+                                        class="inv_input"
+                                        id="inv_code_<?php echo $stock['code']; ?>"
+                                        value="<?php echo $stock['code']; ?>"
+                                        disabled>
+                                </td>
+
+                                <!-- Product stock -->
+                                <td>
+                                        <?php
+                                            if ($stock['type'] != 'service') {
+                                                echo floatval( $stock['stock'] );
+                                            } else {
+                                                echo '&#8734;';
+                                            }
+                                        ?>
+                                </td>
+
+                                <!-- Actions -->
+                                <?php if ($session->is_authorized()) { ?>
+                                    <td>
+                                        <!-- Edit button -->
+                                        <?php if ($stock['type'] != 'kit') { ?>
+                                            <!-- Edit button for single and service products -->
+                                            <a href="#"
+                                            class="show-field btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2 inv_edit"
+                                            data-id="<?php echo $stock['code']; ?>">
+                                        <?php } else { ?>
+                                            <!-- Edit button for kits -->
+                                            <a href="<?php ROOT_URL; ?>/kit/edit/<?php echo $stock['code']; ?>" class="btn btn-primary d-block d-md-inline-block btn-sqr w-md-auto mb-2">
+                                        <?php } ?>
+                                                <i class="lzi pencil"></i>
+                                            </a>
+
+                                        <!-- Update button -->
+                                        <a class="btn button btn-primary text-white d-block d-md-inline-block btn-sqr mb-2 d-none-i inv_save"
+                                            onclick="event.preventDefault();
+                                                    document.getElementById('edit-item-form').submit();">
+                                            <i class="lzi check"></i>
                                         </a>
 
-                                    <!-- Update button -->
-                                    <a class="btn button btn-primary text-white d-block d-md-inline-block btn-sqr mb-2 d-none-i inv_save"
-                                        onclick="event.preventDefault();
-                                                document.getElementById('edit-item-form').submit();">
-                                        <i class="lzi check"></i>
-                                    </a>
-
-                                    <!-- Delete button -->
-                                    <a href="#"
-                                        class="btn btn-secondary d-block d-md-inline-block btn-sqr ml-md-3 mb-2 show-content"
-                                        data-type="delete"
-                                        data-text="<?php echo $stock['description']; ?>"
-                                        data-id="<?php echo $stock['code']; ?>">
-                                        <i class="lzi trashcan-open"></i>
-                                    </a>
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    <?php
+                                        <!-- Delete button -->
+                                        <a href="#"
+                                            class="btn btn-secondary d-block d-md-inline-block btn-sqr ml-md-3 mb-2 show-content"
+                                            data-type="delete"
+                                            data-text="<?php echo $stock['description']; ?>"
+                                            data-id="<?php echo $stock['code']; ?>">
+                                            <i class="lzi trashcan-open"></i>
+                                        </a>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        <?php
+                                }
                             }
-                        }
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </form>
 

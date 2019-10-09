@@ -11,8 +11,8 @@
 
 <h1>Lista de transacciones</h1>
 
-<div class="table-responsive mt-4">
-    <div class="col-md-12 mb-4 py-1">
+<div class="row">
+    <div class="table-responsive my-4 pt-2 col-12">
         <table class="table" id="data-table" data-model-singular="transacción" data-model-plural="transacciones">
             <thead>
                 <tr>
@@ -82,7 +82,7 @@
                         </td>
 
                         <td class="noprint">
-                            <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary w-100 w-md-auto mb-2"><i class="lzi lupa"></i></a>
+                            <a href="<?php echo ROOT_URL; ?>/log/show/<?php echo $log['trans_code']; ?>" class="btn btn-primary btn-sqr w-100 w-md-auto mb-2"><i class="lzi lupa"></i></a>
                         </td>
                     </tr>
                 <?php

@@ -36,7 +36,7 @@ $(document).ready(() => {
                 "next":       "Siguiente",
                 "previous":   "Anterior"
             },
-          }
+        },
     });
     function commaSeparateNumber(val) {
         while (/(\d+)(\d{3})/.test(val.toString())) {
