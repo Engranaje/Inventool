@@ -118,16 +118,16 @@ class AuthModel extends Model
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
         if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+            require(ROOT_PATH.'vendor/autoload.php');
+
             // Clase para capturar excepciones
-            include ROOT_PATH.'PHPMailer\src\Exception.php';
+            include_once ROOT_PATH.'PHPMailer/src/Exception.php';
 
             // Clase principal de PHPMailer
-            include ROOT_PATH.'PHPMailer\src\PHPMailer.php';
+            include_once ROOT_PATH.'PHPMailer/src/PHPMailer.php';
 
             // Clase para el servidor SMTP
-            include ROOT_PATH.'PHPMailer\src\SMTP.php';
-
-            require ROOT_PATH.'vendor/autoload.php';
+            include_once ROOT_PATH.'PHPMailer/src/SMTP.php';
 
             /**
              * Form data.
@@ -347,13 +347,13 @@ class AuthModel extends Model
 
         if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             // Clase para capturar excepciones
-            include ROOT_PATH.'PHPMailer\src\Exception.php';
+            include ROOT_PATH.'PHPMailer/src/Exception.php';
 
             // Clase principal de PHPMailer
-            include ROOT_PATH.'PHPMailer\src\PHPMailer.php';
+            include ROOT_PATH.'PHPMailer/src/PHPMailer.php';
 
             // Clase para el servidor SMTP
-            include ROOT_PATH.'PHPMailer\src\SMTP.php';
+            include ROOT_PATH.'PHPMailer/src/SMTP.php';
 
             require ROOT_PATH.'vendor/autoload.php';
 

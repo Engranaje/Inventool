@@ -18,10 +18,13 @@ if (!defined('DB_NAME')) {
 /**
  * URL
  * */
- 
+
 // The application root URL
 if (!defined('ROOT_URL')) {
     define('ROOT_URL', 'http://inventool.test');
+}
+if (!defined('ROOT_PATH')) {
+    define('ROOT_PATH', './');
 }
 // The path to the private folder, parting from the public path
 if (!defined('PRIVATE_PATH')) {
