@@ -54,6 +54,7 @@
                     class="form-control<?php echo $message['name'] ? ' is-invalid' : ''; ?>"
                     placeholder="Nombre completo"
                     value="<?php echo $name; ?>"
+                    autofocus
                     required>
             </div>
 
@@ -83,7 +84,7 @@
 
             <div class="form-group">
                 <label for="role_id">Rol</label>
-                <select name="role_id" id="role_id" class="form-control<?php echo $message['role_id'] ? ' is-invalid' : ''; ?>" required>
+                <select name="role_id" id="role_id" class="form-control select-box<?php echo $message['role_id'] ? ' is-invalid' : ''; ?>" required>
                     <option value="">-- Seleccione un rol --</option>
                     <?php
                         foreach ($roles as $role) {
@@ -98,7 +99,7 @@
             </div>
 
             <div class="mt-4 row col-md-12 justify-content-between p-0 m-0">
-                <input type="submit" value="Crear" class="btn btn-primary btn-block">
+                <input type="submit" value="Crear" class="btn btn-primary btn-sqr btn-block">
             </div>
         </form>
     </div>

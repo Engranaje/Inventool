@@ -573,6 +573,40 @@ input[type=radio]:checked::after {
   color: rgba(0, 2, 38, 0.5) !important;
 }
 
+.card-title-white {
+  font-size: 22px;
+  color: #FBFEF9 !important;
+}
+
+.user-info-head {
+  font-size: 22px;
+  color: #89A6BF;
+  text-align: center;
+}
+
+.user-info-p-strong {
+  font-size: 18px;
+}
+
+.user-info-p {
+  font-size: 16px;
+}
+
+@media (min-width: 480px) {
+  .modal-title,
+  .user-info-head {
+    font-size: 42px;
+  }
+
+  .user-info-p-strong {
+    font-size: 24px;
+  }
+
+  .user-info-p {
+    font-size: 22px;
+  }
+}
+
 .pagination {
   text-align: center;
   -webkit-box-pack: center !important;

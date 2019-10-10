@@ -285,6 +285,39 @@ input[type=radio]:checked::after {
     color: rgba($color: $font-color, $alpha: 0.5) !important;
 }
 
+.card-title-white {
+    font-size: 22px;
+    color: #FBFEF9 !important;
+}
+
+.user-info-head {
+    font-size: 22px;
+    color: $main;
+    text-align: center;
+}
+
+.user-info-p-strong {
+    font-size: 18px;
+}
+
+.user-info-p {
+    font-size: 16px;
+}
+
+@media (min-width: 480px){
+    .modal-title,
+    .user-info-head {
+        font-size: 42px;
+    }
+
+    .user-info-p-strong {
+        font-size: 24px;
+    }
+
+    .user-info-p {
+        font-size: 22px;
+    }
+}
 
 // Pagination
 .pagination {
