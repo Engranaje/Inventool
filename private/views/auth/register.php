@@ -106,7 +106,7 @@ $message = array_fill_keys($types, false);
                             type="submit"
                             name="submit"
                             value="Registrarse"
-                            class="btn btn-primary">
+                            class="btn btn-primary btn-sqr">
                     </div>
                 </form>
             </div>

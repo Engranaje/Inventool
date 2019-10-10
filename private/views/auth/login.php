@@ -20,6 +20,16 @@
     </div>
 <?php } ?>
 
+<?php
+$types = [
+    'username',
+    'password',
+    'error',
+];
+$message = array_fill_keys($types, false);
+?>
+
+
 <div class="flex-column justify-content-center center-box">
     <h2 class="text-center">Iniciar Sesión</h2>
 
@@ -35,12 +45,23 @@
                         </div>
                     </div>
 
-            <?php } elseif (Functions::has_message(['error', 'username', 'password'])) { ?>
+            <?php } elseif (Functions::has_message($types)) { ?>
                 <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
                     <div class="d-inline-block m-0">
-                        <p class="mb-0">
-                            <?php echo Functions::message('error'); ?>
-                        </p>
+                        <?php
+                            foreach ($types as $key => $type) {
+                                if (Functions::has_message($type)) {
+                                    $message[$type] = Functions::has_message($type);
+                        ?>
+                            <p class="m-3">
+                                <?php echo Functions::message($type); ?>
+                            </p>
+                        <?php
+                                } else {
+                                    $message[$type] = false;
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             <?php } ?>
@@ -76,7 +97,7 @@
                     <?php } ?>
 
                     <div class="form-group">
-                        <input type="submit" name="submit" value="Iniciar Sesión" class="btn btn-primary">
+                        <input type="submit" name="submit" value="Iniciar Sesión" class="btn btn-primary btn-sqr">
                     </div>
                 </form>
             </div>

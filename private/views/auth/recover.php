@@ -52,7 +52,7 @@ $message = array_fill_keys($types, false);
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" name="submit" value="Recuperar" class="btn btn-primary">
+                        <input type="submit" name="submit" value="Recuperar" class="btn btn-primary btn-sqr">
                     </div>
                 </form>
             </div>
