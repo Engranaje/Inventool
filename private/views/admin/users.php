@@ -1,7 +1,7 @@
 <h1>Lista de usuarios</h1>
 
-<div class="table-responsive mt-4">
-    <div class="col-md-12 mb-4 py-1">
+<div class="row">
+    <div class="table-responsive my-4 pt-2 col-12">
         <table class="table" id="data-table" data-model-singular="usuario" data-model-plural="usuarios">
             <thead>
                 <tr>
@@ -41,12 +41,12 @@
                             <!-- Disapprove user button -->
                             <?php if($user['status'] == '1'){ ?>
                                 <a href="<?php echo ROOT_URL . '/admin/user/' . $user['user_id']; ?>/disapprove"
-                                    class="btn btn-danger btn-block">
+                                    class="btn btn-secondary btn-sqr btn-block">
                                         Desaprobar
                                 </a>
                             <?php }else{ ?>
                                 <a href="<?php echo ROOT_URL . '/admin/user/' . $user['user_id']; ?>/approve"
-                                    class="btn btn-success btn-block">
+                                    class="btn btn-primary btn-sqr btn-block">
                                         Aprobar
                                 </a>
                             <?php } ?>
