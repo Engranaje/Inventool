@@ -1,4 +1,4 @@
-<div class="content-container" data-type="new-item">
+<div class="content-container" data-type="new-item" id="add-new-item-container">
     <div class="content-container-box new-item-container">
         <?php
             $_SESSION['token_time'] = time();

@@ -176,3 +176,15 @@
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
+<?php
+    // Show add new item container if accessed from another page
+    if($page == 'new'){
+?>
+    <script>
+        document.getElementById('add-new-item-container').style.display = 'block';
+        document.getElementById('add-new-item-container').children[0].style.display = 'block';
+    </script>
+<?php
+    }
+?>
