@@ -76,6 +76,14 @@ class AdminModel extends Model
                     'password',
                     'confirm_password',
                 ]);
+
+                // Confirm password if it's set
+                Functions::confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
+
+                if (Functions::has_message(array_keys($data))) {
+                    header('Location:' . ROOT_URL . '/admin/user/'.$id.'/edit');
+                    return $data;
+                }
             } else {
                 $data = Functions::form_data([
                     ['int' => 'role_id']

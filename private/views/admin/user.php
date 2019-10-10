@@ -2,7 +2,41 @@
     $_SESSION['token_time'] = time();
     $_SESSION['submitted'] = false;
     $user = $viewmodel['user'];
+    $types = [
+        'password',
+        'confirm_password',
+        'error'
+    ];
 ?>
+
+<?php if (Functions::has_message($types)) { ?>
+
+    <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
+        <div class="d-inline-block m-0 py-0">
+                <?php
+                    foreach ($types as $key => $type) {
+                        if (Functions::has_message($type)) {
+                            ?>
+                    <p class="m-3">
+                        <?php echo Functions::message($type); ?>
+                    </p>
+                <?php
+                        }
+                    } ?>
+        </div>
+    </div>
+
+<?php } else if(Functions::has_message('success')){ ?>
+
+    <div class="lzi alert-msg alert-success text-center mx-auto mt-3 mb-0" role="alert">
+        <div class="d-inline-block m-0 py-0">
+            <p class="m-3">
+                <?php echo Functions::message('success'); ?>
+            </p>
+        </div>
+    </div>
+
+<?php } ?>
 
 <h1 class="text-center mb-4">Editar usuario</h1>
 
@@ -34,14 +68,14 @@
                             type="password"
                             name="confirm_password"
                             id="confirm_password"
-                            class="form-control<?php echo $message['confirm_password'] ? ' is-invalid' : ''; ?>"
+                            class="form-control"
                             placeholder="Confirmar contraseña">
                     </div>
                 <?php } ?>
 
                 <div class="form-group">
                     <label for="role_id">Rol</label>
-                    <select name="role_id" id="role_id" class="form-control">
+                    <select name="role_id" id="role_id" class="form-control select-box">
                         <?php
                             foreach ($viewmodel['roles'] as $role) {
                         ?>
@@ -54,10 +88,10 @@
                     </select>
                 </div>
 
-                <div class="mt-4 row col-md-12 justify-content-between p-0 m-0">
-                    <input type="submit" value="Actualizar" class="btn btn-primary col-md-5">
+                <div class="row col-md-12 justify-content-between p-0 mx-0 my-4">
+                    <input type="submit" value="Actualizar" class="btn btn-primary btn-sqr col-md-5">
                     <a href="#"
-                        class="btn btn-danger col-md-5 show-content"
+                        class="btn btn-secondary btn-sqr col-md-5 show-content"
                         data-type="delete"
                         data-record-type="el usuario"
                         data-text="<?php echo $user['user_name']; ?>"
