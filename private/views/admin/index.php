@@ -27,12 +27,12 @@
 </div>
 
 <div class="row center-box f-row align-items-center">
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center mt-5 mt-md-0">
         <a href="<?php echo ROOT_URL; ?>/admin/users" class="text-dark d-block"><i class="lzi user big-icon"></i></a>
         Lista de usuarios
     </div>
 
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center mt-5 mt-md-0">
         <a href="<?php echo ROOT_URL; ?>/admin/user/create" class="text-dark d-block"><i class="lzi iconplus big-icon"></i></a>
         Crear usuario
     </div>
@@ -40,5 +40,10 @@
     <div class="col-md-4 text-center mt-5 mt-md-0">
         <a href="<?php echo ROOT_URL; ?>/admin/users/trash" class="text-dark d-block"><i class="lzi trashcan big-icon"></i></a>
         Ver usuarios eliminados
+    </div>
+
+    <div class="col-md-4 text-center my-5 my-md-0">
+        <a href="<?php echo ROOT_URL; ?>/admin/users/trash" class="text-dark d-block"><i class="lzi parametros big-icon"></i></a>
+        Otros Parámetros
     </div>
 </div>
