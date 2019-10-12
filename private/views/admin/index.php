@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-md-4 text-center my-5 my-md-0">
-        <a href="<?php echo ROOT_URL; ?>/admin/users/trash" class="text-dark d-block"><i class="lzi parametros big-icon"></i></a>
-        Otros Parámetros
+        <a href="<?php echo ROOT_URL; ?>/admin/notifications" class="text-dark d-block"><i class="lzi inbox big-icon"></i></a>
+        Notificaciones
     </div>
 </div>
