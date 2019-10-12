@@ -28,6 +28,8 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `demo`
 --
 
+use inv_tooldb;
+
 CREATE TABLE `demo` (
   `id` bigint(20) NOT NULL,
   `address` varchar(15) CHARACTER SET utf8 NOT NULL,
@@ -92,9 +94,10 @@ CREATE TABLE `stock` (
   `type` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stock` decimal(10,2) NOT NULL,
+  `demo_id` bigint(20) DEFAULT NULL,
+  `notification` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `demo_id` bigint(20) DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
