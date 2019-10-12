@@ -1,12 +1,13 @@
 @font-face {
   font-family: 'Lizziecons';
-  src:  url('fonts/Lizziecons.eot?m7t9kn');
-  src:  url('fonts/Lizziecons.eot?m7t9kn#iefix') format('embedded-opentype'),
-    url('fonts/Lizziecons.ttf?m7t9kn') format('truetype'),
-    url('fonts/Lizziecons.woff?m7t9kn') format('woff'),
-    url('fonts/Lizziecons.svg?m7t9kn#Lizziecons') format('svg');
+  src:  url('fonts/Lizziecons.eot?y33jt4');
+  src:  url('fonts/Lizziecons.eot?y33jt4#iefix') format('embedded-opentype'),
+    url('fonts/Lizziecons.ttf?y33jt4') format('truetype'),
+    url('fonts/Lizziecons.woff?y33jt4') format('woff'),
+    url('fonts/Lizziecons.svg?y33jt4#Lizziecons') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: block;
 }
 
 .lzi {
@@ -24,6 +25,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.imp-exp-user:before {
+  content: "\e990";
+}
+.imp-exp:before {
+  content: "\e989";
+}
+.exportar-user:before {
+  content: "\e98a";
+}
+.exportar:before {
+  content: "\e98b";
+}
+.importar:before {
+  content: "\e98c";
+}
+.importar-user:before {
+  content: "\e98d";
+}
+.parametros-alt:before {
+  content: "\e98e";
+}
+.parametros:before {
+  content: "\e98f";
+}
 .iconplus:before {
   content: "\e988";
 }

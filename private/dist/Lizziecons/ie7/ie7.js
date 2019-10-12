@@ -13,6 +13,14 @@
 		el.innerHTML = '<span style="font-family: \'Lizziecons\'">' + entity + '</span>' + html;
 	}
 	var icons = {
+		'imp-exp-user': '&#xe990;',
+		'imp-exp': '&#xe989;',
+		'exportar-user': '&#xe98a;',
+		'exportar': '&#xe98b;',
+		'importar': '&#xe98c;',
+		'importar-user': '&#xe98d;',
+		'parametros-alt': '&#xe98e;',
+		'parametros': '&#xe98f;',
 		'iconplus': '&#xe988;',
 		'lupa': '&#xe987;',
 		'facturacion': '&#xe984;',
