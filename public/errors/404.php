@@ -21,7 +21,7 @@
                 <div class="col-md-12 text-center">
                     <span class="display-1 d-block">404</span>
                     <div class="mb-4 lead">La página que busca no se pudo encontrar.</div>
-                    <a href="<?php echo ROOT_URL; ?>" class="btn btn-primary">Regresar a la página de inicio</a>
+                    <a href="<?php echo ROOT_URL; ?>" class="btn btn-primary btn-sqr">Regresar a la página de inicio</a>
                 </div>
             </div>
         </div>
