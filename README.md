@@ -37,10 +37,10 @@ Si tienes alguna idea para añadir al proyecto y quieres contribuir, puedes cont
 Para cualquier información adicional puedes contactarnos a través del correo contacto@engranaje.me.
 
 # Autores
-Desarrollo y diseño:
+Desarrollo:
 * [Harold Abreu](https://github.com/Harverbo)
 
-Iconos:
+Diseño:
 * [Renelis Abreu](https://github.com/renelis)
 
 ## Licencia
