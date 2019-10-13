@@ -64,8 +64,8 @@
                                 <option value="null" disabled selected>-- Seleccionar un componente --</option>
 
                                 <?php
-                                    if (!empty($viewmodel)) {
-                                        foreach ($viewmodel as $stock) {
+                                    if (!empty($viewmodel['stock'])) {
+                                        foreach ($viewmodel['stock'] as $stock) {
                                 ?>
 
                                     <option value="<?php echo $stock['code']; ?>">
