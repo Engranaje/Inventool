@@ -13,7 +13,7 @@
             <p>Usted está en el modo de prueba. Puede utilizar la aplicación normalmente, pero sus datos serán eliminados luego de 30 minutos o cuando cierre sesión.</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-primary btn-sqr" data-dismiss="modal">Ok</button>
         </div>
         </div>
     </div>

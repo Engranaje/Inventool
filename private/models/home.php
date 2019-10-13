@@ -26,7 +26,20 @@ class HomeModel extends Model
         $this->query('SELECT * FROM stock WHERE deleted_at IS NULL');
         $stock = $this->resultset();
 
-        return $stock;
+        // Determine if any item has notifications active
+        $notification = false;
+        foreach ($stock as $key => $value) {
+            if ($value['notification'] != null){
+                if ($value['stock'] <= $value['notification']){
+                    $notification = true;
+                }
+            }
+        }
+
+        return [
+            'stock' => $stock,
+            'notification' => $notification
+        ];
     }
 
     /**

@@ -24,6 +24,56 @@
     }
 ?>
 
+<!-- Modal for stock notifications -->
+<?php
+    if($viewmodel['notification']){
+        if( $_COOKIE['notifications'] != 'no' ){
+?>
+    <div class="modal fade" id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="notification-modal-Title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Notificación de baja existencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tan solo le quedan:</p>
+                    <ul>
+                        <?php
+                            foreach ($viewmodel['stock'] as $stock) {
+                                if($stock['stock'] <= $stock['notification']){
+                        ?>
+                            <li><?php echo floatval( $stock['stock'] ) . ' ' . $stock['description']; ?></li>
+                        <?php
+                            }
+                            }
+                        ?>
+                    </ul>
+                </div>
+                <div class="modal-footer notification-footer">
+                    <form action="<?php echo ROOT_URL; ?>/admin/hide_notifications" method="POST">
+                        <input
+                            type="hidden"
+                            name="token"
+                            value="<?php echo $session->getToken(); ?>">
+
+                        <button type="submit" class="btn btn-primary btn-sqr">Ocultar por hoy</button>
+                    </form>
+
+                    <?php if ($session->is_admin()) { ?>
+                        <a href="<?php echo ROOT_URL; ?>/admin/notifications" class="btn btn-secondary btn-sqr">Administrar notificaciones</a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+        }
+    }
+?>
+
 <!-- Transaction type selection -->
 <div class="mb-3">
     <div class="display-md-4 text-center mb-3">Seleccione el tipo de transacción</div>
@@ -76,8 +126,8 @@
 
                     <tbody>
                         <?php
-                            if (!empty($viewmodel)) {
-                                foreach ($viewmodel as $stock) {
+                            if (!empty($viewmodel['stock'])) {
+                                foreach ($viewmodel['stock'] as $stock) {
                         ?>
                             <tr>
                                 <!-- Product code -->

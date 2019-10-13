@@ -214,7 +214,8 @@
 .form-control:focus {
     background-color: $bg-color !important;
     border-color: $main !important;
-    box-shadow: 0 0 0 2px $main
+    box-shadow: none !important;
+    border: 2px solid;
 }
 
 .form-control.form-control-sm {
@@ -286,6 +287,7 @@ input[type=radio]:checked::after {
     color: rgba($color: $font-color, $alpha: 0.5) !important;
 }
 
+// Modals
 .card-title-white {
     font-size: 22px;
     color: #FBFEF9 !important;
@@ -308,7 +310,7 @@ input[type=radio]:checked::after {
 @media (min-width: 480px){
     .modal-title,
     .user-info-head {
-        font-size: 42px;
+        font-size: 28px;
     }
 
     .user-info-p-strong {
@@ -317,6 +319,38 @@ input[type=radio]:checked::after {
 
     .user-info-p {
         font-size: 22px;
+    }
+}
+
+.notification-footer {
+    flex-direction: column;
+}
+
+.notification-footer button,
+.notification-footer a {
+    display: block;
+    width: 100%;
+}
+
+.notification-footer a {
+    margin-left: 0 !important;
+    margin-top: 20px;
+}
+
+@media (min-width: 480px){
+    .notification-footer {
+        flex-direction: row;
+    }
+
+    .notification-footer button,
+    .notification-footer a {
+        display: inline-block;
+        width: auto;
+    }
+
+    .notification-footer a {
+        margin-top: 0;
+        margin-left: 0.25rem !important;
     }
 }
 

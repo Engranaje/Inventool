@@ -328,4 +328,81 @@ class AdminModel extends Model
 
         header('Location:' . ROOT_URL . '/admin');
     }
+
+    /**
+     * Show notifications configuration
+     */
+    public function notifications()
+    {
+        // Find all records
+        $this->query('SELECT * FROM stock WHERE deleted_at IS NULL');
+        return $this->resultset();
+    }
+
+    /**
+     * Hide notifications today
+     */
+    public function hide_notifications()
+    {
+        setcookie('notifications', 'no', strtotime("tomorrow"), '/');
+        header('Location:' . ROOT_URL);
+    }
+
+    /**
+     * Notify item low stock
+     */
+    public function notify()
+    {
+        try {
+            // Item to notify
+            if (isset($_POST['code']) && !empty($_POST['code'])) {
+                $code = filter_var($_POST['code'], FILTER_VALIDATE_INT);
+            }
+
+            // Quantity to notify
+            if (isset($_POST['notify']) && !empty($_POST['notify'])) {
+                $quantity = filter_var($_POST['notify'], FILTER_VALIDATE_INT);
+            }
+
+            // Select item to verify that notification quantity is not less than actual item quantity
+            $this->query('SELECT stock FROM stock WHERE code = :code');
+            $this->bind(':code', $code);
+            $stock = $this->singleRow();
+
+            // Update notification
+            if($stock['stock'] >= $quantity){
+                $this->query('UPDATE stock SET notification = :quantity WHERE code = :code');
+                $this->bind(':code', $code);
+                $this->bind(':quantity', $quantity);
+                $this->execute();
+
+                Functions::flash('success', 'Recibirá una notificación en la pantalla principal cuando la existencia sea ' . $quantity . ' o menor.');
+            }else{
+                Functions::flash('error', 'La cantidad para notificar no puede ser inferior a la cantidad actual en existencia.');
+            }
+        } catch (\Exception $e) {
+            Functions::flash('error', 'Hubo un error intentando activar la notificación. <br /> Por favor, intente de nuevo.');
+        }
+
+        header('Location:' . ROOT_URL . '/admin');
+    }
+
+    /**
+     * Disable item notifications
+     */
+    public function unnotify($code)
+    {
+        try {
+            $this->query('UPDATE stock SET notification = :quantity WHERE code = :code');
+            $this->bind(':code', $code);
+            $this->bind(':quantity', null);
+            $this->execute();
+
+            Functions::flash('success', 'Dejará de recibir notificaciones sobre este artículo');
+        } catch (\Exception $e) {
+            Functions::flash('error', 'Hubo un error intentando desactivar la notificación. <br /> Por favor, intente de nuevo.');
+        }
+
+        header('Location:' . ROOT_URL . '/admin');
+    }
 }

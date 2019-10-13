@@ -120,4 +120,36 @@ class Admin extends Controller
             header('Location:' . ROOT_URL . '/errors/403.php');
         }
     }
+
+    /**
+     * Call notifications method
+     */
+    protected function notifications()
+    {
+        $this->callModel();
+
+        if ($this->user->is_admin()) {
+            if ($this->id != 'notify' && $this->secondAction != 'unnotify') {
+                $this->returnView($this->model->notifications(), 'main');
+            } else {
+                if($this->secondAction == 'unnotify'){
+                    $this->model->unnotify($this->id);
+                }else{
+                    $this->model->notify();
+                }
+            }
+        } else {
+            header('Location:' . ROOT_URL . '/errors/403.php');
+        }
+    }
+
+    /**
+     * Call hide notifications method
+     */
+    protected function hide_notifications()
+    {
+        $this->callModel();
+
+        $this->model->hide_notifications();
+    }
 }

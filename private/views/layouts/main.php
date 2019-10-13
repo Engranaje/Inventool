@@ -184,5 +184,13 @@ if (DEMO_MODE) {
             }
         }
     ?>
+
+    <script>
+        if($('#notification-modal').length > 0){
+            $(window).on('load',function(){
+                $('#notification-modal').modal('show');
+            });
+        }
+    </script>
 </body>
 </html>
