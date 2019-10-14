@@ -567,11 +567,11 @@ class AuthModel extends Model
     /**
      * Clean database
      */
-    public function cleanDB($address = null)
+    public function cleanDB()
     {
-        $address = $address == null ? address() : $address;
+        $time = date('Y-m-d H:i:s', time() - ( 60 * 30 ));
 
-        $sql = 'DELETE FROM demo WHERE address = :address;
+        $sql = 'DELETE FROM demo WHERE created_at < :time;
                 ALTER TABLE demo AUTO_INCREMENT = 1;
                 ALTER TABLE users AUTO_INCREMENT = 1;
                 ALTER TABLE transaction AUTO_INCREMENT = 1;
@@ -579,7 +579,7 @@ class AuthModel extends Model
                 ALTER TABLE kit_components AUTO_INCREMENT = 1;';
 
         $this->query($sql);
-        $this->bind(':address', $address);
+        $this->bind(':time', $time);
         $this->execute();
     }
 }

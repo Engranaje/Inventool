@@ -15,10 +15,10 @@ class HomeModel extends Model
 
             if($user){
                 $time = time() - strtotime($user['created_at']);
+                $model = new AuthModel();
+                $model->cleanDB();
 
                 if($time > 60 * 30 || $time < 0){
-                    $model = new AuthModel();
-                    $model->cleanDB($address);
                     logout();
                 }
             }

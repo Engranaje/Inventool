@@ -34,16 +34,6 @@ $session = new Functions();
 if ($page != 'auth') {
     $session->require_auth();
 }
-
-
-if (DEMO_MODE) {
-    // logout after 30 minutes if demo mode is on
-    if(isset($_SESSION['login_time'])){
-        if(time() - $_SESSION['login_time'] > 60 * 30){
-            header('location:'.ROOT_URL.'/auth/logout/'.$session->getUserToken());
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
