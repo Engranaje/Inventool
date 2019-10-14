@@ -24,10 +24,18 @@
     }
 ?>
 
-<!-- Modal for stock notifications -->
 <?php
+    // Modal for stock notifications
     if($viewmodel['notification']){
-        if( $_COOKIE['notifications'] != 'no' ){
+        // Set notifications to true if notifications in cookies is not equal to 'no'
+        $notifications = true;
+        if(isset($_COOKIE['notifications'])){
+            if($_COOKIE['notifications'] == 'no'){
+                $notifications = false;
+            }
+        }
+
+        if( $notifications ){
 ?>
     <div class="modal fade" id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="notification-modal-Title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -35,7 +43,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Notificación de baja existencia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
