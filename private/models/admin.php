@@ -65,27 +65,27 @@ class AdminModel extends Model
         $error_message = 'No se pudo actualizar el usuario. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             /**
              * Form data.
              */
             // If Password change is allowed, catch password
             if (PASSWORD_CHANGE) {
-                $data = Functions::form_data([
+                $data = form_data([
                     ['int' => 'role_id'],
                     'password',
                     'confirm_password',
                 ]);
 
                 // Confirm password if it's set
-                Functions::confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
+                confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
 
-                if (Functions::has_message(array_keys($data))) {
+                if (has_message(array_keys($data))) {
                     header('Location:' . ROOT_URL . '/admin/user/'.$id.'/edit');
                     return $data;
                 }
             } else {
-                $data = Functions::form_data([
+                $data = form_data([
                     ['int' => 'role_id']
                 ]);
             }
@@ -96,29 +96,29 @@ class AdminModel extends Model
                 if (!PASSWORD_CHANGE) {
                     $this->query('UPDATE users SET role_id = :role, updated_at = :updated WHERE id = :id');
                     $this->bind(':role', $data['role_id']);
-                    $this->bind(':updated', Functions::now());
+                    $this->bind(':updated', now());
                     $this->bind(':id', $id);
                 } else {
                     // If password is not set, leave it as is
-                    if (Functions::blank($data['password'])) {
+                    if (blank($data['password'])) {
                         $this->query('UPDATE users SET role_id = :role, updated_at = :updated WHERE id = :id');
                         $this->bind(':role', $data['role_id']);
-                        $this->bind(':updated', Functions::now());
+                        $this->bind(':updated', now());
                         $this->bind(':id', $id);
                     } else {
                         $this->query('UPDATE users SET password = :password, role_id = :role, updated_at = :updated
                                     WHERE id = :id');
                         $this->bind(':password', $data['password_hashed']);
                         $this->bind(':role', $data['role_id']);
-                        $this->bind(':updated', Functions::now());
+                        $this->bind(':updated', now());
                         $this->bind(':id', $id);
                     }
                 }
                 $this->execute();
 
-                Functions::flash('success', 'El usuario ha sido actualizado correctamente.');
+                flash('success', 'El usuario ha sido actualizado correctamente.');
             } catch (\Exception $e) {
-                Functions::flash('error', 'Hubo un error intentando actualizar el usuario. <br /> Por favor, intente de nuevo.');
+                flash('error', 'Hubo un error intentando actualizar el usuario. <br /> Por favor, intente de nuevo.');
             }
         }
 
@@ -141,18 +141,18 @@ class AdminModel extends Model
         $error_message = 'No se pudo registrar el usuario. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             /**
              * Form data.
              */
-            $data = Functions::form_data([
+            $data = form_data([
                 'name',
                 'username',
                 'email',
                 ['int' => 'role_id']
             ]);
 
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 return [
                     'data' => $data,
                     'roles' => $roles
@@ -172,11 +172,11 @@ class AdminModel extends Model
                     $this->bind(':password', $password);
                     $this->bind(':role_id', $data['role_id']);
                     $this->bind(':status', '1');
-                    $this->bind(':created', Functions::now());
+                    $this->bind(':created', now());
                     $this->execute();
                 }
             } catch (\Exception $e) {
-                Functions::flash('error', 'El nombre de usuario o el correo ya está en uso');
+                flash('error', 'El nombre de usuario o el correo ya está en uso');
 
                 return [
                     'data' => $data,
@@ -222,25 +222,25 @@ class AdminModel extends Model
                     if ($_SESSION['submitted'] == false) {
                         try {
                             $this->query('UPDATE users SET deleted_at = :delete_date WHERE id = :id');
-                            $this->bind(':delete_date', Functions::now());
+                            $this->bind(':delete_date', now());
                             $this->bind(':id', $id);
                             $this->execute();
 
-                            Functions::flash('success', 'El usuario ha sido eliminado correctamente.');
+                            flash('success', 'El usuario ha sido eliminado correctamente.');
                         } catch (\Exception $e) {
-                            Functions::flash('error', 'Hubo un error intentando eliminar el usuario. <br /> Por favor, intente de nuevo.');
+                            flash('error', 'Hubo un error intentando eliminar el usuario. <br /> Por favor, intente de nuevo.');
                         }
 
                         $_SESSION['submitted'] = true;
                     }
                 } else {
-                    Functions::flash('error', 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.');
+                    flash('error', 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.');
                 }
             } else {
-                Functions::flash('error', 'No se pudo eliminar el usuario. <br /> Por favor, intente de nuevo.');
+                flash('error', 'No se pudo eliminar el usuario. <br /> Por favor, intente de nuevo.');
             }
         } else {
-            Functions::flash('error', 'No se pudo eliminar el usuario. <br /> Por favor, intente de nuevo.');
+            flash('error', 'No se pudo eliminar el usuario. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -258,9 +258,9 @@ class AdminModel extends Model
             $this->bind(':id', $id);
             $this->execute();
 
-            Functions::flash('success', 'El usuario ha sido recuperado correctamente.');
+            flash('success', 'El usuario ha sido recuperado correctamente.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando recuperar el usuario. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando recuperar el usuario. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -276,13 +276,13 @@ class AdminModel extends Model
             $this->query('UPDATE users SET status = :status, hash = :hash, updated_at = :updated WHERE id = :id');
             $this->bind(':status', '1');
             $this->bind(':hash', null);
-            $this->bind(':updated', Functions::now());
+            $this->bind(':updated', now());
             $this->bind(':id', $id);
             $this->execute();
 
-            Functions::flash('success', 'El usuario ha sido aprobado y ya tiene permisos para utilizar la aplicación.');
+            flash('success', 'El usuario ha sido aprobado y ya tiene permisos para utilizar la aplicación.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando aprobar el usuario. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando aprobar el usuario. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -298,13 +298,13 @@ class AdminModel extends Model
             $this->query('UPDATE users SET status = :status, hash = :hash, updated_at = :updated WHERE id = :id');
             $this->bind(':status', '0');
             $this->bind(':hash', null);
-            $this->bind(':updated', Functions::now());
+            $this->bind(':updated', now());
             $this->bind(':id', $id);
             $this->execute();
 
-            Functions::flash('success', 'El usuario ha sido desaprobado y ya no tiene permisos para utilizar la aplicación.');
+            flash('success', 'El usuario ha sido desaprobado y ya no tiene permisos para utilizar la aplicación.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando desaprobar el usuario. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando desaprobar el usuario. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -321,9 +321,9 @@ class AdminModel extends Model
             $this->bind(':id', $id);
             $this->execute();
 
-            Functions::flash('success', 'El usuario ha sido eliminado permanentemente.');
+            flash('success', 'El usuario ha sido eliminado permanentemente.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando eliminar el usuario. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando eliminar el usuario. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -376,12 +376,12 @@ class AdminModel extends Model
                 $this->bind(':quantity', $quantity);
                 $this->execute();
 
-                Functions::flash('success', 'Recibirá una notificación en la pantalla principal cuando la existencia sea ' . $quantity . ' o menor.');
+                flash('success', 'Recibirá una notificación en la pantalla principal cuando la existencia sea ' . $quantity . ' o menor.');
             }else{
-                Functions::flash('error', 'La cantidad para notificar no puede ser inferior a la cantidad actual en existencia.');
+                flash('error', 'La cantidad para notificar no puede ser inferior a la cantidad actual en existencia.');
             }
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando activar la notificación. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando activar la notificación. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');
@@ -398,9 +398,9 @@ class AdminModel extends Model
             $this->bind(':quantity', null);
             $this->execute();
 
-            Functions::flash('success', 'Dejará de recibir notificaciones sobre este artículo');
+            flash('success', 'Dejará de recibir notificaciones sobre este artículo');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando desactivar la notificación. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando desactivar la notificación. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL . '/admin');

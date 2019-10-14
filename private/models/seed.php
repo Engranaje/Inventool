@@ -59,7 +59,7 @@ class SeedModel extends Model
             $this->bind(':password', password_hash(ADMIN_PASSWORD, PASSWORD_BCRYPT, ['cost' => 12]));
             $this->bind(':role_id', '1');
             $this->bind(':status', '1');
-            $this->bind(':created_at', Functions::now());
+            $this->bind(':created_at', now());
             $this->execute();
         }
     }

@@ -28,9 +28,9 @@ class RemoveModel extends Model
         $error_message = 'No se pudo registrar la salida. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             // Form data
-            $data = Functions::form_data([
+            $data = form_data([
                 'date',
                 ['array' => 'code'],
                 ['array' => 'types'],
@@ -136,9 +136,9 @@ class RemoveModel extends Model
                     $this->execute();
                 }
 
-                Functions::flash('success', 'La salida ha sido registrada correctamente.');
+                flash('success', 'La salida ha sido registrada correctamente.');
             } catch (\Exception $e) {
-                Functions::flash('error', 'Hubo un error intentando registrar la salida. <br /> Por favor, intente de nuevo.');
+                flash('error', 'Hubo un error intentando registrar la salida. <br /> Por favor, intente de nuevo.');
             }
         }
 

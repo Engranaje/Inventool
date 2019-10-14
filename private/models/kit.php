@@ -69,7 +69,7 @@ class KitModel extends Model
                                 }
                             }
                         } catch (\Exception $e) {
-                            Functions::flash('error', 'Hubo un error buscando los componentes.');
+                            flash('error', 'Hubo un error buscando los componentes.');
                             header('Location:' . ROOT_URL);
                         }
                     }
@@ -112,19 +112,19 @@ class KitModel extends Model
                         $this->bind(':code', $id);
                         $this->execute();
 
-                        Functions::flash('success', 'El kit ha sido actualizado correctamente.');
+                        flash('success', 'El kit ha sido actualizado correctamente.');
 
                     } catch (\Exception $e) {
-                        Functions::flash('error', 'Hubo un error intentando crear el registro.');
+                        flash('error', 'Hubo un error intentando crear el registro.');
                     }
                 } else {
-                    Functions::flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
+                    flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
                 }
             } else {
-                Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+                flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
             }
         } else {
-            Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+            flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);

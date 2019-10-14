@@ -35,26 +35,26 @@ $message = array_fill_keys($types, false);
 
     <div class="d-flex justify-content-center">
         <div class="card col-9 col-md-4">
-            <?php if (Functions::has_message('success')) { ?>
+            <?php if (has_message('success')) { ?>
 
                     <div class="lzi alert-msg alert-success text-center mx-auto mt-3 mb-0" role="alert">
                         <div class="d-inline-block m-0">
                             <p class="mb-0">
-                                <?php echo Functions::message('success'); ?>
+                                <?php echo message('success'); ?>
                             </p>
                         </div>
                     </div>
 
-            <?php } elseif (Functions::has_message($types)) { ?>
+            <?php } elseif (has_message($types)) { ?>
                 <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
                     <div class="d-inline-block m-0">
                         <?php
                             foreach ($types as $key => $type) {
-                                if (Functions::has_message($type)) {
-                                    $message[$type] = Functions::has_message($type);
+                                if (has_message($type)) {
+                                    $message[$type] = has_message($type);
                         ?>
                             <p class="m-3">
-                                <?php echo Functions::message($type); ?>
+                                <?php echo message($type); ?>
                             </p>
                         <?php
                                 } else {
@@ -76,7 +76,7 @@ $message = array_fill_keys($types, false);
                             type="text"
                             name="username"
                             id="username"
-                            class="form-control<?php echo Functions::has_message('name') ? ' is-invalid' : ''; ?>"
+                            class="form-control<?php echo has_message('name') ? ' is-invalid' : ''; ?>"
                             placeholder="Nombre de usuario"
                             required>
                     </div>
@@ -87,7 +87,7 @@ $message = array_fill_keys($types, false);
                             type="password"
                             name="password"
                             id="password"
-                            class="form-control<?php echo Functions::has_message('password') ? ' is-invalid' : ''; ?>"
+                            class="form-control<?php echo has_message('password') ? ' is-invalid' : ''; ?>"
                             placeholder="Contraseña"
                             required>
                     </div>

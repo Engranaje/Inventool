@@ -55,7 +55,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->update_user($this->id);
             } else {
-                Functions::flash('error', 'No puede actualizar su usuario desde esta página');
+                flash('error', 'No puede actualizar su usuario desde esta página');
                 header('Location:' . ROOT_URL . '/admin');
             }
         } else if ($this->id == 'create' && $this->secondAction == 'index') {
@@ -73,7 +73,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->delete_user($this->id);
             } else {
-                Functions::flash('error', 'No puede eliminar su usuario desde esta página');
+                flash('error', 'No puede eliminar su usuario desde esta página');
                 header('Location:' . ROOT_URL . '/admin');
             }
         } else if ($this->secondAction == 'recover') {
@@ -81,7 +81,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->recover_user($this->id);
             } else {
-                Functions::flash('error', 'No puede recuperar su usuario');
+                flash('error', 'No puede recuperar su usuario');
                 header('Location:' . ROOT_URL . '/admin');
             }
         } else if ($this->secondAction == 'approve') {
@@ -89,7 +89,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->approve_user($this->id);
             } else {
-                Functions::flash('error', 'No puede aprobar su usuario');
+                flash('error', 'No puede aprobar su usuario');
                 header('Location:' . ROOT_URL . '/admin');
             }
         } else if ($this->secondAction == 'disapprove') {
@@ -97,7 +97,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->disapprove_user($this->id);
             } else {
-                Functions::flash('error', 'No puede desaprobar su usuario');
+                flash('error', 'No puede desaprobar su usuario');
                 header('Location:' . ROOT_URL . '/admin');
             }
         } else if ($this->secondAction == 'destroy') {
@@ -105,7 +105,7 @@ class Admin extends Controller
             if ($this->id != $_SESSION['user_id']) {
                 $this->model->destroy_user($this->id);
             } else {
-                Functions::flash('error', 'No puede eliminar su usuario desde esta página');
+                flash('error', 'No puede eliminar su usuario desde esta página');
                 header('Location:' . ROOT_URL . '/admin');
             }
         }

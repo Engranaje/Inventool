@@ -16,9 +16,9 @@ class AuthModel extends Model
             return;
         }
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message)) {
             // Form data
-            $data = Functions::form_data(['username', 'password']);
+            $data = form_data(['username', 'password']);
 
             try {
                 $this->query('SELECT users.id AS user_id, users.name AS user_name, username, password, users.hash, roles.name AS role, status FROM users
@@ -30,8 +30,8 @@ class AuthModel extends Model
 
                 if ($user) {
                     // If user is not active, return
-                    if (!Functions::isActive($user) || !Functions::blank($user['hash'])) {
-                        Functions::flash('error', 'Su usuario aún no ha sido activado. <br /> Contacte con el administrador.');
+                    if (!isActive($user) || !blank($user['hash'])) {
+                        flash('error', 'Su usuario aún no ha sido activado. <br /> Contacte con el administrador.');
 
                         return;
                     }
@@ -51,24 +51,24 @@ class AuthModel extends Model
                         $_SESSION['role'] = $user['role'];
                         $_SESSION['status'] = $user['status'];
                         $_SESSION['auth'] = true;
-                        $_SESSION['user_token'] = Functions::token();
+                        $_SESSION['user_token'] = token();
                         $_SESSION['login_time'] = time();
 
                         $this->query('UPDATE users SET login = :login, logout = :logout WHERE username = :username');
-                        $this->bind(':login', Functions::now());
+                        $this->bind(':login', now());
                         $this->bind(':logout', null);
                         $this->bind(':username', $data['username']);
                         $this->execute();
 
                         header('Location:'.ROOT_URL);
                     } else {
-                        Functions::flash('error', 'El usuario y/o la contraseña son incorrectos.');
+                        flash('error', 'El usuario y/o la contraseña son incorrectos.');
                     }
                 } else {
-                    Functions::flash('error', 'El usuario no existe');
+                    flash('error', 'El usuario no existe');
                 }
             } catch (\Exception $e) {
-                Functions::flash('error', $error_message);
+                flash('error', $error_message);
             }
         }
 
@@ -86,7 +86,7 @@ class AuthModel extends Model
 
                 $this->query('UPDATE users SET login = :login, logout = :logout WHERE username = :username');
                 $this->bind(':login', null);
-                $this->bind(':logout', Functions::now());
+                $this->bind(':logout', now());
                 $this->bind(':username', $username);
                 $this->execute();
 
@@ -96,11 +96,11 @@ class AuthModel extends Model
 
                 header('Location:'.ROOT_URL.'/auth/login');
             } else {
-                Functions::flash('error', 'No puede entrar directamente a esta dirección');
+                flash('error', 'No puede entrar directamente a esta dirección');
                 header('Location:'.ROOT_URL);
             }
         } else {
-            Functions::flash('error', 'No puede entrar directamente a esta dirección');
+            flash('error', 'No puede entrar directamente a esta dirección');
             header('Location:'.ROOT_URL);
         }
     }
@@ -117,7 +117,7 @@ class AuthModel extends Model
         $error_message = 'No se pudo registrar el usuario. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             require(ROOT_PATH.'vendor/autoload.php');
 
             // Clase para capturar excepciones
@@ -132,7 +132,7 @@ class AuthModel extends Model
             /**
              * Form data.
              */
-            $data = Functions::form_data([
+            $data = form_data([
                 'name',
                 'username',
                 'email',
@@ -141,9 +141,9 @@ class AuthModel extends Model
             ]);
 
             // Confirm password if it's set
-            Functions::confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
+            confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
 
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 return $data;
             }
 
@@ -161,9 +161,9 @@ class AuthModel extends Model
                 $this->execute();
 
                 if ($this->lastInsertId() > 0) {
-                    Functions::flash('success', 'Se ha registrado correctamente. <br /> Debe esperar a que el administrador apruebe su registro para poder iniciar sesión.');
+                    flash('success', 'Se ha registrado correctamente. <br /> Debe esperar a que el administrador apruebe su registro para poder iniciar sesión.');
                 } else {
-                    Functions::flash('error', 'El nombre de usuario o el correo ya están en uso.');
+                    flash('error', 'El nombre de usuario o el correo ya están en uso.');
 
                     return $data;
                 }
@@ -249,10 +249,10 @@ class AuthModel extends Model
 
                 /* Send email */
                 if (!$mail->send()) {
-                    Functions::flash('error', 'Hubo un error tratando de registrarlo. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
+                    flash('error', 'Hubo un error tratando de registrarlo. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
                 }
             } catch (Exception $e) {
-                Functions::flash('error', 'El nombre de usuario o el correo ya está en uso');
+                flash('error', 'El nombre de usuario o el correo ya está en uso');
 
                 return $data;
             }
@@ -275,11 +275,11 @@ class AuthModel extends Model
         $error_message = 'No se pudo registrar el usuario. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             /**
              * Form data.
              */
-            $data = Functions::form_data([
+            $data = form_data([
                 'name',
                 'username',
                 'email',
@@ -288,9 +288,9 @@ class AuthModel extends Model
             ]);
 
             // Confirm password if it's set
-            Functions::confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
+            confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
 
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 return $data;
             }
 
@@ -299,7 +299,7 @@ class AuthModel extends Model
 
                 $this->query('INSERT INTO demo (address, created_at) VALUES (:address, :created)');
                 $this->bind(':address', $address);
-                $this->bind(':created', Functions::now());
+                $this->bind(':created', now());
                 $this->execute();
                 $demo_id = $this->lastInsertId();
 
@@ -314,15 +314,15 @@ class AuthModel extends Model
                 $this->execute();
 
                 if ($this->lastInsertId() > 0) {
-                    Functions::flash('success', 'Se ha registrado correctamente. <br /> Puede probar la aplicación durante 30 minutos antes de que sus datos se eliminen automáticamente.');
+                    flash('success', 'Se ha registrado correctamente. <br /> Puede probar la aplicación durante 30 minutos antes de que sus datos se eliminen automáticamente.');
                 } else {
-                    Functions::flash('error', 'El nombre de usuario o el correo ya están en uso, o ya este IP está registrado.');
+                    flash('error', 'El nombre de usuario o el correo ya están en uso, o ya este IP está registrado.');
 
                     return $data;
                 }
 
             } catch (Exception $e) {
-                Functions::flash('error', 'El nombre de usuario o el correo ya está en uso');
+                flash('error', 'El nombre de usuario o el correo ya está en uso');
 
                 return $data;
             }
@@ -345,7 +345,7 @@ class AuthModel extends Model
         $error_message = 'No se pudo enviar el correo de recuperación. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             // Clase para capturar excepciones
             include ROOT_PATH.'PHPMailer/src/Exception.php';
 
@@ -360,9 +360,9 @@ class AuthModel extends Model
             /**
              * Form data.
              */
-            $data = Functions::form_data(['email']);
+            $data = form_data(['email']);
 
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 return $data;
             }
 
@@ -375,7 +375,7 @@ class AuthModel extends Model
                 $user = $this->singleRow();
 
                 if (!$user) {
-                    Functions::flash('error', 'No hay un usuario registrado con este correo');
+                    flash('error', 'No hay un usuario registrado con este correo');
 
                     return;
                 }
@@ -464,12 +464,12 @@ class AuthModel extends Model
 
                 /* Send email */
                 if ($mail->send()) {
-                    Functions::flash('success', 'Se ha enviado el correo de recuperación de contraseña. <br /> Revise su correo electrónico.');
+                    flash('success', 'Se ha enviado el correo de recuperación de contraseña. <br /> Revise su correo electrónico.');
 
                     return;
                 }
             } catch (Exception $e) {
-                Functions::flash('error', 'No hay un usuario registrado con este correo');
+                flash('error', 'No hay un usuario registrado con este correo');
 
                 return $data;
             }
@@ -503,19 +503,19 @@ class AuthModel extends Model
         $error_message = 'No se pudo actualizar su contraseña. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             /**
              * Form data.
              */
-            $data = Functions::form_data([
+            $data = form_data([
                 'password',
                 'confirm_password',
             ]);
 
             // Confirm password
-            Functions::confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
+            confirm_password($data['password'], $data['confirm_password'], 'password', 'confirm_password');
 
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 return $user;
             }
 
@@ -523,12 +523,12 @@ class AuthModel extends Model
                 $this->query('UPDATE users SET password = :password, hash = :hash, updated_at = :updated WHERE id = :id');
                 $this->bind(':password', $data['password_hashed']);
                 $this->bind(':hash', null);
-                $this->bind(':updated', Functions::now());
+                $this->bind(':updated', now());
                 $this->bind(':id', $user['id']);
                 $this->execute();
-                Functions::flash('success', 'Su contraseña ha sido actualizada');
+                flash('success', 'Su contraseña ha sido actualizada');
             } catch (\Exception $e) {
-                Functions::flash('error', 'No se pudo cambiar su contraseña');
+                flash('error', 'No se pudo cambiar su contraseña');
             }
         }
 
@@ -550,15 +550,15 @@ class AuthModel extends Model
                 $this->query('UPDATE users SET status = :status, hash = :hash, created_at = :created WHERE id = :id');
                 $this->bind(':status', '1');
                 $this->bind(':hash', null);
-                $this->bind(':created', Functions::now());
+                $this->bind(':created', now());
                 $this->bind(':id', $user['id']);
                 $this->execute();
-                Functions::flash('success', 'Ha verificado el usuario correctamente');
+                flash('success', 'Ha verificado el usuario correctamente');
             } else {
-                Functions::flash('error', 'Ya ha verificado este usuario');
+                flash('error', 'Ya ha verificado este usuario');
             }
         } catch (\Exception $e) {
-            Functions::flash('error', 'No pudo verificar el usuario');
+            flash('error', 'No pudo verificar el usuario');
         }
 
         header('Location:'.ROOT_URL);

@@ -39,7 +39,7 @@ class Auth extends Controller
     {
         if(USER_REGISTRATION && DEMO_MODE){
             $view = new AuthModel();
-            $this->returnCustomView($view->register_demo(), 'auth', 'register_demo');
+            $this->returnCustomView($view->register_demo(), 'auth', 'register');
         }else{
             header('Location:'.ROOT_URL.'/errors/404.php');
         }
@@ -52,7 +52,7 @@ class Auth extends Controller
     {
         if(USER_RECOVER){
             $view = new AuthModel();
-            if(Functions::blank($this->id) && $this->secondAction == 'index'){
+            if(blank($this->id) && $this->secondAction == 'index'){
                 $this->returnView($view->recover(), 'main');
             } else {
                 $this->returnCustomView($view->pwd_change($this->id, $this->secondAction), 'auth', 'pwd-change');

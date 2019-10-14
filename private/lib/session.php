@@ -99,7 +99,7 @@ abstract class Session
                 header('Location:' . ROOT_URL . '/404.php');
             }
         } else {
-            $_SESSION['user_token'] = Functions::token();
+            $_SESSION['user_token'] = token();
             $this->user_token = $_SESSION['user_token'];
         }
 
@@ -112,7 +112,7 @@ abstract class Session
                 header('Location:' . ROOT_URL . '/404.php');
             }
         } else {
-            $_SESSION['token'] = Functions::token();
+            $_SESSION['token'] = token();
             $this->token = $_SESSION['token'];
         }
     }

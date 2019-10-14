@@ -18,7 +18,7 @@
       <input type="date"
         name="date"
         class="form-control"
-        value="<?php echo Functions::now(); ?>"
+        value="<?php echo today(); ?>"
         required/>
     </div>
 

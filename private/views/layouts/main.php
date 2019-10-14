@@ -35,6 +35,7 @@ if ($page != 'auth') {
     $session->require_auth();
 }
 
+
 if (DEMO_MODE) {
     // logout after 30 minutes if demo mode is on
     if(isset($_SESSION['login_time'])){

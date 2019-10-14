@@ -25,9 +25,9 @@ class ProfileModel extends Model
         $error_message = 'No se pudo actualizar su perfil. <br /> Por favor, intente de nuevo.';
         $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-        if (Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
+        if (form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message, true)) {
             // Form data
-            $data = Functions::form_data([
+            $data = form_data([
                 'name',
                 'username',
                 'email',
@@ -37,10 +37,10 @@ class ProfileModel extends Model
             ]);
 
             // Confirm new password if it's set
-            Functions::confirm_password($data['new_password'], $data['confirm_new_password'], 'new_password', 'confirm_new_password');
+            confirm_password($data['new_password'], $data['confirm_new_password'], 'new_password', 'confirm_new_password');
 
             // Flash messages
-            if (Functions::has_message(array_keys($data))) {
+            if (has_message(array_keys($data))) {
                 header('Location:'.ROOT_URL.'/profile');
 
                 return $data;
@@ -52,24 +52,24 @@ class ProfileModel extends Model
                 $this->bind(':id', $id);
                 $user = $this->singleRow();
             } catch (Exception $e) {
-                Functions::flash('error', 'Hubo un error tratando de actualizar su perfil. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
+                flash('error', 'Hubo un error tratando de actualizar su perfil. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
             }
 
             if (!password_verify($data['current_password'], $user['password'])) {
                 header('Location:'.ROOT_URL.'/profile');
-                Functions::flash('error', 'Debe ingresar su contraseña actual para poder actualizar su perfil');
+                flash('error', 'Debe ingresar su contraseña actual para poder actualizar su perfil');
 
                 return $data;
             }
 
             // Update password
             try {
-                if (Functions::blank($data['new_password'])) {
+                if (blank($data['new_password'])) {
                     $this->query('UPDATE users SET name = :name, username = :username, email = :email, updated_at = :updated WHERE id = :id');
                     $this->bind(':name', $data['name']);
                     $this->bind(':username', $data['username']);
                     $this->bind(':email', $data['email']);
-                    $this->bind(':updated', Functions::now());
+                    $this->bind(':updated', now());
                     $this->bind(':id', $id);
                 } else {
                     $this->query('UPDATE users SET name = :name, username = :username, email = :email, password = :password, updated_at = :updated WHERE id = :id');
@@ -77,15 +77,15 @@ class ProfileModel extends Model
                     $this->bind(':username', $data['username']);
                     $this->bind(':email', $data['email']);
                     $this->bind(':password', $data['new_password_hashed']);
-                    $this->bind(':updated', Functions::now());
+                    $this->bind(':updated', now());
                     $this->bind(':id', $id);
                 }
                 $this->execute();
-                Functions::flash('success', 'Datos actualizados correctamente');
+                flash('success', 'Datos actualizados correctamente');
             } catch (PDOException $e) {
-                Functions::flash('error', 'El nombre de usuario o el correo ya está en uso');
+                flash('error', 'El nombre de usuario o el correo ya está en uso');
             } catch (Exception $e) {
-                Functions::flash('error', 'Hubo un error tratando de actualizar su perfil. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
+                flash('error', 'Hubo un error tratando de actualizar su perfil. <br /> Por favor, intente de nuevo o comuníquese con el administrador.');
             }
         }
 
@@ -102,18 +102,18 @@ class ProfileModel extends Model
             $error_message = 'No se pudo eliminar su perfil. <br /> Por favor, intente de nuevo.';
             $token_message = 'Se ha agotado el tiempo de espera o lo ha intentado demasiado rápido. <br /> Por favor, recargue e intente de nuevo.';
 
-            if (!Functions::form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message)) {
+            if (!form_success($_SESSION['token'], $_POST['token'], $error_message, true, $token_message)) {
                 return;
             }
         }
 
         // Form data
-        $data = Functions::form_data([
+        $data = form_data([
             'username',
         ]);
 
         // Flash messages
-        if (Functions::has_message(array_keys($data))) {
+        if (has_message(array_keys($data))) {
             header('Location:'.ROOT_URL.'/profile');
 
             return $data;
@@ -125,12 +125,12 @@ class ProfileModel extends Model
             $this->bind(':id', $id);
             $user = $this->singleRow();
         } catch (Exception $e) {
-            Functions::flash('error', $error_message);
+            flash('error', $error_message);
         }
 
         if (strtolower($user['username']) != strtolower($data['username'])) {
             header('Location:'.ROOT_URL.'/profile');
-            Functions::flash('error', 'Debe ingresar su nombre de usuario para poder eliminar su perfil');
+            flash('error', 'Debe ingresar su nombre de usuario para poder eliminar su perfil');
 
             return $data;
         }
@@ -155,7 +155,7 @@ class ProfileModel extends Model
 
             // Return if authenticated user is an administrator and there are no more administrators active
             if (sizeof($admins) <= 1 && strtolower($admin['role']) == ADMIN_ROLE) {
-                Functions::flash('error', 'Debe asignar otro administrador antes de eliminar su cuenta');
+                flash('error', 'Debe asignar otro administrador antes de eliminar su cuenta');
                 header('Location:'.ROOT_URL.'/admin');
 
                 return;
@@ -166,9 +166,9 @@ class ProfileModel extends Model
             $this->bind(':id', $id);
             $this->execute();
 
-            Functions::flash('success', 'Su usuario ha sido eliminado permanentemente');
+            flash('success', 'Su usuario ha sido eliminado permanentemente');
         } catch (Exception $e) {
-            Functions::flash('error', $error_message);
+            flash('error', $error_message);
         }
 
         header('Location:' . ROOT_URL . '/auth/login');

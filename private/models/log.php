@@ -172,7 +172,7 @@ class LogModel extends Model
                             }
                         }
 
-                        Functions::flash('success', 'La transacción ha sido revertida correctamente.');
+                        flash('success', 'La transacción ha sido revertida correctamente.');
 
                         break;
 
@@ -245,7 +245,7 @@ class LogModel extends Model
                             }
                         }
 
-                        Functions::flash('success', 'La transacción ha sido revertida correctamente.');
+                        flash('success', 'La transacción ha sido revertida correctamente.');
 
                         break;
 
@@ -253,7 +253,7 @@ class LogModel extends Model
                     break;
             }
         } catch (\Exception $e) {
-            Functions::flash('error', 'No se pudo revertir la transacción. <br /> Por favor, intente de nuevo.');
+            flash('error', 'No se pudo revertir la transacción. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:'.ROOT_URL);

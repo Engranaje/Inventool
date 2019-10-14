@@ -31,7 +31,7 @@
                         </td>
 
                         <td>
-                            <?php echo Functions::friendlyDate($user['created_at']); ?>
+                            <?php echo friendlyDate($user['created_at']); ?>
                         </td>
 
                         <td>

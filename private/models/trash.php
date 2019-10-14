@@ -30,9 +30,9 @@ class TrashModel extends Model
             $this->bind(':code', $code);
             $this->execute();
 
-            Functions::flash('success', 'El registro ha sido recuperado correctamente.');
+            flash('success', 'El registro ha sido recuperado correctamente.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando recuperar el registro. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando recuperar el registro. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);
@@ -54,9 +54,9 @@ class TrashModel extends Model
             $this->bind(':code', $code);
             $this->execute();
 
-            Functions::flash('success', 'El registro ha sido eliminado permanentemente.');
+            flash('success', 'El registro ha sido eliminado permanentemente.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error intentando eliminar el registro. <br /> Por favor, intente de nuevo.');
+            flash('error', 'Hubo un error intentando eliminar el registro. <br /> Por favor, intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);

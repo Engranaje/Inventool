@@ -17,17 +17,17 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
 
-    <?php if (Functions::has_message($types)) { ?>
+    <?php if (has_message($types)) { ?>
 
         <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
             <div class="d-inline-block m-0">
                 <?php
                     foreach ($types as $key => $type) {
-                        if (Functions::has_message($type)) {
-                            $message[$type] = Functions::has_message($type);
+                        if (has_message($type)) {
+                            $message[$type] = has_message($type);
                 ?>
                     <p class="m-3">
-                        <?php echo Functions::message($type); ?>
+                        <?php echo message($type); ?>
                     </p>
                 <?php
                         } else {

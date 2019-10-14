@@ -17,16 +17,16 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <?php if (Functions::has_message($types)) { ?>
+        <?php if (has_message($types)) { ?>
 
                 <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
                     <div class="d-inline-block m-0 py-0">
                             <?php
                                 foreach ($types as $key => $type) {
-                                    if (Functions::has_message($type)) {
+                                    if (has_message($type)) {
                                         ?>
                                 <p class="m-3">
-                                    <?php echo Functions::message($type); ?>
+                                    <?php echo message($type); ?>
                                 </p>
                             <?php
                                     }
@@ -34,12 +34,12 @@
                     </div>
                 </div>
 
-        <?php } else if(Functions::has_message('success')){ ?>
+        <?php } else if(has_message('success')){ ?>
 
             <div class="lzi alert-msg alert-success text-center mx-auto mt-3 mb-0" role="alert">
                 <div class="d-inline-block m-0 py-0">
                     <p class="m-3">
-                        <?php echo Functions::message('success'); ?>
+                        <?php echo message('success'); ?>
                     </p>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     type="text"
                     name="name"
                     id="name"
-                    class="form-control<?php echo Functions::has_message('name') ? ' is-invalid' : ''; ?>"
+                    class="form-control<?php echo has_message('name') ? ' is-invalid' : ''; ?>"
                     placeholder="Nombre completo"
                     value="<?php echo $user['name']; ?>"
                     required>

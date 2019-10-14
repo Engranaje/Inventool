@@ -64,7 +64,7 @@ class NewModel extends Model
                                 }
                             }
                         } catch (\Exception $e) {
-                            Functions::flash('error', 'Hubo un error buscando los componentes.');
+                            flash('error', 'Hubo un error buscando los componentes.');
                             header('Location:' . ROOT_URL);
                         }
                     }
@@ -103,9 +103,9 @@ class NewModel extends Model
                             case 'single':
                             case 'service':{
                                     if ($kit_id > 0) {
-                                        Functions::flash('success', 'Registro creado correctamente.');
+                                        flash('success', 'Registro creado correctamente.');
                                     } else {
-                                        Functions::flash('error', 'No se pudo crear el registro. <br /> Por favor, intente de nuevo.');
+                                        flash('error', 'No se pudo crear el registro. <br /> Por favor, intente de nuevo.');
                                     }
                                     break;
                                 }
@@ -121,9 +121,9 @@ class NewModel extends Model
                                             $this->bind(':demo_id', $demo_id);
                                             $this->execute();
                                         }
-                                        Functions::flash('success', 'El kit ha sido creado correctamente.');
+                                        flash('success', 'El kit ha sido creado correctamente.');
                                     } else {
-                                        Functions::flash('error', 'No se pudo crear el kit. <br /> Por favor, intente de nuevo.');
+                                        flash('error', 'No se pudo crear el kit. <br /> Por favor, intente de nuevo.');
                                     }
 
                                     break;
@@ -132,16 +132,16 @@ class NewModel extends Model
                                 break;
                         }
                     } catch (\Exception $e) {
-                        Functions::flash('error', 'Hubo un error intentando crear el registro.');
+                        flash('error', 'Hubo un error intentando crear el registro.');
                     }
                 } else {
-                    Functions::flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
+                    flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
                 }
             } else {
-                Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+                flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
             }
         } else {
-            Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+            flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);

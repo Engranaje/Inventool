@@ -13,24 +13,24 @@ $message = array_fill_keys($types, false);
     <div class="d-flex justify-content-center">
         <div class="card col-9 col-md-6">
             <?php
-                if (Functions::has_message('success')) {
+                if (has_message('success')) {
                     ?>
 
                     <div class="lzi alert-msg alert-success text-center mx-auto mt-3 mb-0" role="alert">
                         <div class="d-inline-block m-0">
                             <p class="mb-0">
-                                <?php echo Functions::message('success'); ?>
+                                <?php echo message('success'); ?>
                             </p>
                         </div>
                     </div>
 
             <?php
-                } elseif (Functions::has_message(['error', 'username', 'password'])) {
+                } elseif (has_message(['error', 'username', 'password'])) {
                     ?>
                 <div class="lzi alert-msg alert-danger text-center mx-auto mt-3 mb-0" role="alert">
                     <div class="d-inline-block m-0">
                         <p class="mb-0">
-                            <?php echo Functions::message('error'); ?>
+                            <?php echo message('error'); ?>
                         </p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ $message = array_fill_keys($types, false);
                             type="email"
                             name="email"
                             id="email"
-                            class="form-control<?php echo Functions::has_message('email') ? ' is-invalid' : ''; ?>"
+                            class="form-control<?php echo has_message('email') ? ' is-invalid' : ''; ?>"
                             placeholder="Correo electrónico"
                             required>
                     </div>

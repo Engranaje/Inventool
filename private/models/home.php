@@ -18,7 +18,7 @@ class HomeModel extends Model
                 if($time > 60 * 30 || $time < 0){
                     $model = new AuthModel();
                     $model->cleanDB($address);
-                    Functions::logout();
+                    logout();
                 }
             }
         }
@@ -71,21 +71,21 @@ class HomeModel extends Model
                             $this->bind(':code', $code);
                             $this->execute();
 
-                            Functions::flash('success', 'El registro se ha actualizado correctamente.');
+                            flash('success', 'El registro se ha actualizado correctamente.');
                         } catch (\Exception $e) {
-                            Functions::flash('error', 'Hubo un error intentando actualizar el registro.');
+                            flash('error', 'Hubo un error intentando actualizar el registro.');
                         }
                     } else {
-                        Functions::flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
+                        flash('error', 'Se ha agotado el tiempo de espera. <br /> Por favor, recargue e intente de nuevo.');
                     }
                 } else {
-                    Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+                    flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
                 }
             } else {
-                Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+                flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
             }
         } else {
-            Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+            flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);
@@ -110,20 +110,20 @@ class HomeModel extends Model
             $kits = $this->resultset();
 
             if (!empty($kits) && $kits[0]['type'] != 'kit') {
-                Functions::flash('error', 'Este artículo pertenece a un kit. No puede ser eliminado.');
+                flash('error', 'Este artículo pertenece a un kit. No puede ser eliminado.');
                 header('Location:' . ROOT_URL);
                 return;
             }
 
             // Delete record
             $this->query('UPDATE stock SET deleted_at = :deleted WHERE code = :code');
-            $this->bind(':deleted', Functions::now());
+            $this->bind(':deleted', now());
             $this->bind(':code', $code);
             $this->execute();
 
-            Functions::flash('success', 'Registro eliminado correctamente.');
+            flash('success', 'Registro eliminado correctamente.');
         } catch (\Exception $e) {
-            Functions::flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
+            flash('error', 'Hubo un error. <br /> Por favor, recargue e intente de nuevo.');
         }
 
         header('Location:' . ROOT_URL);

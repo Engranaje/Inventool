@@ -7,7 +7,6 @@ class NewController extends Controller{
         $view = new NewModel();$user = new Functions();
         if($user->is_logged()){
             $view = new HomeModel();
-            // $this->returnView($view->index(), 'main');
             $this->returnCustomView($view->index(), 'home', 'index');
         }else{
             header('Location:'.ROOT_URL.'/auth/login');
