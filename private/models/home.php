@@ -6,9 +6,10 @@ class HomeModel extends Model
      */
     public function index()
     {
+        $stock = null;
         if(DEMO_MODE){
             $address = address();
-            $this->query('SELECT address, created_at FROM demo WHERE address = :address');
+            $this->query('SELECT * FROM demo WHERE address = :address');
             $this->bind(':address', $address);
             $user = $this->singleRow();
 
@@ -21,10 +22,15 @@ class HomeModel extends Model
                     logout();
                 }
             }
+
+            $this->query('SELECT * FROM stock WHERE deleted_at IS NULL AND demo_id = :demo_id');
+            $this->bind(':demo_id', $user['id']);
+            $stock = $this->resultset();
+        }else{
+            // Find all records
+            $this->query('SELECT * FROM stock WHERE deleted_at IS NULL');
+            $stock = $this->resultset();
         }
-        // Find all records
-        $this->query('SELECT * FROM stock WHERE deleted_at IS NULL');
-        $stock = $this->resultset();
 
         // Determine if any item has notifications active
         $notification = false;
