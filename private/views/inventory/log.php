@@ -77,7 +77,7 @@
                         <?php
                             } ?>
 
-                        <td>
+                        <td data-sort="<?php echo $log['date'].strftime("%Y%m%d%H%M%s"); ?>">
                             <?php echo date('d/m/y', strtotime($log['date'])); ?>
                         </td>
 
